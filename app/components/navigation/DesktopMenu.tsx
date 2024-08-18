@@ -18,7 +18,7 @@ const DesktopMenu = ({currentUser, notification}: Props) => {
 
   const NavLink = ({link, label}:{link:string, label:string}) => {
     return (
-      <Link href={link} className={cn('capitalize lg:text-lg py-2 lg:px-4 px-3 rounded-full hover:bg-gray-200', pathname === link && 'bg-primary/70 text-white hover:bg-primary/70 hover:text-white')}>
+      <Link href={link} className={cn('capitalize lg:text-lg py-2 lg:px-4 px-3 rounded-full hover:bg-gray-200 font-semibold', pathname === link && 'bg-primary/70 text-white hover:bg-primary/70 hover:text-white')}>
         {label}
       </Link>
     )
@@ -28,7 +28,7 @@ const DesktopMenu = ({currentUser, notification}: Props) => {
     return (
       <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary/70 text-white items-center' onClick={() => console.log('login')}>
         { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
-        <div className='border-l lg:text-lg lg:pl-3 pl-2'>Login</div>
+        <div className='border-l-white lg:text-lg lg:pl-3 pl-2 font-semibold'>Login</div>
       </button>
     )
   };

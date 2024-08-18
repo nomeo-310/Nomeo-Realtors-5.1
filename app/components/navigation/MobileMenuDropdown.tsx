@@ -22,7 +22,7 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
           <HiBars3 size={26}/>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 ml-2 rounded">
+      <DropdownMenuContent className="w-56 ml-4 rounded">
         { currentUser &&
           <React.Fragment>
             <DropdownMenuLabel className='line-clamp-1'>
@@ -33,41 +33,41 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
         }
         <DropdownMenuGroup className='flex flex-col gap-1'>
           <DropdownMenuItem className={cn('rounded', path === '/for-sale' && 'bg-primary/70 text-white')}>
-            <Link href={'/for-sale'}><p className='text-base'>For Sale</p></Link>
+            <Link href={'/for-sale'}><p className='text-base font-semibold'>For Sale</p></Link>
           </DropdownMenuItem>
           <DropdownMenuItem className={cn('rounded', path === '/for-rent' && 'bg-primary/70 text-white')}>
-            <Link href={'/for-rent'}><p className='text-base'>For Rent</p></Link>
+            <Link href={'/for-rent'}><p className='text-base font-semibold'>For Rent</p></Link>
           </DropdownMenuItem>
           <DropdownMenuItem className={cn('rounded', path === '/about-us' && 'bg-primary/70 text-white')}>
-            <Link href={'/about-us'}><p className='text-base'>About Us</p></Link>
+            <Link href={'/about-us'}><p className='text-base font-semibold'>About Us</p></Link>
           </DropdownMenuItem>
           <DropdownMenuItem className={cn('rounded', path === '/blogs' && 'bg-primary/70 text-white')}>
-            <Link href={'/blogs'}><p className='text-base'>Blogs</p></Link>
+            <Link href={'/blogs'}><p className='text-base font-semibold'>Blogs</p></Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup className='flex flex-col gap-1'>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger className='rounded'>
-              <p className='text-base'>Themes</p>
+              <p className='text-base font-semibold'>Themes</p>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent className='rounded'>
                 <DropdownMenuItem className='rounded'>
                   <div className="flex items-center gap-3">
-                  <p className='text-base'>Dark Mode</p>
+                  <p className='text-base font-medium'>Dark Mode</p>
                     <HiOutlineMoon size={18}/>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className='rounded'>
                   <div className="flex items-center gap-3">
-                  <p className='text-base'>Light Mode</p>
+                  <p className='text-base font-medium'>Light Mode</p>
                     <HiOutlineSun size={18}/>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className='rounded'>
                   <div className="flex items-center gap-3">
-                  <p className='text-base'>System Default</p>
+                  <p className='text-base font-medium'>System Default</p>
                     <HiOutlineTv size={18}/>
                   </div>
                 </DropdownMenuItem>
@@ -76,7 +76,7 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
           </DropdownMenuSub>
           { currentUser &&
             <DropdownMenuItem className={cn('rounded', path === '/dashboard' && 'bg-primary/70 text-white')}>
-              <Link href={'/dashboard'}><p className='text-base'>Dashboard</p></Link>
+              <Link href={'/dashboard'}><p className='text-base font-semibold'>Dashboard</p></Link>
             </DropdownMenuItem>
           }
         </DropdownMenuGroup>
@@ -84,7 +84,7 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
           <React.Fragment>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => console.log('I just logged out')} className='rounded'>
-            <p className='text-base'>Log out</p>
+            <p className='text-base font-semibold'>Log out</p>
               <DropdownMenuShortcut>
                 <HiOutlinePower size={18}/>
               </DropdownMenuShortcut>

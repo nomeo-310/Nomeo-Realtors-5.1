@@ -15,7 +15,7 @@ type Props = {
 const NavigationClient = ({currentUser, notification}: Props) => {
 
   const navbarAbsolute = 'pt-4 absolute left-0 top-0 w-full lg:h-[75px] md:h-[70px] z-[200] h-[60px] z-[40000]';
-  const navbarFixed = 'pt-4 z-[4000] fixed w-full lg:h-[75px] md:h-[70px] h-[60px] lg:-top-[75px] md:-top-[70px] -top-[60px] bg-gray-50 text-black transform lg:translate-y-[65px] md:translate-y-[60px] translate-y-[50px] transition-all ease-out duration-200 shadow shadow-[4px_4px_4px_0_rgba(0, 0, 0, 0.3)]';
+  const navbarFixed = 'pt-4 z-[4000] fixed w-full lg:h-[75px] md:h-[70px] h-[60px] lg:-top-[75px] bg-card md:-top-[70px] -top-[60px] transform lg:translate-y-[65px] md:translate-y-[60px] translate-y-[50px] transition-all ease-out duration-200 shadow shadow-[4px_4px_4px_0_rgba(0, 0, 0, 0.3)]';
 
   const [navbarState, setNavbarState] = React.useState(navbarAbsolute);
 
@@ -40,11 +40,11 @@ const NavigationClient = ({currentUser, notification}: Props) => {
         { currentUser ?
           <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary/70 text-white items-center'>
             { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
-            <div className='border-l lg:text-lg text-base lg:pl-3 pl-2'>Salomi</div>
+            <div className='border-l-white lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>Salomi</div>
           </button> : 
           <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary/70 text-white items-center' onClick={() => console.log('login')}>
             <HiOutlineUser size={22} className='lg:mr-3 mr-2' />
-            <div className='border-l lg:text-lg text-base lg:pl-3 pl-2'>Login</div>
+            <div className='border-l lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>Login</div>
           </button> 
         }
       </React.Fragment>

@@ -1,9 +1,14 @@
+import React from "react";
+import LandingPage from "./components/home/landing-page/LandingPage";
+import OurServices from "./components/home/our-services/OurServices";
+
 
 const  Home = () => {
   return (
-    <main>
-      <p className="text-primary">Welcome Home!!!</p>
-    </main>
+    <React.Fragment>
+      <LandingPage/>
+      <OurServices/>
+    </React.Fragment>
   );
 }
 

@@ -21,10 +21,10 @@ const DesktopMenuDropdown = ({notification, currentUser}: Props) => {
       <DropdownMenuTrigger asChild>
         <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary/70 text-white items-center cursor-pointer'>
           { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={20} className='lg:mr-3 mr-2' />}
-          <div className='border-l lg:text-lg lg:pl-3 pl-2'>Salomi</div>
+          <div className='border-l lg:text-lg lg:pl-3 pl-2 font-semibold'>Salomi</div>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 mr-2 rounded">
+      <DropdownMenuContent className="w-56 mr-4 rounded">
         <DropdownMenuLabel className='line-clamp-1'>
           <p className='text-base'>Salomi Onome</p>
         </DropdownMenuLabel>
@@ -32,7 +32,7 @@ const DesktopMenuDropdown = ({notification, currentUser}: Props) => {
         <DropdownMenuGroup className='flex flex-col gap-1'>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger className='rounded'>
-              <p className='text-base'>Themes</p>
+              <p className='text-base font-semibold'>Themes</p>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent className='rounded'>
@@ -58,12 +58,12 @@ const DesktopMenuDropdown = ({notification, currentUser}: Props) => {
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuItem className={cn('rounded', path === '/dashboard' && 'bg-primary/70 text-white')}>
-            <Link href={'/dashboard'}><p className='text-base'>Dashboard</p></Link>
+            <Link href={'/dashboard'}><p className='text-base font-semibold'>Dashboard</p></Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => console.log('I just logged out')} className='rounded'>
-        <p className='text-base'>Log out</p>
+        <p className='text-base font-semibold'>Log out</p>
           <DropdownMenuShortcut>
             <HiOutlinePower size={18}/>
           </DropdownMenuShortcut>
