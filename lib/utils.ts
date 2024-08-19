@@ -9,7 +9,7 @@ type stateProps = {
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
-}
+};
 
 export const getNigerianStates = () => {
   const lgasArray:stateProps[] = JSON.parse(JSON.stringify(localGovernmentAreas))
@@ -25,3 +25,5 @@ export const getNigerianLgas = (state:string) => {
 
   return lgas;
 };
+
+

@@ -3,10 +3,11 @@
 import React from 'react'
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger} from "@/components/ui/dropdown-menu"
-import { HiBars3, HiOutlineMoon, HiOutlinePower, HiOutlineSun, HiOutlineTv } from 'react-icons/hi2'
+import { HiBars3, HiCheck, HiOutlineMoon, HiOutlinePower, HiOutlineSun, HiOutlineTv } from 'react-icons/hi2'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { useTheme } from 'next-themes'
 
 type Props = {
   currentUser: boolean
@@ -15,14 +16,16 @@ type Props = {
 const MobileMenuDropdown = ({currentUser}: Props) => {
   const path = usePathname();
 
+  const { theme, setTheme } = useTheme();
+
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size={'icon'} className='md:hidden flex-none'>
           <HiBars3 size={26}/>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 ml-4 rounded">
+      <DropdownMenuContent className="w-56 ml-4 rounded my-2">
         { currentUser &&
           <React.Fragment>
             <DropdownMenuLabel className='line-clamp-1'>
@@ -52,23 +55,26 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
               <p className='text-base font-semibold'>Themes</p>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
-              <DropdownMenuSubContent className='rounded'>
-                <DropdownMenuItem className='rounded'>
+              <DropdownMenuSubContent className='rounded mx-2'>
+                <DropdownMenuItem className='rounded' onClick={() => setTheme("dark")}>
                   <div className="flex items-center gap-3">
-                  <p className='text-base font-medium'>Dark Mode</p>
+                    <p className='text-base font-medium'>Dark Mode</p>
                     <HiOutlineMoon size={18}/>
+                    {theme === "dark" && <HiCheck size={18} />}
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem className='rounded'>
+                <DropdownMenuItem className='rounded' onClick={() => setTheme("light")}>
                   <div className="flex items-center gap-3">
-                  <p className='text-base font-medium'>Light Mode</p>
+                    <p className='text-base font-medium'>Light Mode</p>
                     <HiOutlineSun size={18}/>
+                    {theme === "light" && <HiCheck size={18} />}
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem className='rounded'>
+                <DropdownMenuItem className='rounded' onClick={() => setTheme("system")}>
                   <div className="flex items-center gap-3">
-                  <p className='text-base font-medium'>System Default</p>
+                    <p className='text-base font-medium'>System Default</p>
                     <HiOutlineTv size={18}/>
+                    {theme === "system" && <HiCheck size={18} />}
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuSubContent>

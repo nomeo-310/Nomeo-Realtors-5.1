@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navigation from "./components/navigation/Navigation";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from 'next-themes'
 
 
 export const metadata: Metadata = {
@@ -24,9 +25,11 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
   return (
     <html lang="en">
       <body className={`${urbanist.variable} ${barlow.variable}`}>
-        <Toaster/>
-        <Navigation/>
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <Toaster/>
+          <Navigation/>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

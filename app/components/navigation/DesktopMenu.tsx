@@ -18,7 +18,7 @@ const DesktopMenu = ({currentUser, notification}: Props) => {
 
   const NavLink = ({link, label}:{link:string, label:string}) => {
     return (
-      <Link href={link} className={cn('capitalize lg:text-lg py-2 lg:px-4 px-3 rounded-full hover:bg-gray-200 font-semibold', pathname === link && 'bg-primary/70 text-white hover:bg-primary/70 hover:text-white')}>
+      <Link href={link} className={cn('capitalize lg:text-lg py-2 lg:px-4 px-3 rounded-full hover:bg-gray-200 dark:hover:bg-[#292524] font-semibold', pathname === link && 'bg-primary/70 text-white hover:bg-primary/70 hover:text-white')}>
         {label}
       </Link>
     )

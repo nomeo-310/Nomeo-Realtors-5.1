@@ -5,12 +5,11 @@ type Props = {
   children: React.ReactNode
   id?: string
   className?: string
-  onClick?: () => void
 }
 
-const Container = ({children, className, onClick, id}: Props) => {
+const Container = ({children, className, id}: Props) => {
   return (
-    <div id={id} className={cn('lg:px-[6%] px-[4%] lg:pb-20 pb-16', className)} onClick={onClick}>
+    <div id={id} className={cn('lg:px-[6%] px-[4%] lg:pb-20 pb-16', className)}>
       {children}
     </div>
   )

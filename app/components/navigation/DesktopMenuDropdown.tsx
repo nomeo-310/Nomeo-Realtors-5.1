@@ -2,11 +2,12 @@
 
 import React from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger} from "@/components/ui/dropdown-menu"
-import { HiOutlineMoon, HiOutlinePower, HiOutlineSun, HiOutlineTv, HiOutlineUser } from 'react-icons/hi2'
+import { HiCheck, HiOutlineMoon, HiOutlinePower, HiOutlineSun, HiOutlineTv, HiOutlineUser } from 'react-icons/hi2'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import NotificationIndicator from './NotificationIndicator'
+import { useTheme } from 'next-themes'
 
 type Props = {
   notification: boolean
@@ -15,16 +16,17 @@ type Props = {
 
 const DesktopMenuDropdown = ({notification, currentUser}: Props) => {
   const path = usePathname();
+  const { theme, setTheme } = useTheme();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary/70 text-white items-center cursor-pointer'>
           { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={20} className='lg:mr-3 mr-2' />}
           <div className='border-l lg:text-lg lg:pl-3 pl-2 font-semibold'>Salomi</div>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 mr-4 rounded">
+      <DropdownMenuContent className="w-56 mr-4 my-2 rounded z-[50000]">
         <DropdownMenuLabel className='line-clamp-1'>
           <p className='text-base'>Salomi Onome</p>
         </DropdownMenuLabel>
@@ -35,23 +37,26 @@ const DesktopMenuDropdown = ({notification, currentUser}: Props) => {
               <p className='text-base font-semibold'>Themes</p>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
-              <DropdownMenuSubContent className='rounded'>
-                <DropdownMenuItem className='rounded'>
+              <DropdownMenuSubContent className='rounded mx-2'>
+                <DropdownMenuItem className='rounded' onClick={() => setTheme("dark")}>
                   <div className="flex items-center gap-3">
-                  <p className='text-base'>Dark Mode</p>
+                    <p className='text-base'>Dark Mode</p>
                     <HiOutlineMoon size={18}/>
+                    {theme === "dark" && <HiCheck size={18} />}
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem className='rounded'>
+                <DropdownMenuItem className='rounded' onClick={() => setTheme("light")}>
                   <div className="flex items-center gap-3">
-                  <p className='text-base'>Light Mode</p>
+                    <p className='text-base'>Light Mode</p>
                     <HiOutlineSun size={18}/>
+                    {theme === "light" && <HiCheck size={18} />}
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem className='rounded'>
+                <DropdownMenuItem className='rounded' onClick={() => setTheme("system")}>
                   <div className="flex items-center gap-3">
-                  <p className='text-base'>System Default</p>
+                    <p className='text-base'>System Default</p>
                     <HiOutlineTv size={18}/>
+                    {theme === "system" && <HiCheck size={18} />}
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuSubContent>

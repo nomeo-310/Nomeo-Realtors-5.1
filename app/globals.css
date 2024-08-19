@@ -190,6 +190,6 @@
 
 @layer utilities {
   body {
-    @apply bg-gray-50 font-urbanist;
+    @apply bg-gray-50 font-urbanist dark:bg-[#181818];
   }
 }
