@@ -5,6 +5,7 @@ import FrequentyAskedQuestions from "./components/home/frequently-asked-question
 import Testimonials from "./components/home/testimonials/Testimonials";
 import LatestBlogs from "./components/home/latest-blogs/LatestBlogs";
 import FeaturedProperties from "./components/home/featured-properties/FeaturedProperties";
+import Footer from "./components/footer/Footer";
 
 
 const  Home = () => {
@@ -16,6 +17,7 @@ const  Home = () => {
       <LatestBlogs/>
       <Testimonials/>
       <FrequentyAskedQuestions/>
+      <Footer/>
     </React.Fragment>
   );
 }

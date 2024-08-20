@@ -21,12 +21,12 @@ const DesktopMenuDropdown = ({notification, currentUser}: Props) => {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary/70 text-white items-center cursor-pointer'>
+        <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center cursor-pointer'>
           { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={20} className='lg:mr-3 mr-2' />}
           <div className='border-l lg:text-lg lg:pl-3 pl-2 font-semibold'>Salomi</div>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 mr-4 my-2 rounded z-[50000]">
+      <DropdownMenuContent className="w-56 mr-4 my-2 rounded">
         <DropdownMenuLabel className='line-clamp-1'>
           <p className='text-base'>Salomi Onome</p>
         </DropdownMenuLabel>

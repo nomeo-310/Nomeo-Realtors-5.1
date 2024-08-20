@@ -26,7 +26,7 @@ const DesktopMenu = ({currentUser, notification}: Props) => {
 
   const LoginButton = () => {
     return (
-      <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary/70 text-white items-center' onClick={() => console.log('login')}>
+      <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center' onClick={() => console.log('login')}>
         { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
         <div className='border-l-white lg:text-lg lg:pl-3 pl-2 font-semibold'>Login</div>
       </button>

@@ -26,7 +26,7 @@ const TestimonialSlider = ({useButton, testimonials}: Props) => {
     <div className='mt-8 lg:mt-10 lg:-mx-10 -mx-4'>
       <div className='flex lg:gap-2 gap-1 items-center'>
         <div>
-          <button onClick={() => swiperRef.current?.slidePrev()} className={`${useButton ? 'grow w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-primary/50 hover:scale-105 hover:border active:border': ''}`}>
+          <button onClick={() => swiperRef.current?.slidePrev()} className={`${useButton ? 'grow w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-primary hover:scale-105 hover:border active:border': ''}`}>
             { useButton ? <LiaArrowLeftSolid size={26} /> : <CiCircleChevLeft size={45} /> }
           </button>
         </div>
@@ -42,7 +42,7 @@ const TestimonialSlider = ({useButton, testimonials}: Props) => {
             ))}
         </Swiper>
         <div>
-          <button onClick={() => swiperRef.current?.slideNext()} className={`${useButton ? 'grow w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-primary/50 hover:scale-105 hover:border active:border': ''}`}>
+          <button onClick={() => swiperRef.current?.slideNext()} className={`${useButton ? 'grow w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-primary hover:scale-105 hover:border active:border': ''}`}>
             { useButton ? <LiaArrowRightSolid size={26} /> : <CiCircleChevRight size={45} /> }
           </button>
         </div>

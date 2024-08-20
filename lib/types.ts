@@ -1,6 +1,6 @@
-import { Schema } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
-export interface IUser {
+export interface IUser extends Document {
   name: string;
   email: string;
   hashedPassword: string;
@@ -9,10 +9,9 @@ export interface IUser {
   image: string;
   verification: boolean;
   role: 'user' | 'agent';
-  phoneNumber: string;
-  address: string;
   newsletterSubscriptions: boolean;
-  agent: Schema.Types.ObjectId[];
+  agents: Schema.Types.ObjectId[];
+  properties: Schema.Types.ObjectId[];
   bookmarkedProperties: Schema.Types.ObjectId[];
   notifications: Schema.Types.ObjectId[];
   inspections: Schema.Types.ObjectId[];
@@ -31,9 +30,10 @@ interface fees {
   description?: string 
 };
 
-export interface IProperty {
+export interface IProperty extends Document {
   numberOfRooms: number;
   numberOfBath: number;
+  numberOfToilets: number;
   area: number;
   agent: Schema.Types.ObjectId;
   closeLandmarks: closeLandmark[];
@@ -57,45 +57,41 @@ export interface IProperty {
   updatedAt: Date;
 };
 
-export interface IAgent {
+export interface IAgent extends Document {
   user: Schema.Types.ObjectId;
-  city: string;
-  state: string;
   agencyName: string;
   agencyAdress: string;
   agentInspectionFee: number;
   agentBio: string;
-  agencyWebsite: string;
+  agencyWebsite?: string;
   licenseNumber: string;
-  phoneNumber: string;
   officeNumber: string;
+  phoneNumber: string;
   ratings: number;
   properties: Schema.Types.ObjectId[];
   clients: Schema.Types.ObjectId[];
   blogs: Schema.Types.ObjectId[];
   inspections: Schema.Types.ObjectId[];
-  createdAt: Date;
-  updatedAt: Date;
 };
 
-export interface INotification {
+export interface INotification extends Document {
   type: string;
   message: string;
   seen: boolean;
-  user: Schema.Types.ObjectId;
+  issuer: Schema.Types.ObjectId;
+  recipient: Schema.Types.ObjectId;
   property: Schema.Types.ObjectId;
   createdAt: Date;
 };
 
 export interface IInspection {
   scheduledAt: Date;
-  status: 'pending' | 'confirmed' | 'canceled';
   user: Schema.Types.ObjectId;
   property: Schema.Types.ObjectId;
   agent: Schema.Types.ObjectId; 
 };
 
-export interface IBlog {
+export interface IBlog extends Document {
   title: string;
   content: string;
   bannerImage: string;
@@ -105,7 +101,7 @@ export interface IBlog {
   comments: Schema.Types.ObjectId[];
 };
 
-export interface IComment {
+export interface IComment extends Document {
   content: string;
   createdAt: Date;
   user: Schema.Types.ObjectId;
@@ -117,11 +113,19 @@ export interface image {
   secure_url: string
 };
 
-export interface IAttachment {
+export interface IAttachment extends Document {
   property: Schema.Types.ObjectId;
   attachments: image[];
   createdAt: Date;
 };
+
+export interface INewsletter extends Document {
+  user?: Schema.Types.ObjectId;
+  email: string;
+  createdAt: Date;
+};
+
+
 
 
 

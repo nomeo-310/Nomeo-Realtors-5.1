@@ -4,6 +4,7 @@ import "./globals.css";
 import Navigation from "./components/navigation/Navigation";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from 'next-themes'
+import DialogProvider from "@/components/providers/DialogProvider";
 
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
       <body className={`${urbanist.variable} ${barlow.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Toaster/>
+          <DialogProvider />
           <Navigation/>
           {children}
         </ThemeProvider>
