@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import { Schema } from 'mongoose'
-import { IUser } from '../types';
 
 const UsersSchema = new Schema({
   name: {type: String, default: ''},
@@ -8,6 +7,7 @@ const UsersSchema = new Schema({
   hashedPassword: {type: String, default: ''},
   city: {type: String, default: ''},
   state: {type: String, default: ''},
+  profileImage: {public_id: {type: String, default: ''}, secure_url: {type: String, default: ''}},
   image: {type: String, default: ''},
   verification: {type: Boolean, default: false},
   role: {type: String, enum: ['user', 'agent'], default: 'user'},
@@ -21,6 +21,8 @@ const UsersSchema = new Schema({
   updatedAt: {type: Date, default: Date.now()},
 });
 
-const Users = mongoose.model<IUser>("Users", UsersSchema);
+(mongoose.models as any) = {};
+
+const Users = mongoose.model("Users", UsersSchema);
 
 export default Users;

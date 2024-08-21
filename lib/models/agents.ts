@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import { Schema } from 'mongoose'
-import { IAgent } from '../types';
 
 const AgentsSchema = new Schema({
   user: { type: mongoose.Schema.ObjectId, ref: "Users" },
@@ -10,16 +9,19 @@ const AgentsSchema = new Schema({
   agentBio: {type: String, default: ''},
   agencyWebsite: {type: String, default: ''},
   licenseNumber: {type: String, default: ''},
-  officeNumber: {type: Boolean, default: false},
-  phoneNumber: {type: Boolean, default: false},
+  officeNumber: {type: String, default: ''},
+  phoneNumber: {type: String, default: ''},
   ratings: {type: String, default: ''},
   newsletterSubscriptions: {type: Boolean, default: false},
+  profileCreated: {type: Boolean, default: false},
   clients:  [{ type: mongoose.Schema.ObjectId, ref: "Users" }],
   properties:  [{ type: mongoose.Schema.ObjectId, ref: "Properties" }],
   blogs: [{ type: mongoose.Schema.ObjectId, ref: "Blogs" }],
   inspections: [{ type: mongoose.Schema.ObjectId, ref: "Inspections" }],
 });
 
-const Agents = mongoose.model<IAgent>("Agents", AgentsSchema);
+(mongoose.models as any) = {};
+
+const Agents = mongoose.model("Agents", AgentsSchema);
 
 export default Agents;

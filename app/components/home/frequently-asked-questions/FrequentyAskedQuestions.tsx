@@ -5,9 +5,11 @@ import Container from '@/components/shared/Container'
 import Header from '../Header'
 import FrequentlyAskedQuestion from './FrequentlyAskedQuestion'
 import Link from 'next/link'
+import { useAgentSignUp } from '@/lib/useModals'
 
 
 const FrequentyAskedQuestions = () => {
+  const signUpAgent = useAgentSignUp();
   return (
     <Container>
       <React.Fragment>
@@ -18,7 +20,7 @@ const FrequentyAskedQuestions = () => {
         <FrequentlyAskedQuestion/>
         <div className='mt-8 md:mt-10'>
           <p className='lg:text-xl text-lg'>Still have questions? Feel free to <Link href={'/contact-us'} className='text-primary underline'>Contact us</Link></p>
-          <p className='lg:text-xl text-lg'>Are you interested in being one of our real estate agents? Go ahead and  <button className='text-primary underline' onClick={() => {}}>Create an account</button> with us.</p>
+          <p className='lg:text-xl text-lg'>Are you interested in being one of our real estate agents? Go ahead and  <button className='text-primary underline' onClick={() => signUpAgent.onOpen()}>Create an account</button> with us.</p>
         </div>
       </React.Fragment>
     </Container>

@@ -12,7 +12,7 @@ const FrequentlyAskedQuestion = () => {
       {frequentlyAskedQuestions.map((item:frequentlyAskedQuestion, index:number) => (
         <AccordionItem value={`item-${index}`} key={index}>
           <AccordionTrigger className='px-2'>
-            <p className='lg:text-xl text-lg'>{item.question}</p>
+            <p className='lg:text-xl text-lg text-left'>{item.question}</p>
           </AccordionTrigger>
           <AccordionContent className='px-2'>
           <p className='text-base lg:text-lg font-semibold'>{item.answer}</p>

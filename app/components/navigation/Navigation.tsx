@@ -3,7 +3,7 @@ import NavigationClient from "./NavigationClient";
 
 const Navigation = () => {
   const notification = true;
-  const currentUser = true;
+  const currentUser = false;
 
   return <NavigationClient notification={notification} currentUser={currentUser}/>;
 };

@@ -4,6 +4,7 @@
 import React from 'react'
 import { useSignUp } from '@/lib/useModals'
 import Modal from '@/components/shared/Dialog'
+import SignUpForm from './SignUpForm'
 
 
 type Props = {}
@@ -13,17 +14,16 @@ const SignUpDialog = (props: Props) => {
   const signupUser = useSignUp();
 
   const onClose = () => {
-    console.log('closed')
+    signupUser.onClose();
   }
 
   return (
     <Modal 
-      isOpen
+      isOpen={signupUser.isOpen}
       title='Sign Up'
-      description='Create your account and enjoy a whole new world without hassle.'
       onClose={onClose}
     >
-      Sign up modal
+      <SignUpForm />
     </Modal>
   )
 }

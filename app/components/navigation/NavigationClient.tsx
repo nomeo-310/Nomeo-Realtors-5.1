@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { HiOutlineHomeModern, HiOutlineUser } from 'react-icons/hi2';
 import DesktopMenu from './DesktopMenu';
 import NotificationIndicator from './NotificationIndicator';
+import { useLogin } from '@/lib/useModals';
 
 type Props = {
   currentUser: boolean
@@ -35,14 +36,15 @@ const NavigationClient = ({currentUser, notification}: Props) => {
   }, [toggleNavbarState]);
 
   const LoginButton = () => {
+    const loginUser = useLogin();
     return (
       <React.Fragment>
         { currentUser ?
-          <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary/70 text-white items-center'>
+          <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center'>
             { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
             <div className='border-l-white lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>Salomi</div>
           </button> : 
-          <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary/70 text-white items-center' onClick={() => console.log('login')}>
+          <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center' onClick={() => loginUser.onOpen()}>
             <HiOutlineUser size={22} className='lg:mr-3 mr-2' />
             <div className='border-l lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>Login</div>
           </button> 

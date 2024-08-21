@@ -9,6 +9,7 @@ export interface IUser extends Document {
   image: string;
   verification: boolean;
   role: 'user' | 'agent';
+  profileImage: {public_id: string, secure_url: string};
   newsletterSubscriptions: boolean;
   agents: Schema.Types.ObjectId[];
   properties: Schema.Types.ObjectId[];
@@ -68,6 +69,7 @@ export interface IAgent extends Document {
   officeNumber: string;
   phoneNumber: string;
   ratings: number;
+  profileCreated: boolean;
   properties: Schema.Types.ObjectId[];
   clients: Schema.Types.ObjectId[];
   blogs: Schema.Types.ObjectId[];
