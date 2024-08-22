@@ -50,6 +50,7 @@ const AgentSignUpForm = () => {
         setIsLoading(false);
         signUpAgent.onClose();
         return toast({
+          variant: "success",
           title: 'This is looking good!',
           description: response.success
         })
@@ -113,7 +114,7 @@ const AgentSignUpForm = () => {
             <p className='text-base'>{isLoading ? 'Creating account...' : 'Create account'}</p>
           </LoadingButton>
         </div>
-        <div className="mt-6 md:mt-8 flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <p className='md:text-lg'>
             Already have an account?
             <button onClick={() => {signUpAgent.onClose(), loginUser.onOpen()}} className='ml-1 underline' type='button'>

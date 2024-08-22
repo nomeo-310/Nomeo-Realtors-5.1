@@ -7,9 +7,7 @@ import Modal from '@/components/shared/Dialog'
 import LoginForm from './LoginForm'
 
 
-type Props = {}
-
-const LoginDialog = (props: Props) => {
+const LoginDialog = () => {
 
   const loginUser = useLogin();
 
@@ -21,7 +19,9 @@ const LoginDialog = (props: Props) => {
     <Modal 
       isOpen={loginUser.isOpen}
       title='Log In'
+       description='Welcome back, check your dashboard for notifications and get access to your agents.'
       onClose={onClose}
+      useCloseButton
     >
       <LoginForm/>
     </Modal>

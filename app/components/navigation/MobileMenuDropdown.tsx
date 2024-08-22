@@ -6,14 +6,18 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { HiBars3, HiCheck, HiOutlineMoon, HiOutlinePower, HiOutlineSun, HiOutlineTv } from 'react-icons/hi2'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
+import { capitalizeName, cn } from '@/lib/utils'
 import { useTheme } from 'next-themes'
+import { userProps } from '@/lib/types'
+import { signOut } from 'next-auth/react'
 
 type Props = {
-  currentUser: boolean
+  currentUser: userProps
 }
 
 const MobileMenuDropdown = ({currentUser}: Props) => {
+  
+  const { fullName } = capitalizeName(currentUser?.name);
   const path = usePathname();
 
   const { theme, setTheme } = useTheme();
@@ -29,7 +33,7 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
         { currentUser &&
           <React.Fragment>
             <DropdownMenuLabel className='line-clamp-1'>
-              <p className='text-base'>Salomi Onome</p>
+              <p className='text-base'>{fullName}</p>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
           </React.Fragment>
@@ -89,7 +93,7 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
         { currentUser &&
           <React.Fragment>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => console.log('I just logged out')} className='rounded'>
+            <DropdownMenuItem onClick={() => signOut()} className='rounded'>
             <p className='text-base font-semibold'>Log out</p>
               <DropdownMenuShortcut>
                 <HiOutlinePower size={18}/>

@@ -47,8 +47,9 @@ const SignUpForm = () => {
 
       if (response.success) {
         setIsLoading(false);
-        loginUser.onClose();
+        signUpUser.onClose();
         return toast({
+          variant: "success",
           title: 'This is looking good!',
           description: response.success
         })
@@ -100,7 +101,7 @@ const SignUpForm = () => {
             <p className='text-base'>{isLoading ? 'Creating account...' : 'Create account'}</p>
           </LoadingButton>
         </div>
-        <div className="mt-6 md:mt-8 flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <p className='md:text-lg'>
             Already have an account?
             <button onClick={() => {signUpUser.onClose(), loginUser.onOpen()}} className='ml-1 underline' type='button'>

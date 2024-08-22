@@ -8,16 +8,16 @@ import DesktopMenuDropdown from './DesktopMenuDropdown'
 import { HiOutlineUser } from 'react-icons/hi2'
 import NotificationIndicator from './NotificationIndicator'
 import { useLogin } from '@/lib/useModals'
+import { userProps } from '@/lib/types'
 
 type Props = {
-  currentUser: boolean
+  currentUser: userProps
   notification: boolean
 }
 
 const DesktopMenu = ({currentUser, notification}: Props) => {
   const pathname = usePathname();
   const loginUser = useLogin();
-  console.log(loginUser.isOpen)
 
   const NavLink = ({link, label}:{link:string, label:string}) => {
     return (

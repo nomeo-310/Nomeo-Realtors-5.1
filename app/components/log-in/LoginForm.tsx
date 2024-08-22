@@ -9,11 +9,14 @@ import InputWithIcon from '@/components/shared/InputWithIcon';
 import { HiOutlineEnvelope, HiOutlineLockClosed } from 'react-icons/hi2';
 import LoadingButton from '@/components/shared/LoadingButton';
 import { useAgentSignUp, useLogin, useSignUp } from '@/lib/useModals';
+import { signIn } from 'next-auth/react'
+import { useToast } from '@/components/ui/use-toast';
 
 
 const LoginForm = () => {
-  const [isLoading, setIsloading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   
+  const { toast } = useToast();
   const loginUser = useLogin();
   const signUpUser = useSignUp();
   const signUpAgent = useAgentSignUp();
@@ -29,7 +32,30 @@ const LoginForm = () => {
   });
 
   const onSubmitForm = async (values:logInValues) => {
-    console.log(values)
+    setIsLoading(true)
+    signIn("credentials", {...values, redirect: false})
+    .then((callback) => {
+      if (callback?.ok) {
+        setIsLoading(false);
+        loginUser.onClose();
+        toast({
+          variant: "success",
+          title: 'This is looking good!.',
+          description: 'Login was successful'
+        });
+        return window.location.reload()
+      };
+
+      if (callback?.error) {
+        setIsLoading(false);
+        return toast({
+          variant: "destructive",
+          title: 'Uh oh! Something went wrong.',
+          description: callback.error
+        })
+      };
+      
+    })
   };
 
   return (
@@ -64,7 +90,7 @@ const LoginForm = () => {
             <p className='text-base'>{isLoading ? 'Logging in...' : 'Log In'}</p>
           </LoadingButton>
         </div>
-        <div className="mt-6 md:mt-8 flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <p className='md:text-lg'>
             Don&apos;t have an account yet?
             <button onClick={() => {loginUser.onClose(), signUpUser.onOpen()}} className='ml-1 underline' type='button'>

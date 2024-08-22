@@ -5,30 +5,34 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { HiCheck, HiOutlineMoon, HiOutlinePower, HiOutlineSun, HiOutlineTv, HiOutlineUser } from 'react-icons/hi2'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
+import { capitalizeName, cn } from '@/lib/utils'
 import NotificationIndicator from './NotificationIndicator'
 import { useTheme } from 'next-themes'
+import { userProps } from '@/lib/types'
+import { signOut } from 'next-auth/react'
 
 type Props = {
   notification: boolean
-  currentUser: boolean
+  currentUser: userProps
 }
 
 const DesktopMenuDropdown = ({notification, currentUser}: Props) => {
   const path = usePathname();
   const { theme, setTheme } = useTheme();
 
+  const { fullName, firstName } = capitalizeName(currentUser?.name)
+
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center cursor-pointer'>
           { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={20} className='lg:mr-3 mr-2' />}
-          <div className='border-l lg:text-lg lg:pl-3 pl-2 font-semibold border-l-white'>Salomi</div>
+          <div className='border-l lg:text-lg lg:pl-3 pl-2 font-semibold border-l-white'>{firstName}</div>
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 mr-4 my-2 rounded">
         <DropdownMenuLabel className='line-clamp-1'>
-          <p className='text-base'>Salomi Onome</p>
+          <p className='text-base'>{fullName}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup className='flex flex-col gap-1'>
@@ -67,7 +71,7 @@ const DesktopMenuDropdown = ({notification, currentUser}: Props) => {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => console.log('I just logged out')} className='rounded'>
+        <DropdownMenuItem onClick={() => signOut()} className='rounded'>
         <p className='text-base font-semibold'>Log out</p>
           <DropdownMenuShortcut>
             <HiOutlinePower size={18}/>

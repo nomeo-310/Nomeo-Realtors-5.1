@@ -8,7 +8,7 @@ const Footer = () => {
     <div className='bg-primary'>
       <Container className='lg:pt-20 pt-16 '>
         <FooterTop/>
-        <hr/>
+        <hr className='border-white'/>
         <FooterBottom/>
       </Container>
     </div>

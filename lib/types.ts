@@ -127,6 +127,27 @@ export interface INewsletter extends Document {
   createdAt: Date;
 };
 
+export type userProps = {
+  _id: string
+  name: string;
+  email: string;
+  hashedPassword: string;
+  city: string;
+  state: string;
+  image: string;
+  verification: boolean;
+  role: 'user' | 'agent';
+  profileImage: { public_id: string, secure_url: string };
+  newsletterSubscriptions: boolean;
+  agents: string[];
+  properties: string[];
+  bookmarkedProperties: string[];
+  notifications: string[];
+  inspections: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 
 
 

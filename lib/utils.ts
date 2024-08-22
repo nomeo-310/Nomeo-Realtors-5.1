@@ -21,12 +21,24 @@ export const getNigerianStates = () => {
   return states;
 };
 
-
 export const getNigerianLgas = (state:string) => {
   const lgasArray:stateProps[] = JSON.parse(JSON.stringify(localGovernmentAreas))
   const lgas = (lgasArray.filter((item) => item.state === state)).flatMap((item) => item.lgas)
 
   return lgas;
+};
+
+export const capitalizeName = (name:string) => {
+  if (name !== undefined) {
+    const separatedNames = name.split(' ');
+    const firstName = separatedNames[0].charAt(0).toUpperCase() + separatedNames[0].slice(1);
+    const lastName = separatedNames[1].charAt(0).toUpperCase() + separatedNames[1].slice(1);
+    const fullName = firstName + ' ' + lastName;
+
+    return { fullName, firstName, lastName }
+  }
+
+  return { fullName: undefined, firstName: undefined, lastName: undefined }
 };
 
 export const generateLicenseNumber = () => {
@@ -99,7 +111,7 @@ export const validatePhoneNumber = (phoneNumber:string) => {
   const isValidPhoneNumber = startValueList.includes(phoneNumberStartValue) && !Number.isNaN(Number(phoneNumber));
 
   return isElevenDigits && isValidPhoneNumber
-}
+};
 
 
 

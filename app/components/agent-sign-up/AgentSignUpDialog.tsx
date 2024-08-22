@@ -7,9 +7,7 @@ import Modal from '@/components/shared/Dialog'
 import SignUpForm from './AgentSignUpForm'
 
 
-type Props = {}
-
-const AgentSignUpDialog = (props: Props) => {
+const AgentSignUpDialog = () => {
 
   const agentSignup = useAgentSignUp();
 
@@ -21,7 +19,9 @@ const AgentSignUpDialog = (props: Props) => {
     <Modal 
       isOpen={agentSignup.isOpen}
       title='Become an agent'
+      description='Begin your personal journey with us an agent, register you details and when you login you complete your profile.'
       onClose={onClose}
+      useCloseButton
     >
       <SignUpForm />
     </Modal>

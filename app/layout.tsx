@@ -5,6 +5,7 @@ import Navigation from "./components/navigation/Navigation";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from 'next-themes'
 import DialogProvider from "@/components/providers/DialogProvider";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
           <DialogProvider />
           <Navigation/>
           {children}
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>

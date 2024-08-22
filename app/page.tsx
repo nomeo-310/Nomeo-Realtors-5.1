@@ -9,6 +9,7 @@ import Footer from "./components/footer/Footer";
 
 
 const  Home = () => {
+
   return (
     <React.Fragment>
       <LandingPage/>

@@ -1,9 +1,7 @@
 import React from 'react'
-import { HiBell, HiOutlineBell } from 'react-icons/hi2'
+import { HiOutlineBell } from 'react-icons/hi2'
 
-type Props = {}
-
-const NotificationIndicator = (props: Props) => {
+const NotificationIndicator = () => {
   return (
     <div className='lg:mr-3 mr-2 relative'>
       <HiOutlineBell size={22}/>

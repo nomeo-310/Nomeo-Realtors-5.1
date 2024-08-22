@@ -7,13 +7,17 @@ import { HiOutlineHomeModern, HiOutlineUser } from 'react-icons/hi2';
 import DesktopMenu from './DesktopMenu';
 import NotificationIndicator from './NotificationIndicator';
 import { useLogin } from '@/lib/useModals';
+import { capitalizeName } from '@/lib/utils';
+import { userProps } from '@/lib/types';
 
 type Props = {
-  currentUser: boolean
+  currentUser: userProps
   notification: boolean
 }
 
 const NavigationClient = ({currentUser, notification}: Props) => {
+
+  const { firstName } = capitalizeName(currentUser?.name)
 
   const navbarAbsolute = 'pt-4 absolute left-0 top-0 w-full lg:h-[75px] md:h-[70px] z-[200] h-[60px] z-[40000]';
   const navbarFixed = 'pt-4 z-[4000] fixed w-full lg:h-[75px] md:h-[70px] h-[60px] lg:-top-[75px] bg-card md:-top-[70px] -top-[60px] transform lg:translate-y-[65px] md:translate-y-[60px] translate-y-[50px] transition-all ease-out duration-200 shadow shadow-[4px_4px_4px_0_rgba(0, 0, 0, 0.3)]';
@@ -42,11 +46,11 @@ const NavigationClient = ({currentUser, notification}: Props) => {
         { currentUser ?
           <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center'>
             { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
-            <div className='border-l-white lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>Salomi</div>
+            <div className='border-l-white border-l lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>{firstName}</div>
           </button> : 
           <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center' onClick={() => loginUser.onOpen()}>
             <HiOutlineUser size={22} className='lg:mr-3 mr-2' />
-            <div className='border-l lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>Login</div>
+            <div className='border-l lg:text-lg text-base lg:pl-3 pl-2 font-semibold border-l-white'>Login</div>
           </button> 
         }
       </React.Fragment>
