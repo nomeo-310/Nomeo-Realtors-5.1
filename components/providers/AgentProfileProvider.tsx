@@ -1,5 +1,6 @@
 'use client'
 
+import React from "react";
 import { Dispatch, SetStateAction } from "react";
 import { createContext, useContext, useState } from "react";
 
@@ -17,12 +18,13 @@ interface Props {
 const AgentProfileContext = createContext<FormValuesType | null>(null);
 
 export const AgentProfileProvider = ({ children }: Props) => {
-  const [formValues, setFormValues] = useState({});
-  const [currentStep, setCurrentStep] = useState(1);
+  const [formValues, setFormValues] = React.useState({});
+  const [currentStep, setCurrentStep] = React.useState(1);
 
   const updateFormValues = (updatedData: any) => {
     setFormValues((prevData) => ({ ...prevData, ...updatedData }));
   };
+  
   const values = {
     formValues,
     updateFormValues,

@@ -30,14 +30,15 @@ export const logInSchema = z.object({
 
 export type logInValues = z.infer<typeof logInSchema>
 
-export const pageOneSchema = z.object({
+export const agentProfileSchema = z.object({
   city: requiredString,
   state: requiredString,
-  phoneNumber: requiredString,
-  profileImage: z.object({
-    secure_url: requiredString.url(),
-    public_id: requiredString
-  })
-});
+  agencyName: requiredString,
+  agencyAddress: requiredString,
+  agentInspectionFee: requiredString,
+  agencyWebsite: requiredString,
+  officeNumber: requiredString,
+  agentBio: requiredString,
+})
 
-export type pageOneValues = z.infer<typeof pageOneSchema>
+export type agentProfileValues = z.infer<typeof agentProfileSchema>

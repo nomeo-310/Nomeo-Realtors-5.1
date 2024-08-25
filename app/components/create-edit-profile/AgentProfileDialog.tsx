@@ -13,7 +13,6 @@ import { capitalizeName } from '@/lib/utils'
 const AgentProfileDialog = ({user}:{user:userProps}) => {
 
   const agentProfileControl = useAgentProfile();
-  console.log(user);
 
   const onClose = () => {
     agentProfileControl.onClose();
@@ -27,7 +26,7 @@ const AgentProfileDialog = ({user}:{user:userProps}) => {
       onClose={onClose}
       useCloseButton={user?.profileCreated ? true : false}
     >
-      <AgentMultiStepForm />
+      <AgentMultiStepForm user={user}/>
     </Modal>
   )
 }

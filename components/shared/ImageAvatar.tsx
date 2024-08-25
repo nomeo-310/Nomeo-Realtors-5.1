@@ -11,7 +11,7 @@ type Props = {
 const ImageAvatar = ({src, alt, className}: Props) => {
   return (
     <div className={cn('relative w-11 h-11 flex items-center justify-center bg-gray-300 rounded overflow-hidden', className)}>
-      <Image src={src ? src : '/images/default_user.png'} alt={alt ? alt : 'avatar'} fill priority />
+      <Image src={src ? src : '/images/default_user.png'} alt={alt ? alt : 'avatar'} fill priority className='object-cover' />
     </div>
   )
 }
