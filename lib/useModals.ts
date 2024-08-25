@@ -47,3 +47,16 @@ export const useAgentSignUp = create<modalControProps>((set) => ({
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }));
+
+export const useAgentProfile = create<modalControProps>((set) => ({
+  isOpen: false,
+  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({ isOpen: false }),
+}));
+
+export const useUserProfile = create<modalControProps>((set) => ({
+  isOpen: false,
+  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({ isOpen: false }),
+}));
+                

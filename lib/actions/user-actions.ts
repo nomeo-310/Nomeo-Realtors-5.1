@@ -36,6 +36,8 @@ export const createUser = async ({name, email, password, phoneNumber, role}:crea
       const agentData = {user: newUser._id, phoneNumber: phoneNumber}
       const newAgent = await Agents.create(agentData);
       newAgent.save();
+
+      await Users.findOneAndUpdate({_id: newUser._id}, {isAgent: newAgent._id})
     }
 
     return { success: role === 'user' ? 'User successfully created' : 'Agent successfully created' }
@@ -74,6 +76,11 @@ export const getCurrentUser = async () => {
 
   const user = await Users.findOne({email: currentUserSession.user.email})
   .select('-hashedPassword')
+  .populate({
+    path: 'isAgent',
+    model: Agents,
+    select: '_id agencyName agencyAddress agentInspectionFee agentBio agencyWebsite officeNumber phoneNumber'
+  })
 
   if (!user) {
     return;

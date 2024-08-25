@@ -91,13 +91,13 @@ const LoginForm = () => {
           </LoadingButton>
         </div>
         <div className="flex flex-col gap-2">
-          <p className='md:text-lg'>
+          <p className='text-base'>
             Don&apos;t have an account yet?
             <button onClick={() => {loginUser.onClose(), signUpUser.onOpen()}} className='ml-1 underline' type='button'>
               Create one
             </button>
           </p>
-          <p className='md:text-lg'>
+          <p className='text-base'>
             Interested in being an agent? 
             <button onClick={() => {loginUser.onClose(), signUpAgent.onOpen()}} className='ml-1 underline' type='button'>
               Register here

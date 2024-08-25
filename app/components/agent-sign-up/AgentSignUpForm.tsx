@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { agentSignUpSchema, agentSignUpValues, signUpSchema, signUpValues } from '@/lib/validations';
+import { agentSignUpSchema, agentSignUpValues } from '@/lib/validations';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
@@ -33,7 +33,7 @@ const AgentSignUpForm = () => {
     defaultValues: defaultSignupValues
   });
 
-  const onSubmitForm = async (values:signUpValues) => {
+  const onSubmitForm = async (values:agentSignUpValues) => {
     setIsLoading(true);
     const submitData = {...values, role: 'agent'}
     await createUser(submitData).then((response) => {
@@ -115,13 +115,13 @@ const AgentSignUpForm = () => {
           </LoadingButton>
         </div>
         <div className="flex flex-col gap-2">
-          <p className='md:text-lg'>
+          <p className='text-base'>
             Already have an account?
             <button onClick={() => {signUpAgent.onClose(), loginUser.onOpen()}} className='ml-1 underline' type='button'>
               Log in
             </button>
           </p>
-          <p className='md:text-lg'>
+          <p className='text-base'>
             Don&apos;t have an account yet? 
             <button onClick={() => {signUpAgent.onClose(), signUpUser.onOpen()}} className='ml-1 underline' type='button'>
               Create one

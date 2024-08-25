@@ -32,7 +32,7 @@ const Modal = ({useCloseButton, description, children, isOpen, title, onClose}: 
     <React.Fragment>
       { isOpen &&
         <div className='fixed inset-0 overflow-hidden flex items-center justify-center outline-none focus:outline-none z-[80000] bg-neutral-800/70'>
-          <div className={cn("relative sm:max-w-[450px] max-w-[390px] xl:w-2/5 my-6 mx-auto h-auto md:h-auto lg:h-auto")}>
+          <div className={cn("relative sm:max-w-[480px] max-w-[390px] xl:w-2/5 my-6 mx-auto h-auto md:h-auto lg:h-auto")}>
             <div className={`translate duration-300 h-full ${showModal ? 'translate-y-0' : 'translate-y-full'} ${showModal ? 'opacity-100' : 'opacity-0'}`}>
               <div className="translate h-full lg:h-auto md:h-auto border-0 rounded shadow-lg relative flex flex-col w-full bg-card outline-none focus:outline-none">
                 <div className="flex sm:p-5 p-4 justify-between w-full items-start">
@@ -42,7 +42,7 @@ const Modal = ({useCloseButton, description, children, isOpen, title, onClose}: 
                   </button>
                 </div>
                 <div className='sm:p-5 p-4 sm:pt-0 pt-0'>
-                  <div className="text-base sm:text-lg mb-4 w-full">{description}</div>
+                  <div className="text-base mb-4 w-full">{description}</div>
                   {description && <hr className='my-4 -mx-4 md:-mx-5'/>}
                   {children}
                 </div>

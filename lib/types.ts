@@ -139,6 +139,16 @@ export type userProps = {
   role: 'user' | 'agent';
   profileImage: { public_id: string, secure_url: string };
   newsletterSubscriptions: boolean;
+  isAgent: {
+    agencyName: string;
+    agencyAddress: string;
+    agentInspectionFee: string;
+    agentBio: string;
+    agencyWebsite: string;
+    officeNumber: string;
+    phoneNumber: string;
+  }
+  profileCreated: boolean;
   agents: string[];
   properties: string[];
   bookmarkedProperties: string[];

@@ -28,4 +28,4 @@ const LoginDialog = () => {
   )
 }
 
-export default LoginDialog
+export default LoginDialog;

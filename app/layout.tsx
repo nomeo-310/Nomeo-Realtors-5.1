@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from 'next-themes'
 import DialogProvider from "@/components/providers/DialogProvider";
 import ScrollToTop from "@/components/shared/ScrollToTop";
+import { getCurrentUser } from "@/lib/actions/user-actions";
 
 
 export const metadata: Metadata = {
@@ -23,13 +24,15 @@ const barlow = localFont({
   variable: "--font-barlow",
 });
 
-export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
+export default async function RootLayout({children}:{children: React.ReactNode}) {
+  const currentUser = await getCurrentUser();
+
   return (
     <html lang="en">
       <body className={`${urbanist.variable} ${barlow.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Toaster/>
-          <DialogProvider />
+          <DialogProvider user={currentUser} />
           <Navigation/>
           {children}
           <ScrollToTop />

@@ -48,6 +48,7 @@ const SignUpForm = () => {
       if (response.success) {
         setIsLoading(false);
         signUpUser.onClose();
+        loginUser.onOpen();
         return toast({
           variant: "success",
           title: 'This is looking good!',
@@ -102,13 +103,13 @@ const SignUpForm = () => {
           </LoadingButton>
         </div>
         <div className="flex flex-col gap-2">
-          <p className='md:text-lg'>
+          <p className='text-base'>
             Already have an account?
             <button onClick={() => {signUpUser.onClose(), loginUser.onOpen()}} className='ml-1 underline' type='button'>
               Log in
             </button>
           </p>
-          <p className='md:text-lg'>
+          <p className='text-base'>
             Interested in being an agent? 
             <button onClick={() => {signUpUser.onClose(), signUpAgent.onOpen()}} className='ml-1 underline' type='button'>
               Register here
