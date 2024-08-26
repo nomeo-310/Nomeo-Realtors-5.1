@@ -9,13 +9,44 @@ import NotificationIndicator from './NotificationIndicator';
 import { useLogin } from '@/lib/useModals';
 import { capitalizeName } from '@/lib/utils';
 import { userProps } from '@/lib/types';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {
   currentUser: userProps
-  notification: boolean
+  notificationCount: number
 }
 
-const NavigationClient = ({currentUser, notification}: Props) => {
+type notificationCountProps = {
+  unreadCounts: number
+}
+
+const NavigationClient = ({currentUser, notificationCount}: Props) => {
+
+  const getNotificationCount = async () => {
+    try {
+      const response = await fetch('getNotificationCount', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+      })
+
+      if (!response.ok) {
+        throw new Error('Something went wrong, try again later');
+      }
+
+      const data:notificationCountProps = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error)
+      throw new Error('Internal server error, try again later');
+    }
+  }
+
+  const { data } = useQuery({
+    queryKey: ['unread-notifications-count'],
+    queryFn: getNotificationCount ,
+    initialData: {unreadCounts: notificationCount},
+    refetchInterval: 60 * 1000
+  })
 
   const { firstName } = capitalizeName(currentUser?.name)
 
@@ -41,11 +72,12 @@ const NavigationClient = ({currentUser, notification}: Props) => {
 
   const LoginButton = () => {
     const loginUser = useLogin();
+    
     return (
       <React.Fragment>
         { currentUser ?
           <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center'>
-            { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
+            { data.unreadCounts > 0 ? <NotificationIndicator notificationCount={data.unreadCounts}/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
             <div className='border-l-white border-l lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>{firstName}</div>
           </button> : 
           <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center' onClick={() => loginUser.onOpen()}>
@@ -67,7 +99,7 @@ const NavigationClient = ({currentUser, notification}: Props) => {
             <p className='lg:text-2xl md:text-xl text-lg font-semibold'>Nomeo Realtors</p>
           </Link>
         </div>
-        <DesktopMenu currentUser={currentUser} notification={notification}/>
+        <DesktopMenu currentUser={currentUser} notificationCount={notificationCount}/>
         <div className='md:hidden'>
           <LoginButton />
         </div>

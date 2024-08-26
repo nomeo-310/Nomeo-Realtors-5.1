@@ -12,10 +12,10 @@ import { userProps } from '@/lib/types'
 
 type Props = {
   currentUser: userProps
-  notification: boolean
+  notificationCount: number
 }
 
-const DesktopMenu = ({currentUser, notification}: Props) => {
+const DesktopMenu = ({currentUser, notificationCount}: Props) => {
   const pathname = usePathname();
   const loginUser = useLogin();
 
@@ -30,7 +30,7 @@ const DesktopMenu = ({currentUser, notification}: Props) => {
   const LoginButton = () => {
     return (
       <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center' onClick={() =>loginUser.onOpen()}>
-        { currentUser && notification ? <NotificationIndicator/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
+        { notificationCount > 0 ? <NotificationIndicator notificationCount={notificationCount}/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
         <div className='border-l-white lg:text-lg lg:pl-3 pl-2 font-semibold border-l'>Login</div>
       </button>
     )
@@ -57,7 +57,7 @@ const DesktopMenu = ({currentUser, notification}: Props) => {
         />
       </div>
       <div>
-        { currentUser ? <DesktopMenuDropdown notification={ notification } currentUser={currentUser} /> : <LoginButton/> }
+        { currentUser ? <DesktopMenuDropdown notificationCount={ notificationCount } currentUser={currentUser} /> : <LoginButton/> }
       </div>
     </div>
   )

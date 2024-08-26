@@ -142,7 +142,7 @@ export type userProps = {
   isAgent: {
     agencyName: string;
     agencyAddress: string;
-    agentInspectionFee: string;
+    agentInspectionFee: number;
     agentBio: string;
     agencyWebsite: string;
     officeNumber: string;

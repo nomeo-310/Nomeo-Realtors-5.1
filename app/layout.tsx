@@ -8,6 +8,7 @@ import DialogProvider from "@/components/providers/DialogProvider";
 import ScrollToTop from "@/components/shared/ScrollToTop";
 import { getCurrentUser } from "@/lib/actions/user-actions";
 import { AgentProfileProvider } from "@/components/providers/AgentProfileProvider";
+import QueryProvider from "@/components/providers/QueryProvider";
 
 
 export const metadata: Metadata = {
@@ -31,15 +32,15 @@ export default async function RootLayout({children}:{children: React.ReactNode})
   return (
     <html lang="en">
       <body className={`${urbanist.variable} ${barlow.variable}`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <AgentProfileProvider>
+        <QueryProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <Toaster/>
             <DialogProvider user={currentUser} />
             <Navigation/>
             {children}
             <ScrollToTop />
-          </AgentProfileProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

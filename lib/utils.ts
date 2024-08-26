@@ -126,7 +126,7 @@ export const uploadImage = async ({image, uploadPreset}:{image: File | null, upl
   .then((response) => response.json());
 
   return data;
-}
+};
 
 
 

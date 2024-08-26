@@ -17,6 +17,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
+import { updateAgentProfile } from "@/lib/actions/user-actions";
+import { useAgentProfile } from "@/lib/useModals";
+import LoadingButton from "@/components/shared/LoadingButton";
 
 const fieldNames = [
   {
@@ -34,15 +37,17 @@ const fieldNames = [
 ];
 
 const AgentMultiStepForm = ({user}:{user:userProps}) => {
-  const [currentStep, setCurrentStep] = React.useState(0);
+  const agentProfile = useAgentProfile();
 
+  const [currentStep, setCurrentStep] = React.useState(0);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const profilePageDefaultValues = {
     city: user.city,
     state: user.state,
     agencyName: user.isAgent.agencyName,
     agencyAddress: user.isAgent.agencyAddress,
-    agentInspectionFee: user.isAgent.agentInspectionFee || "",
+    agentInspectionFee: user.isAgent.agentInspectionFee.toString() || "",
     agencyWebsite: user.isAgent.agencyWebsite,
     officeNumber: user.isAgent.officeNumber,
     agentBio: user.isAgent.agentBio,
@@ -146,10 +151,30 @@ const AgentMultiStepForm = ({user}:{user:userProps}) => {
     form.reset();
   };
 
-  const onSubmit = (values: agentProfileValues) => {
-    const fullValues = {...values, profileImage: imageUrls}
-    console.log(fullValues);
-    resetField()
+  const onSubmit = async (values: agentProfileValues) => {
+    setIsLoading(true)
+    const fullValues = { ...values, profileImage: imageUploaded ? imageUrls : user.profileImage, isNewImage: imageUploaded ? true : false };
+    await updateAgentProfile(fullValues).then((response) => {
+      if (response.success) {
+        resetField();
+        agentProfile.onClose();
+        toast({
+          title: user.profileCreated ? 'Agent profile updated!' : 'Agent profile created!',
+          description: user.profileCreated ? 'You have successfully updated your profile.': 'You have successfully created your profile.',
+          variant: 'success'
+        })
+        window.location.reload();
+      }
+
+      if (response.error) {
+        toast({
+          title: user.profileCreated ? 'Agent profile not updated!' : 'Agent profile not created!',
+          description: user.profileCreated ? 'Your profile was not updated. Try again later': 'Your profile was not created. Try again later',
+          variant: 'destructive'
+        })
+        setIsLoading(false)
+      }
+    })
   };
 
   type FieldName = keyof agentProfileValues;
@@ -336,7 +361,12 @@ const AgentMultiStepForm = ({user}:{user:userProps}) => {
         ) }
         <div className="mt-3 flex items-center justify-between">
           { currentStep > 0 && <Button className="rounded" type="button" onClick={previousStep}>Previous</Button> }
-          { currentStep === 2 ?   <Button className="rounded" type="submit">Submit</Button> : <Button className="rounded" type="button" onClick={nextStep}>Next</Button>}
+          { currentStep === 2 ?   
+            <LoadingButton loading={isLoading} disabled={isLoading} className="rounded" type="submit">
+              { isLoading ? 'Submitting...' : 'Submit' }
+            </LoadingButton> : 
+            <Button className="rounded" type="button" onClick={nextStep}>Next</Button>
+          }
         </div>
       </form>
     </Form>

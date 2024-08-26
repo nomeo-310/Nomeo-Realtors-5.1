@@ -20,9 +20,9 @@ const AgentProfileDialog = ({user}:{user:userProps}) => {
 
   return (
     <Modal 
-      isOpen={user?.role === 'agent' && !user?.profileCreated ? true : agentProfileControl.isOpen}
+      isOpen={user?.role === 'agent' && user?.profileCreated ? agentProfileControl.isOpen : true }
       title = {user?.profileCreated ? 'Edit Profile' : 'Create Profile'}
-       description={`Welcome ${capitalizeName(user?.name).fullName}, we observed you haven't created your profile yet. This will not take more a five minutes.`}
+       description={user.profileCreated ? 'Make some changes to your profile.': `Welcome ${capitalizeName(user?.name).fullName}, we observed you haven't created your profile yet. This will not take more a five minutes.`}
       onClose={onClose}
       useCloseButton={user?.profileCreated ? true : false}
     >
