@@ -22,7 +22,7 @@ const FooterTop = () => {
     }
     return (
       <div className="w-full  flex gap-6 flex-col">
-        <p className='lg:text-xl text-lg'>Subscribe to our newsletter:</p>
+        <p className='lg:text-xl text-lg font-semibold'>Subscribe to our newsletter:</p>
         <div>
           <form className='flex rounded-full overflow-hidden border border-white' onSubmit={handleSubscribe} noValidate>
             <div className="grow flex items-center">
@@ -37,7 +37,7 @@ const FooterTop = () => {
           </div>
         </div>
         <div>
-          <p className='lg:text-xl text-lg'>Follow us on:</p>
+          <p className='lg:text-xl text-lg font-semibold'>Follow us on:</p>
           <div className='flex gap-6 items-center mt-6'>
             <a href="https://wwww.instagram.com/nomeosuites" className='hover:scale-110'>
               <BsInstagram size={26} className='lg:hidden'/>
@@ -67,7 +67,7 @@ const FooterTop = () => {
         <div className='w-full'>
           <Link href={'/'} className='flex items-center gap-4'>
             <HiOutlineHomeModern size={26}/>
-            <p className='lg:text-2xl md:text-xl text-lg'>Nomeo Realtors</p>
+            <p className='lg:text-2xl md:text-xl text-lg font-semibold'>Nomeo Realtors</p>
           </Link>
           <div className='flex flex-col gap-1 mt-6'>
             <p className='lg:text-lg'>+ Block 12B, Omo-Disu Street, Owutu Estate, Ikeja, Lagos State.</p>
@@ -76,7 +76,7 @@ const FooterTop = () => {
           </div>
         </div>
         <div className='flex gap-4 items-center'>
-          <h2 className='text-lg lg:text-xl'>+Company:</h2>
+          <h2 className='text-lg lg:text-xl font-semibold'>+Company:</h2>
           <div className='flex items-center gap-4 lg:text-lg'>
             <Link href={'/about-us'} className='hover:underline'>About</Link>
             <Link href={'/blogs'} className='hover:underline'>Blog</Link>
@@ -86,7 +86,7 @@ const FooterTop = () => {
           </div>
         </div>
         <div className='flex gap-4 items-center'>
-          <h2 className='text-lg lg:text-xl'>+Real Estate:</h2>
+          <h2 className='text-lg lg:text-xl font-semibold'>+Real Estate:</h2>
           <div className='flex items-center gap-4 lg:text-lg'>
             <Link href={'/buy'} className='hover:underline'>Buy</Link>
             <Link href={'/rent'} className='hover:underline'>Rent</Link>

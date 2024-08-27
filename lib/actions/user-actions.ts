@@ -36,6 +36,7 @@ type updateUserProps = {
   isNewImage: boolean;
   city: string;
   state: string;
+  occupation?: string;
 }
 
 
@@ -98,21 +99,29 @@ export const getCurrentUser = async () => {
     return;
   };
 
-  const user = await Users.findOne({email: currentUserSession.user.email})
-  .select('-hashedPassword')
-  .populate({
-    path: 'isAgent',
-    model: Agents,
-    select: '_id agencyName agencyAddress agentInspectionFee agentBio agencyWebsite officeNumber phoneNumber'
-  })
-
-  if (!user) {
+  try {
+    const user = await Users.findOne({email: currentUserSession.user.email})
+    .select('-hashedPassword')
+    .populate({
+      path: 'isAgent',
+      model: Agents,
+      select: '_id agencyName agencyAddress agentInspectionFee agentBio agencyWebsite officeNumber phoneNumber'
+    });
+    if (!user) {
+      return;
+    };
+  
+    const currentUser = JSON.parse(JSON.stringify(user))
+  
+    return currentUser;
+    
+  } catch (error) {
+    console.error(error)
     return;
-  };
+  }
 
-  const currentUser = JSON.parse(JSON.stringify(user))
 
-  return currentUser;
+
 };
 
 export const updateAgentProfile = async ({ profileImage, city, state, agencyName, agencyAddress, agentInspectionFee, officeNumber, agentBio, agencyWebsite, isNewImage }:updateAgentProps) => {
@@ -193,7 +202,7 @@ export const updateAgentProfile = async ({ profileImage, city, state, agencyName
   }
 };
 
-export const updateUserProfile = async ({ profileImage, city, state, isNewImage }:updateUserProps) => {
+export const updateUserProfile = async ({ profileImage, city, state, isNewImage, occupation }:updateUserProps) => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -214,6 +223,7 @@ export const updateUserProfile = async ({ profileImage, city, state, isNewImage 
     city: city,
     profileImage: profileImage,
     state: state,
+    occupation: occupation,
     image: profileImage.secure_url,
     profileCreated: true
   };
@@ -222,6 +232,7 @@ export const updateUserProfile = async ({ profileImage, city, state, isNewImage 
     city: city,
     profileImage: profileImage,
     state: state,
+    occupation: occupation,
     image: profileImage.secure_url,
   };
 

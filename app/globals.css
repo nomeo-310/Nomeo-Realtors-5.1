@@ -186,14 +186,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gray-50 font-urbanist dark:bg-[#181818] text-foreground;
   }
 }
 
-
-
-@layer utilities {
-  body {
-    @apply bg-gray-50 font-urbanist dark:bg-[#181818];
-  }
-}

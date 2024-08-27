@@ -136,6 +136,7 @@ export type userProps = {
   state: string;
   image: string;
   verification: boolean;
+  occupation: string
   role: 'user' | 'agent';
   profileImage: { public_id: string, secure_url: string };
   newsletterSubscriptions: boolean;
@@ -152,6 +153,7 @@ export type userProps = {
   agents: string[];
   properties: string[];
   bookmarkedProperties: string[];
+  likedProperties: string[];
   notifications: string[];
   inspections: string[];
   createdAt: string;

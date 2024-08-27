@@ -38,12 +38,12 @@ const LoginForm = () => {
       if (callback?.ok) {
         setIsLoading(false);
         loginUser.onClose();
-        toast({
+        window.location.reload();
+        return toast({
           variant: "success",
           title: 'This is looking good!.',
           description: 'Login was successful'
         });
-        return window.location.reload()
       };
 
       if (callback?.error) {

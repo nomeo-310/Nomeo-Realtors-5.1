@@ -4,8 +4,7 @@ import React from 'react'
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger} from "@/components/ui/dropdown-menu"
 import { HiBars3, HiCheck, HiOutlineMoon, HiOutlinePower, HiOutlineSun, HiOutlineTv } from 'react-icons/hi2'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { capitalizeName, cn } from '@/lib/utils'
 import { useTheme } from 'next-themes'
 import { userProps } from '@/lib/types'
@@ -19,6 +18,7 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
   
   const { fullName } = capitalizeName(currentUser?.name);
   const path = usePathname();
+  const router = useRouter();
 
   const { theme, setTheme } = useTheme();
 
@@ -29,7 +29,7 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
           <HiBars3 size={26}/>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 ml-4 rounded my-2">
+      <DropdownMenuContent className="w-56 ml-4 rounded my-2 slide-in-left">
         { currentUser &&
           <React.Fragment>
             <DropdownMenuLabel className='line-clamp-1'>
@@ -38,18 +38,18 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
             <DropdownMenuSeparator />
           </React.Fragment>
         }
-        <DropdownMenuGroup className='flex flex-col gap-1'>
+        <DropdownMenuGroup className='flex flex-col gap-1' onClick={() =>router.push('/for-sale')}>
           <DropdownMenuItem className={cn('rounded', path === '/for-sale' && 'bg-primary/70 text-white')}>
-            <Link href={'/for-sale'}><p className='text-base font-semibold'>For Sale</p></Link>
+            <p className='text-base font-semibold'>For Sale</p>
           </DropdownMenuItem>
-          <DropdownMenuItem className={cn('rounded', path === '/for-rent' && 'bg-primary/70 text-white')}>
-            <Link href={'/for-rent'}><p className='text-base font-semibold'>For Rent</p></Link>
+          <DropdownMenuItem className={cn('rounded', path === '/for-rent' && 'bg-primary/70 text-white')} onClick={() =>router.push('/for-rent')}>
+            <p className='text-base font-semibold'>For Rent</p>
           </DropdownMenuItem>
-          <DropdownMenuItem className={cn('rounded', path === '/about-us' && 'bg-primary/70 text-white')}>
-            <Link href={'/about-us'}><p className='text-base font-semibold'>About Us</p></Link>
+          <DropdownMenuItem className={cn('rounded', path === '/about-us' && 'bg-primary/70 text-white')} onClick={() =>router.push('/about-us')}>
+            <p className='text-base font-semibold'>About Us</p>
           </DropdownMenuItem>
-          <DropdownMenuItem className={cn('rounded', path === '/blogs' && 'bg-primary/70 text-white')}>
-            <Link href={'/blogs'}><p className='text-base font-semibold'>Blogs</p></Link>
+          <DropdownMenuItem className={cn('rounded', path === '/blogs' && 'bg-primary/70 text-white')} onClick={() =>router.push('/blogs')}>
+            <p className='text-base font-semibold'>Blogs</p>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
@@ -85,8 +85,8 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
             </DropdownMenuPortal>
           </DropdownMenuSub>
           { currentUser &&
-            <DropdownMenuItem className={cn('rounded', path === '/dashboard' && 'bg-primary/70 text-white')}>
-              <Link href={'/dashboard'}><p className='text-base font-semibold'>Dashboard</p></Link>
+            <DropdownMenuItem className={cn('rounded', path === '/dashboard' && 'bg-primary/70 text-white')} onClick={() =>router.push('/dashboard')}>
+              <p className='text-base font-semibold'>Dashboard</p>
             </DropdownMenuItem>
           }
         </DropdownMenuGroup>

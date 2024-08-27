@@ -12,10 +12,11 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { HiOutlineCloudArrowUp, HiOutlineMapPin, HiOutlineTrash, HiXMark } from 'react-icons/hi2';
+import { HiOutlineBriefcase, HiOutlineCloudArrowUp, HiOutlineMapPin, HiOutlineTrash, HiXMark } from 'react-icons/hi2';
 import InputWithIcon from '@/components/shared/InputWithIcon';
 import { updateUserProfile } from '@/lib/actions/user-actions';
 import { useUserProfile } from '@/lib/useModals';
+import LoadingButton from '@/components/shared/LoadingButton';
 
 
 
@@ -170,7 +171,7 @@ const UserProfileForm = ({user}:{user:userProps}) => {
             </div>
           </div> :
           <React.Fragment>
-            <div className="w-full flex sm:flex-row flex-col sm:gap-2 gap-3">
+            <div className="w-full flex sm:flex-row flex-col sm:gap-2 gap-3 sm:items-center">
               <div className={cn("size-36 sm:size-40 border hover:border-0 rounded relative flex-none group cursor-pointer overflow-hidden", imageCropped && 'border-0')} onClick={() => fileInputRef.current?.click()}>
                 <Input type="file" ref={fileInputRef} className="hidden sr-only" onChange={(e) => onImageSelection(e.target.files?.[0])}/>
                 <Image src={ imageCropped ? URL.createObjectURL(imageCropped) : user.image || '/images/default_user.png' } alt="avatar" fill priority />
@@ -218,7 +219,24 @@ const UserProfileForm = ({user}:{user:userProps}) => {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name='occupation'
+                  render={({field}) => (
+                    <FormItem>
+                      <FormControl className="-mb-1">
+                        <InputWithIcon type='text' placeholder='what you do for a living' icon={HiOutlineBriefcase} {...field} className='border rounded'/>
+                      </FormControl>
+                      <FormMessage/>
+                    </FormItem>
+                  )}
+                />
               </div>
+            </div>
+            <div className="mt-3 flex items-center justify-end">
+              <LoadingButton loading={isLoading} disabled={isLoading} className="rounded" type="submit">
+                { isLoading ? 'Submitting...' : 'Submit' }
+              </LoadingButton> 
             </div>
           </React.Fragment>
         }

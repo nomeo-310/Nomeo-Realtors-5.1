@@ -13,11 +13,11 @@ import { useQuery } from '@tanstack/react-query';
 
 type Props = {
   currentUser: userProps
-  notificationCount: number
+  notificationCount: number | undefined
 }
 
 type notificationCountProps = {
-  unreadCounts: number
+  unreadCounts: number | undefined
 }
 
 const NavigationClient = ({currentUser, notificationCount}: Props) => {
@@ -44,11 +44,9 @@ const NavigationClient = ({currentUser, notificationCount}: Props) => {
   const { data } = useQuery({
     queryKey: ['unread-notifications-count'],
     queryFn: getNotificationCount ,
-    initialData: {unreadCounts: notificationCount},
+    initialData: { unreadCounts: notificationCount },
     refetchInterval: 60 * 1000
   })
-
-  const { firstName } = capitalizeName(currentUser?.name)
 
   const navbarAbsolute = 'pt-4 absolute left-0 top-0 w-full lg:h-[75px] md:h-[70px] z-[200] h-[60px] z-[40000]';
   const navbarFixed = 'pt-4 z-[4000] fixed w-full lg:h-[75px] md:h-[70px] h-[60px] lg:-top-[75px] bg-card md:-top-[70px] -top-[60px] transform lg:translate-y-[65px] md:translate-y-[60px] translate-y-[50px] transition-all ease-out duration-200 shadow shadow-[4px_4px_4px_0_rgba(0, 0, 0, 0.3)]';
@@ -77,8 +75,8 @@ const NavigationClient = ({currentUser, notificationCount}: Props) => {
       <React.Fragment>
         { currentUser ?
           <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center'>
-            { data.unreadCounts > 0 ? <NotificationIndicator notificationCount={data.unreadCounts}/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
-            <div className='border-l-white border-l lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>{firstName}</div>
+            { data.unreadCounts && data.unreadCounts > 0 ? <NotificationIndicator notificationCount={data?.unreadCounts}/> : <HiOutlineUser size={22} className='lg:mr-3 mr-2' />}
+            <div className='border-l-white border-l lg:text-lg text-base lg:pl-3 pl-2 font-semibold'>{capitalizeName(currentUser?.name).firstName}</div>
           </button> : 
           <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center' onClick={() => loginUser.onOpen()}>
             <HiOutlineUser size={22} className='lg:mr-3 mr-2' />

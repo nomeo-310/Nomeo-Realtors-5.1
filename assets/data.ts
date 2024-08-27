@@ -1,5 +1,6 @@
 import { IconType } from "react-icons/lib";
 import { TfiBag, TfiBookmarkAlt, TfiSignal } from "react-icons/tfi";
+import { TbBellRinging, TbFileText, TbHomeHeart, TbHomePlus, TbHomeRibbon, TbLockPlus, TbUserEdit } from 'react-icons/tb';
 
 export interface frequentlyAskedQuestion {
   question: string;
@@ -155,4 +156,38 @@ export const testimonials = [
     career: "entrepreneurs",
     profileImage: '/images/profile_13.jpg'
   }
+];
+
+export const agentMenuList = [
+  {
+    label: 'property',
+    icon: TbHomePlus
+  },
+  {
+    label: 'post',
+    icon: TbFileText
+  }
+];
+
+export const mainItemList = [
+  {
+    label: 'notifications',
+    icon: TbBellRinging
+  },
+  {
+    label: 'likes',
+    icon: TbHomeHeart
+  },
+  {
+    label: 'saves',
+    icon: TbHomeRibbon
+  },
+  {
+    label: 'profile',
+    icon: TbUserEdit
+  },
+  {
+    label: 'password',
+    icon: TbLockPlus
+  },
 ];

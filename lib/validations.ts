@@ -46,6 +46,7 @@ export type agentProfileValues = z.infer<typeof agentProfileSchema>
 export const userProfileSchema = z.object({
   city: requiredString,
   state: requiredString,
+  occupation: z.string().optional()
 })
 
 export type userProfileValues = z.infer<typeof userProfileSchema>

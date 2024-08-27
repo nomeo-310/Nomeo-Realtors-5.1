@@ -1,7 +1,7 @@
 import React from 'react'
 import { HiOutlineBell } from 'react-icons/hi2'
 
-const NotificationIndicator = ({notificationCount}:{notificationCount: number}) => {
+const NotificationIndicator = ({notificationCount}:{notificationCount: number | undefined}) => {
   return (
     <div className='lg:mr-3 mr-2 relative'>
       <HiOutlineBell size={22}/>
