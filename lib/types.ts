@@ -136,7 +136,8 @@ export type userProps = {
   state: string;
   image: string;
   verification: boolean;
-  occupation: string
+  occupation: string;
+  phoneNumber: string;
   role: 'user' | 'agent';
   profileImage: { public_id: string, secure_url: string };
   newsletterSubscriptions: boolean;
@@ -158,6 +159,24 @@ export type userProps = {
   inspections: string[];
   createdAt: string;
   updatedAt: string;
+}
+
+export type notificationProps = {
+  _id: string
+  type: string;
+  message: string;
+  seen: boolean;
+  issuer?: {
+    name: string;
+    email: string;
+    phoneNumber: string;
+    image: string;
+  },
+  inspectionDate?: string;
+  inspectionTime?: string;
+  recipient: string;
+  property?: string;
+  createdAt: string;
 }
 
 

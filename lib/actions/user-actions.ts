@@ -14,7 +14,7 @@ type createUserProps = {
   name: string,
   email: string
   password: string
-  phoneNumber?: string
+  phoneNumber: string
   role: string
 };
 
@@ -53,7 +53,7 @@ export const createUser = async ({name, email, password, phoneNumber, role}:crea
 
     const hashedPassword = await bcryptjs.hash(password, 10);
 
-    const userData = {name: name.toLowerCase(), email: email, hashedPassword: hashedPassword, role: role};
+    const userData = {name: name.toLowerCase(), email: email, hashedPassword: hashedPassword, role: role, phoneNumber:phoneNumber};
     const newUser = await Users.create(userData);
     newUser.save();
 

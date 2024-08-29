@@ -7,6 +7,7 @@ const UsersSchema = new Schema({
   hashedPassword: {type: String, default: ''},
   city: {type: String, default: ''},
   state: {type: String, default: ''},
+  phoneNumber: {type: String, default: ''},
   profileImage: {public_id: {type: String, default: ''}, secure_url: {type: String, default: ''}},
   image: {type: String, default: ''},
   occupation: {type: String, default: ''},

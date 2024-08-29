@@ -15,7 +15,7 @@ const InputWithIcon = React.forwardRef<HTMLInputElement, inputProps>(({iconClass
 
   return (
     <div className={cn('w-full relative', className)}>
-      <input type={ type === 'password' ? inputType : type } className={`cursor-pointer rounded bg-inherit w-full p-2.5 focus-visible:ring-0 focus-visible:ring-none focus-visible:ring-offset-0 outline-none text-base ${Icon ? 'pl-10' : ''}`} disabled={disabled} {...props} ref={ref}/>
+      <input type={ type === 'password' ? inputType : type } className={`h-12 cursor-pointer rounded bg-inherit w-full p-2.5 focus-visible:ring-0 focus-visible:ring-none focus-visible:ring-offset-0 outline-none text-base ${Icon ? 'pl-10' : ''}`} disabled={disabled} {...props} ref={ref}/>
       {Icon && <Icon size={22} className={cn('md:hidden absolute left-2.5 top-1/2 -translate-y-1/2', iconClassName)}/>}
       {Icon && <Icon size={25} className={cn('hidden md:block absolute left-2.5 top-1/2 -translate-y-1/2', iconClassName)}/>}
       {type === 'password' && 

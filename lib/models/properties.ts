@@ -16,6 +16,7 @@ const PropertiesSchema = new Schema({
   fullPropertyPrice: {type: Number, default: 0},
   address: {type:String, default: ""},
   title: {type:String, default: ""},
+  description: {type:String, default: ""},
   furnitureStatus: {type:String, enum: ['furnished', 'not-furnished'], default: 'not-furnished'},
   mainAmenities: [{type:String, default: ""}],
   optionalAmenities: [{type:String, default: ""}],

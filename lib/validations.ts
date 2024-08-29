@@ -8,7 +8,8 @@ const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$
 export const signUpSchema = z.object({
   email: requiredString.email('Invalid email address'),
   name: requiredString.regex(nameRegex, 'Only letters and minimum of 3 characters is allowed'),
-  password: requiredString.regex(passwordRegex, 'It should contain atleast one uppercase, lowercases, special characters excluding # and not less than 6' )
+  password: requiredString.regex(passwordRegex, 'It should contain atleast one uppercase, lowercases, special characters excluding # and not less than 6' ),
+  phoneNumber: requiredString.refine(validatePhoneNumber, {message: 'Phone number should be 11 digits and must be a valid one'})
 });
 
 export type signUpValues = z.infer<typeof signUpSchema>
@@ -37,7 +38,7 @@ export const agentProfileSchema = z.object({
   agencyAddress: requiredString,
   agentInspectionFee: requiredString,
   agencyWebsite: z.string().optional(),
-  officeNumber: requiredString,
+  officeNumber: requiredString.refine(validatePhoneNumber, {message: 'Phone number should be 11 digits and must be a valid one'}),
   agentBio: requiredString,
 })
 
@@ -50,3 +51,12 @@ export const userProfileSchema = z.object({
 })
 
 export type userProfileValues = z.infer<typeof userProfileSchema>
+
+
+export const addPropertySchema = z.object({
+  title: requiredString,
+  address: requiredString,
+  propertyTag: requiredString,
+  furnitureStatus: requiredString,
+  description: requiredString.max(600, 'Maximum of 600 characters'),
+})

@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import InputWithIcon from '@/components/shared/InputWithIcon';
-import { HiOutlineEnvelope, HiOutlineLockClosed, HiOutlineUser } from 'react-icons/hi2';
+import { HiOutlineEnvelope, HiOutlineLockClosed, HiOutlinePhone, HiOutlineUser } from 'react-icons/hi2';
 import LoadingButton from '@/components/shared/LoadingButton';
 import { useAgentSignUp, useLogin, useSignUp } from '@/lib/useModals';
 import { useToast } from "@/components/ui/use-toast"
@@ -80,6 +80,18 @@ const SignUpForm = () => {
             <FormItem>
               <FormControl>
                 <InputWithIcon type='email' placeholder='email address e.g johndoe@email.com' icon={HiOutlineEnvelope} {...field} className='border rounded'/>
+              </FormControl>
+              <FormMessage/>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='phoneNumber'
+          render={({field}) => (
+            <FormItem>
+              <FormControl>
+                <InputWithIcon type='text' placeholder='phone number e.g 07031234567' icon={HiOutlinePhone} {...field} className='border rounded'/>
               </FormControl>
               <FormMessage/>
             </FormItem>
