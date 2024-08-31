@@ -4,6 +4,7 @@ import Container from '@/components/shared/Container';
 import React from 'react';
 import DashboardMenu from './DashboardMenu';
 import { userProps } from '@/lib/types';
+import { useRouter } from 'next/navigation';
 
 type layoutProps = {
   children: React.ReactNode
@@ -13,8 +14,15 @@ type layoutProps = {
 };
 
 const DashboardLayout = ({children, user, activeTab, setActiveTab}:layoutProps) => {
+  const router = useRouter();
   
-  const agentLoggedIn = user.role === 'agent';
+  const agentLoggedIn = user?.role === 'agent';
+
+  React.useEffect(() => {
+    if (!agentLoggedIn) {
+      router.push('/')
+    }
+  }, []);
   
   return (
     <Container className='pt-24 lg:pt-28 flex md:gap-5 lg:gap-9 gap-3.5 min-h-screen'>

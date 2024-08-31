@@ -7,17 +7,12 @@ type Props = {
   data: string[]
   placeholder: string
   value:string
-  setValue: React.Dispatch<React.SetStateAction<string>>
+  onChange: (value:string) => void
 }
 
-const CustomSelect = ({data, placeholder, value, setValue}:Props) => {
-
-  const handleSelectChange = (value: string) => {
-    setValue(value);
-  };
-
+const CustomSelect = ({data, placeholder, value, onChange}:Props) => {
   return (
-    <Select value={value} onValueChange={handleSelectChange}>
+    <Select value={value} onValueChange={onChange}>
       <SelectTrigger className="capitalize w-full text-base bg-inherit rounded ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-0 focus:ring-none focus:ring-offset-0">
         <SelectValue placeholder={placeholder} className="capitalize"/>
       </SelectTrigger>

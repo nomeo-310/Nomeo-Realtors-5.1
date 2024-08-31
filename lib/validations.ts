@@ -52,6 +52,16 @@ export const userProfileSchema = z.object({
 
 export type userProfileValues = z.infer<typeof userProfileSchema>
 
+const numberSchema = z.string().transform((value) => {
+  const parsedNumber = Number(value);
+
+  if (isNaN(parsedNumber)) {
+    throw new Error('Invalid number format');
+  };
+
+  return parsedNumber;
+})
+
 
 export const addPropertySchema = z.object({
   title: requiredString,
@@ -59,4 +69,44 @@ export const addPropertySchema = z.object({
   propertyTag: requiredString,
   furnitureStatus: requiredString,
   description: requiredString.max(600, 'Maximum of 600 characters'),
+  city: requiredString,
+  state: requiredString,
+  numberOfRooms: z.string().transform((value) => {
+  const parsedNumber = Number(value);
+
+  if (isNaN(parsedNumber)) {
+    throw new Error('Invalid number format');
+  };
+
+  return parsedNumber;
+}),
+  numberOfBath: z.string().transform((value) => {
+  const parsedNumber = Number(value);
+
+  if (isNaN(parsedNumber)) {
+    throw new Error('Invalid number format');
+  };
+
+  return parsedNumber;
+}),
+  numberOfToilets: z.string().transform((value) => {
+  const parsedNumber = Number(value);
+
+  if (isNaN(parsedNumber)) {
+    throw new Error('Invalid number format');
+  };
+
+  return parsedNumber;
+}),
+  area: z.string().transform((value) => {
+  const parsedNumber = Number(value);
+
+  if (isNaN(parsedNumber)) {
+    throw new Error('Invalid number format');
+  };
+
+  return parsedNumber;
+}),
 })
+
+export type addPropertyValues = z.infer<typeof addPropertySchema>

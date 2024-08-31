@@ -49,6 +49,15 @@ export const generateLicenseNumber = () => {
   return licenseNumber;
 };
 
+
+export const generatePropertyId = () => {
+  const random = crypto.randomBytes(3).toString('hex').toUpperCase();
+  const randomPart = random.substring(0, 7);
+  const propertyId = `Property-${randomPart}`
+
+  return propertyId;
+};
+
 export const connectToMongoDB = async () => {
   const MONGODB_URI=process.env.MONGODB_URI as string;
 

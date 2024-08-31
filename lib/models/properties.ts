@@ -3,17 +3,20 @@ import { Schema } from 'mongoose'
 import { IProperty } from '../types';
 
 const PropertiesSchema = new Schema({
+  propertyId: {type:String, default: ""},
   numberOfRooms: {type: Number, default: 0},
   numberOfBath: {type: Number, default: 0},
   numberOfToilets: {type: Number, default: 0},
   area: {type: Number, default: 0},
   agent: { type: mongoose.Schema.ObjectId, ref: "Agents" },
-  closeLandmarks: [{name: {type:String, default: ""}, distanceAway: {type: String, default: ""}}],
+  closestLandmarks: [{name: {type:String, default: ""}, distanceAway: {type: String, default: ""}}],
   images: { type: mongoose.Schema.ObjectId, ref: "Attachments" },
-  mainFees: [{name: {type:String, default: ""}, amount: {type: String, default: ""}, description: {type: String, default: ""}}],
-  optionalFees: [{name: {type:String, default: ""}, amount: {type: String, default: ""}, description: {type: String, default: ""}}],
+  mainFees: [{name: {type:String, default: ""}, amount: {type: Number, default: 0}}],
+  optionalFees: [{name: {type:String, default: ""}, amount: {type: Number, default: 0}}],
   annualRent: {type: Number, default: 0},
+  monthlyRent: {type: Number, default: 0},
   fullPropertyPrice: {type: Number, default: 0},
+  annualPayment: {type: Number, default: 0},
   address: {type:String, default: ""},
   title: {type:String, default: ""},
   description: {type:String, default: ""},
