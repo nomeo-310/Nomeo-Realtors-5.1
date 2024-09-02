@@ -159,7 +159,7 @@ export type userProps = {
   inspections: string[];
   createdAt: string;
   updatedAt: string;
-}
+};
 
 export type notificationProps = {
   _id: string
@@ -177,6 +177,51 @@ export type notificationProps = {
   recipient: string;
   property?: string;
   createdAt: string;
+};
+
+export type propertyProps = {
+  propertyId: string;
+  numberOfRooms: number;
+  numberOfBath: number;
+  numberOfToilets: number;
+  area: number;
+  agent: {
+    user: {
+      _id: string;
+      name: string;
+      image: string;
+    },
+    agencyName: string;
+    agentInspectionFee: number;
+    rating: string;
+    agencyWebsite: string;
+    licenseNumber: string
+  };
+  closestLandmarks: closeLandmark[];
+  images: {
+    attachments: image[]
+  };
+  mainFees: fees[];
+  optionalFees: fees[];
+  annualRent: number;
+  monthlyRent: number;
+  fullPropertyPrice: number;
+  annualPayment: number;
+  address: string;
+  title: string;
+  description: string;
+  furnitureStatus: string;
+  mainAmenities: string[]; 
+  optionalAmenities: string[]; 
+  availabilityTag: string;
+  propertyTag: string;
+  city: string;
+  state: string;
+  bookmarks: string[];
+  inspections: string[];
+  likes: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 

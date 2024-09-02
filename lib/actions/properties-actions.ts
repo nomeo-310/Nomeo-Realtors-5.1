@@ -89,7 +89,7 @@ export const createProperty = async ({title, address, propertyTag, furnitureStat
       mainFees: mainFees,
       optionalFees: optionalFees,
       closestLandmarks: closestLandmarks,
-      agent: currentUser._id,
+      agent: currentUser.isAgent,
     };
 
     const newProperty = await Properties.create(newPropertyData)

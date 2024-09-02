@@ -41,7 +41,7 @@ const LoginForm = () => {
         window.location.reload();
         return toast({
           variant: "success",
-          title: 'This is looking good!.',
+          title: 'Success',
           description: 'Login was successful'
         });
       };
@@ -50,7 +50,7 @@ const LoginForm = () => {
         setIsLoading(false);
         return toast({
           variant: "destructive",
-          title: 'Uh oh! Something went wrong.',
+          title: 'Error',
           description: callback.error
         })
       };

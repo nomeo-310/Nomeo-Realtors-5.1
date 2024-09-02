@@ -6,15 +6,17 @@ import Testimonials from "./components/home/testimonials/Testimonials";
 import LatestBlogs from "./components/home/latest-blogs/LatestBlogs";
 import FeaturedProperties from "./components/home/featured-properties/FeaturedProperties";
 import Footer from "./components/footer/Footer";
+import { getCurrentUser } from "@/lib/actions/user-actions";
 
 
-const  Home = () => {
+const  Home = async () => {
+  const user = await getCurrentUser();
 
   return (
     <React.Fragment>
       <LandingPage/>
       <OurServices/>
-      <FeaturedProperties/>
+      <FeaturedProperties user={user}/>
       <LatestBlogs/>
       <Testimonials/>
       <FrequentyAskedQuestions/>

@@ -129,12 +129,14 @@ const AgentMultiStepForm = ({user}:{user:userProps}) => {
       setImageUrls(imageUrls);
       toast({
         variant: "success",
+        title: "Success",
         description: 'Profile image succesfully uploaded!'
       })
       setImageUploaded(true);
     } catch (error) {
       toast({
         variant: "destructive",
+        title: "Error",
         description: 'Error while uploading profile image, try again later.'
       })
     }
@@ -158,12 +160,12 @@ const AgentMultiStepForm = ({user}:{user:userProps}) => {
       if (response.success) {
         resetField();
         agentProfile.onClose();
-        toast({
+        window.location.reload();
+        return toast({
           title: user.profileCreated ? 'Agent profile updated!' : 'Agent profile created!',
           description: user.profileCreated ? 'You have successfully updated your profile.': 'You have successfully created your profile.',
           variant: 'success'
         })
-        window.location.reload();
       }
 
       if (response.error) {

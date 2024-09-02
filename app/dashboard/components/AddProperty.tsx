@@ -147,7 +147,7 @@ const AddProperty = ({setActiveTab}: Props) => {
   const ImageHolder = ({public_id, secure_url, index}:{public_id:string, secure_url:string, index:number}) => {
     return (
       <div className="rounded bg-gray-200 overflow-hidden relative cursor-pointer group">
-        <Image src={secure_url} priority alt='image_2' className='size-fit object-cover' width={500} height={600}/>
+        <Image src={secure_url} priority alt={`preview-image_${index}`} className='size-fit object-cover text-sm bg-black/40' width={500} height={600}/>
         <div className="w-full bg-black/40 absolute left-0 top-0 w-full h-full z-10 text-white flex flex-col items-end justify-end p-2 opacity-0 group-hover:opacity-100">
           <div className="flex justify-between w-full">
             <HiOutlineStar size={32} onClick={() => moveImageFirst(public_id)} className={cn('', index === 0 && 'fill-primary text-primary')}/>

@@ -40,7 +40,7 @@ const SignUpForm = () => {
         setIsLoading(false);
         return toast({
           variant: "destructive",
-          title: 'Uh oh! Something went wrong.',
+          title: 'Error',
           description: response.error
         })
       };
@@ -51,7 +51,7 @@ const SignUpForm = () => {
         loginUser.onOpen();
         return toast({
           variant: "success",
-          title: 'This is looking good!',
+          title: 'Success!',
           description: response.success
         })
       };

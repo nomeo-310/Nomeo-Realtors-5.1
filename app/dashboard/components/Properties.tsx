@@ -17,7 +17,7 @@ const Properties = ({user}: Props) => {
       { user.role === 'agent' ? (
         <React.Fragment>
           { activeTab === 'add-property' && <AddProperty setActiveTab={setActiveTab} /> }
-          { activeTab === 'added-properties' && <AddedProperties setActiveTab={setActiveTab}/> }
+          { activeTab === 'added-properties' && <AddedProperties setActiveTab={setActiveTab} user={user}/> }
         </React.Fragment> ) : ''
       }
     </React.Fragment>
