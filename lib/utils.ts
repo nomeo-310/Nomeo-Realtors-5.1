@@ -51,9 +51,9 @@ export const generateLicenseNumber = () => {
 
 
 export const generatePropertyId = () => {
-  const random = crypto.randomBytes(3).toString('hex').toUpperCase();
+  const random = crypto.randomBytes(3).toString('hex');
   const randomPart = random.substring(0, 7);
-  const propertyId = `Property-${randomPart}`
+  const propertyId = `property-${randomPart}`
 
   return propertyId;
 };

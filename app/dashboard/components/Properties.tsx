@@ -4,21 +4,31 @@ import React from 'react'
 import AddProperty from './AddProperty';
 import AddedProperties from './AddedProperties';
 import { userProps } from '@/lib/types';
+import Bookmarks from './Bookmarks';
+import RentedProperties from './RentedProperties';
+import LikedProperties from './LikedProperties';
 
 type Props = {
   user:userProps
 }
 
 const Properties = ({user}: Props) => {
-  const [activeTab, setActiveTab] = React.useState('add-property');
+  const [agentActiveTab, setAgentActiveTab] = React.useState('add-property');
+  const [userActiveTab, setUserActiveTab] = React.useState('bookmarks');
 
   return (
     <React.Fragment>
       { user.role === 'agent' ? (
         <React.Fragment>
-          { activeTab === 'add-property' && <AddProperty setActiveTab={setActiveTab} /> }
-          { activeTab === 'added-properties' && <AddedProperties setActiveTab={setActiveTab} user={user}/> }
-        </React.Fragment> ) : ''
+          { agentActiveTab === 'add-property' && <AddProperty setActiveTab={setAgentActiveTab} /> }
+          { agentActiveTab === 'added-properties' && <AddedProperties setActiveTab={setAgentActiveTab} user={user}/> }
+        </React.Fragment> ) : (
+        <React.Fragment>
+          { userActiveTab === 'liked-properties' && !user.showLikedProperties && <LikedProperties user={user} setActiveTab={setUserActiveTab}/> }
+          { userActiveTab === 'rented-properties' && <RentedProperties setActiveTab={setUserActiveTab} user={user}/>}
+          { userActiveTab === 'bookmarks' && <Bookmarks user={user} setActiveTab={setUserActiveTab}/>}
+        </React.Fragment>
+        )
       }
     </React.Fragment>
   )

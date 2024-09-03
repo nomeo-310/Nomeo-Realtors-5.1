@@ -19,7 +19,7 @@ const DashboardLayout = ({children, user, activeTab, setActiveTab}:layoutProps) 
   const agentLoggedIn = user?.role === 'agent';
 
   React.useEffect(() => {
-    if (!agentLoggedIn) {
+    if (!user) {
       router.push('/')
     }
   }, []);

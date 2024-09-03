@@ -52,6 +52,7 @@ export interface IProperty extends Document {
   propertyTag: 'for-rent' | 'for-sale';
   city: string;
   state: string;
+  likes: Schema.Types.ObjectId[];
   bookmarks: Schema.Types.ObjectId[];
   inspections: Schema.Types.ObjectId[];
   createdAt: Date;
@@ -82,7 +83,8 @@ export interface INotification extends Document {
   seen: boolean;
   issuer: Schema.Types.ObjectId;
   recipient: Schema.Types.ObjectId;
-  property: Schema.Types.ObjectId;
+  property: string;
+  additionalPhoneNumber: string;
   createdAt: Date;
 };
 
@@ -151,6 +153,7 @@ export type userProps = {
     phoneNumber: string;
   }
   profileCreated: boolean;
+  showLikedProperties: boolean;
   agents: string[];
   properties: string[];
   bookmarkedProperties: string[];
@@ -180,12 +183,14 @@ export type notificationProps = {
 };
 
 export type propertyProps = {
+  _id: string;
   propertyId: string;
   numberOfRooms: number;
   numberOfBath: number;
   numberOfToilets: number;
   area: number;
   agent: {
+    _id: string;
     user: {
       _id: string;
       name: string;

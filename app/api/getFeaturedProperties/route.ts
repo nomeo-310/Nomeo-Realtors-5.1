@@ -12,7 +12,7 @@ export const GET = async() => {
     .populate({
       path: 'agent',
       model: Agents,
-      select: 'agencyName agentInspectionFee rating agencyWebsite licenseNumber',
+      select: '_id agencyName agentInspectionFee rating agencyWebsite licenseNumber',
       populate: {
         path: 'user',
         model: Users,

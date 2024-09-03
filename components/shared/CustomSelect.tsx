@@ -13,7 +13,7 @@ type Props = {
 const CustomSelect = ({data, placeholder, value, onChange}:Props) => {
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className="capitalize w-full text-base bg-inherit rounded ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-0 focus:ring-none focus:ring-offset-0">
+      <SelectTrigger className=" h-12 capitalize w-full text-base bg-inherit rounded ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-0 focus:ring-none focus:ring-offset-0">
         <SelectValue placeholder={placeholder} className="capitalize"/>
       </SelectTrigger>
       <SelectContent className="rounded">

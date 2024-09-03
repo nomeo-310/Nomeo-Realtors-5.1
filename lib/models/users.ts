@@ -15,6 +15,7 @@ const UsersSchema = new Schema({
   role: {type: String, enum: ['user', 'agent'], default: 'user'},
   newsletterSubscriptions: {type: Boolean, default: false},
   profileCreated: {type: Boolean, default: false},
+  showLikedProperties: {type: Boolean, default: false},
   isAgent: { type: mongoose.Schema.ObjectId, ref: "Agents" },
   agents:  [{ type: mongoose.Schema.ObjectId, ref: "Agents" }],
   properties:  [{ type: mongoose.Schema.ObjectId, ref: "Properties" }],

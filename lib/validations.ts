@@ -52,17 +52,6 @@ export const userProfileSchema = z.object({
 
 export type userProfileValues = z.infer<typeof userProfileSchema>
 
-const numberSchema = z.string().transform((value) => {
-  const parsedNumber = Number(value);
-
-  if (isNaN(parsedNumber)) {
-    throw new Error('Invalid number format');
-  };
-
-  return parsedNumber;
-})
-
-
 export const addPropertySchema = z.object({
   title: requiredString,
   address: requiredString,
@@ -107,6 +96,14 @@ export const addPropertySchema = z.object({
 
   return parsedNumber;
 }),
+});
+
+export type addPropertyValues = z.infer<typeof addPropertySchema>;
+
+export const scheduleSchema = z.object({
+  date: z.date(),
+  time: requiredString,
+  additionalPhoneNumber: z.string().optional(),
 })
 
-export type addPropertyValues = z.infer<typeof addPropertySchema>
+export type scheduleValues = z.infer<typeof scheduleSchema>;

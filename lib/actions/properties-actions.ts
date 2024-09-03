@@ -1,10 +1,13 @@
 'use server'
 
+import { ObjectId } from "mongodb";
 import Agents from "../models/agents";
 import Attachments from "../models/attachments";
 import Properties from "../models/properties";
+import Users from "../models/users";
 import { connectToMongoDB, generatePropertyId } from "../utils";
 import { getCurrentUser } from "./user-actions";
+import { revalidatePath } from "next/cache";
 
 type imageProps = {
   public_id:string;
@@ -45,7 +48,7 @@ type createPropertyProps = {
   closestLandmarks: landmarkProps[]
 };
 
-export const createProperty = async ({title, address, propertyTag, furnitureStatus, description, city, state, annualRent, monthlyRent, fullPropertyPrice, annualPayment, numberOfRooms, numberOfBath, numberOfToilets, area, images, mainAmenities, mainFees, optionalFees, closestLandmarks}:createPropertyProps) => {
+export const createProperty = async ({title, address, propertyTag, furnitureStatus, description, city, state, annualRent, monthlyRent, fullPropertyPrice, annualPayment, numberOfRooms, numberOfBath, numberOfToilets, area, images, mainAmenities, optionalAmenities, mainFees, optionalFees, closestLandmarks}:createPropertyProps) => {
   await connectToMongoDB();
   const currentUser = await getCurrentUser();
 
@@ -86,6 +89,7 @@ export const createProperty = async ({title, address, propertyTag, furnitureStat
       area: area,
       images: newAttachment._id,
       mainAmenities: mainAmenities,
+      optionalAmenities: optionalAmenities,
       mainFees: mainFees,
       optionalFees: optionalFees,
       closestLandmarks: closestLandmarks,
@@ -102,4 +106,106 @@ export const createProperty = async ({title, address, propertyTag, furnitureStat
   } catch (error) {
     return {error: 'Internal server error, try again later'}
   }
-}
+};
+
+export const getSingleProperty = async (propertyId:string) => {
+  await connectToMongoDB();
+
+  try {
+    const property = await Properties.findOne({propertyId: propertyId})
+    .populate({
+      path: 'agent',
+      model: Agents,
+      select: '_id agencyName agentInspectionFee rating agencyWebsite licenseNumber',
+      populate: {
+        path: 'user',
+        model: Users,
+        select: '_id name image'
+      }
+    })
+    .populate({
+      path: 'images',
+      model: Attachments,
+      select: 'attachments'
+    })
+
+    const singleProperty = JSON.parse(JSON.stringify(property))
+    return singleProperty;
+  } catch (error) {
+    console.error(error)
+    return {error: 'Internal server error'}
+  }
+
+};
+
+export const likeProperty = async ({propertyId, path}:{propertyId:string; path:string}) => {
+  const newPropertyId = new ObjectId(propertyId);
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return;
+  };
+
+  const property = await Properties.findOne({_id: propertyId})
+
+  if (!property) {
+    return;
+  };
+
+  const alreadyLiked = property.likes.includes(user._id)
+
+  try {
+    if (alreadyLiked) {
+      await Properties.findOneAndUpdate({_id: propertyId}, {$pull: {likes: user._id}})
+      await Users.findOneAndUpdate({_id: user._id}, {$pull: {likedProperties: newPropertyId}});
+  
+      revalidatePath(path);
+      return { success: "You no longer like this property"};
+    };
+
+    await Properties.findOneAndUpdate({_id: propertyId}, {$push: {likes: user._id}})
+    await Users.findOneAndUpdate({_id: user._id}, {$push: {likedProperties: newPropertyId}});
+
+    revalidatePath(path);
+    return { success: "You like this property"};
+  } catch (error) {
+    return {error: 'Internal server error, try again later'}
+  }
+};
+
+export const bookmarkProperty = async ({propertyId, path}:{propertyId:string; path:string}) => {
+  await connectToMongoDB();
+
+  const newPropertyId = new ObjectId(propertyId);
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return;
+  };
+
+  const property = await Properties.findOne({_id: propertyId})
+
+  if (!property) {
+    return;
+  };
+
+  const alreadyLiked = property.bookmarks.includes(user._id)
+
+  try {
+    if (alreadyLiked) {
+      await Properties.findOneAndUpdate({_id: propertyId}, {$pull: {bookmarks: user._id}})
+      await Users.findOneAndUpdate({_id: user._id}, {$pull: {bookmarkedProperties: newPropertyId}});
+  
+      revalidatePath(path);
+      return { success: "This property is removed from your bookmarks"};
+    };
+
+    await Properties.findOneAndUpdate({_id: propertyId}, {$push: {bookmarks: user._id}})
+    await Users.findOneAndUpdate({_id: user._id}, {$push: {bookmarkedProperties: newPropertyId}});
+
+    revalidatePath(path);
+    return { success: "This property has been added to your bookmarks"};
+  } catch (error) {
+    return {error: 'Internal server error, try again later'}
+  }
+};

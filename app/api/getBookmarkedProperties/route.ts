@@ -13,9 +13,7 @@ export const POST = async(request:Request) => {
     return Response.json({error: 'Unauthorized'}, {status: 404});
   };
 
-  if (currentUser.role !== 'agent') {
-    return Response.json({error: 'Unauthorized'}, {status: 404});
-  };
+  const bookmarks = currentUser.bookmarkedProperties;
 
 
   const { page } = await request.json();
@@ -26,7 +24,7 @@ export const POST = async(request:Request) => {
   await connectToMongoDB();
 
   try {
-    const properties = await Properties.find({agent: currentUser.isAgent})
+    const properties = await Properties.find({_id: {$in: bookmarks}})
     .populate({
       path: 'agent',
       model: Agents,

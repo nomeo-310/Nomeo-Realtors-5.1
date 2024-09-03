@@ -45,7 +45,7 @@ const PropertyCard = ({property, user, agentMode, agentProfileMode}: Props) => {
           <DropdownMenuItem className='rounded cursor-pointer'>
             <p className='text-sm'>Edit</p>
           </DropdownMenuItem>
-          <DropdownMenuItem className='rounded cursor-pointer' onClick={() => router.push(`/property/${property.propertyId.toLowerCase()}`)}>
+          <DropdownMenuItem className='rounded cursor-pointer' onClick={() => router.push(`/property/${property.propertyId}`)}>
             <p className='text-sm'>View</p>
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -54,7 +54,7 @@ const PropertyCard = ({property, user, agentMode, agentProfileMode}: Props) => {
   };
 
   return (
-    <div className='w-full flex flex-col gap-2 cursor-pointer group' onClick={!agentMode || !agentProfileMode ? () => router.push(`/property/${property.propertyId.toLowerCase()}`) : () => {}}>
+    <div className='w-full flex flex-col gap-2 cursor-pointer group' onClick={!agentMode || !agentProfileMode ? () => router.push(`/property/${property.propertyId}`) : () => {}}>
       <div className="bg-gray-300 relative md:aspect-square aspect-video xl:h-[15rem] lg:h-[14rem] md:h-[13rem] h-[14rem] flex items-center justify-center overflow-hidden rounded">
         <Image alt='property_image' src={property.images.attachments[0].secure_url} className='object-cover' fill priority/>
         { !agentMode && <div className="bg-white py-1 px-2 rounded absolute left-3 top-3 capitalize text-sm text-black">{ property.propertyTag.split('-').join(' ')}</div> }
@@ -95,15 +95,15 @@ const PropertyCard = ({property, user, agentMode, agentProfileMode}: Props) => {
             <PropertyMenu/>
           </div>
           ) : (
-          <div className="right-3 top-3 absolute flex items-center gap-4">
+          <div className="right-3 top-3 absolute flex items-center gap-3">
             { liked &&
-              <div className='relative hover:opacity-80 transition cursor-pointer mt-1'>
-                <AiOutlineHeart size={26} className='fill-rose-500'/>
+              <div className='relative hover:opacity-80 transition cursor-pointer bg-red-100 p-1 rounded-full'>
+                <AiOutlineHeart size={20} className='fill-rose-500'/>
               </div>
             }
             { bookmarked &&
-              <div className='relative hover:opacity-80 transition cursor-pointer mt-1'>
-                <CiBookmarkCheck size={26} className='fill-blue-500'/>
+              <div className='relative hover:opacity-80 transition cursor-pointer p-1 rounded-full bg-blue-100'>
+                <CiBookmarkCheck size={20} className='fill-blue-500'/>
               </div>
             }
           </div> )
