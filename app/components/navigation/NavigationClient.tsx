@@ -49,7 +49,7 @@ const NavigationClient = ({currentUser, notificationCount}: Props) => {
   })
 
   const navbarAbsolute = 'pt-4 absolute left-0 top-0 w-full lg:h-[75px] md:h-[70px] z-[200] h-[60px] z-[40000]';
-  const navbarFixed = 'pt-4 z-[4000] fixed w-full lg:h-[75px] md:h-[70px] h-[60px] lg:-top-[75px] bg-card md:-top-[70px] -top-[60px] transform lg:translate-y-[65px] md:translate-y-[60px] translate-y-[50px] transition-all ease-out duration-200 shadow shadow-[4px_4px_4px_0_rgba(0, 0, 0, 0.3)]';
+  const navbarFixed = 'pt-4 z-[4000] fixed w-full lg:h-[75px] md:h-[70px] h-[60px] lg:-top-[75px] bg-card md:-top-[70px] -top-[60px] transform lg:translate-y-[65px] md:translate-y-[60px] translate-y-[50px] transition-all ease-out duration-1000 shadow shadow-[4px_4px_4px_0_rgba(0, 0, 0, 0.3)]';
 
   const [navbarState, setNavbarState] = React.useState(navbarAbsolute);
 

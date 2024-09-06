@@ -244,6 +244,7 @@ export type blogProps = {
     agentBio: string;
     licenseNumber: string;
     user: {
+      _id: string
       name: string;
       image: string;
     }

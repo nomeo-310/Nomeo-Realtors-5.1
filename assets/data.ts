@@ -1,6 +1,5 @@
 import { IconType } from "react-icons/lib";
 import { TfiBag, TfiBookmarkAlt, TfiSignal } from "react-icons/tfi";
-import { TbBellRinging, TbFileText, TbHomeHeart, TbHomePlus, TbHomeRibbon, TbLockPlus, TbUserEdit } from 'react-icons/tb';
 
 export interface frequentlyAskedQuestion {
   question: string;
@@ -158,36 +157,6 @@ export const testimonials = [
   }
 ];
 
-export const agentMenuList = [
-  {
-    label: 'property',
-    icon: TbHomePlus
-  },
-  {
-    label: 'post',
-    icon: TbFileText
-  }
-];
-
-export const mainItemList = [
-  {
-    label: 'notifications',
-    icon: TbBellRinging
-  },
-  {
-    label: 'likes',
-    icon: TbHomeHeart
-  },
-  {
-    label: 'saves',
-    icon: TbHomeRibbon
-  },
-  {
-    label: 'profile',
-    icon: TbUserEdit
-  },
-  {
-    label: 'password',
-    icon: TbLockPlus
-  },
-];
+export const blogData = {
+  mainTitle: "Are you navigating the exciting yet complex world of Lagos real estate? Look no further! At Nomeo Suites, we're passionate about connecting you with your dream property and empowering you with knowledge. This blog is your gateway to expert advice, insightful market trends, and local real estate news. Whether you're a seasoned investor, a first-time homebuyer, or a renter seeking your perfect place, we've got something for everyone.",
+};

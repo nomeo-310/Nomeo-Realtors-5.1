@@ -8,7 +8,7 @@ import { LucideBed } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react'
-import { HiEllipsisHorizontal, HiOutlineMapPin, HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi2';
+import { HiEllipsisHorizontal, HiOutlineMapPin} from 'react-icons/hi2';
 import { LiaBathSolid, LiaToiletSolid } from 'react-icons/lia';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { SlSizeFullscreen } from "react-icons/sl";

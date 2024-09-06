@@ -1,38 +1,38 @@
 'use client'
 
 import React from 'react'
-import { propertyProps, userProps } from '@/lib/types';
+import { blogProps, propertyProps, userProps } from '@/lib/types';
 import { useLogin } from '@/lib/useModals';
 import { usePathname } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
-import { likeProperty } from '@/lib/actions/properties-actions';
 import { LucideHeart } from 'lucide-react';
+import { likeBlog } from '@/lib/actions/blog-action';
 
 type Props = {
   user: userProps
-  property: propertyProps
+  blog: blogProps
 }
 
-const LikeButton = ({user, property}: Props) => {
+const LikeButton = ({user, blog}: Props) => {
 
   const path = usePathname();
   const loginUser = useLogin();
   const { toast } = useToast();
 
   
-  const alreadyLiked = property.likes.includes(user?._id);
+  const alreadyLiked = blog.likes?.includes(user?._id);
   
   const handleLike = async () => {
     
     if (!user) {
       loginUser.onOpen();
       return;
-    };
+    };               
 
-    const likeData = { propertyId: property._id, path: path }
+    const likeData = { blogId: blog._id, path: path }
 
     try {
-      await likeProperty(likeData).then(
+      await likeBlog(likeData).then(
         (response) => {
           if (response?.success) {
             toast({

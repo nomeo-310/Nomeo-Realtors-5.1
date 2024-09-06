@@ -17,10 +17,9 @@ import { createPost } from '@/lib/actions/blog-action';
 
 type Props = {
   setActiveTab: React.Dispatch<React.SetStateAction<string>>
-  user: userProps
 }
 
-const CreatePost = ({setActiveTab, user}: Props) => {
+const CreatePost = ({setActiveTab}: Props) => {
 
   const { toast } = useToast();
 
@@ -30,12 +29,20 @@ const CreatePost = ({setActiveTab, user}: Props) => {
   const [title, setTitle] = React.useState('');
   const [intro, setIntro] = React.useState('');
 
+  const getWordCount = (text:string) => {
+    const words = text.split(/\s+/).filter(Boolean)
+    const wordsCount = words.length;
+
+    return wordsCount;
+  };
+
+  const wordsCounts = getWordCount(content);
+  const wordPerMinute = 200;
+
   const [imageFile, setImageFile] = React.useState<File| null>(null);
   const [postBanner, setPostBanner] = React.useState({secure_url: '', public_id: ''});
   const [imageUploaded, setImageUploaded] = React.useState(false);
 
-  const [wordCount, setWordCount] = React.useState(0);
-  const wordPerMinute = 200;
 
   const onChangeImageFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -135,7 +142,7 @@ const CreatePost = ({setActiveTab, user}: Props) => {
       intro: intro,
       content: content,
       bannerImage: postBanner,
-      readTime: (wordCount / wordPerMinute).toFixed(2)
+      readTime: (wordsCounts / wordPerMinute).toFixed(2)
     };
 
     try {
@@ -228,7 +235,7 @@ const CreatePost = ({setActiveTab, user}: Props) => {
               </div>
             </label>
           </div>
-          <TipTap content={content} onChange={(newContent:string) => handleContentChange(newContent)} setWordCount={setWordCount}/>
+          <TipTap content={content} onChange={(newContent:string) => handleContentChange(newContent)}/>
           <div className='mt-8'>
             <LoadingButton loading={isLoading} disabled={isLoading} className='rounded-full' type='submit'>
               <p className='text-base'>{isLoading ? 'Creating post...' : 'Create post'}</p>

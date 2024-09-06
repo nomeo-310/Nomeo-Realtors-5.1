@@ -78,7 +78,7 @@ const AgentSection = ({user, property}: Props) => {
             </div>
           </div>
         </div>
-        <hr/>
+        { user.role === 'user' && <hr/> }
       </React.Fragment>
     )
   };
@@ -223,7 +223,7 @@ const AgentSection = ({user, property}: Props) => {
   return (
     <div className="md:w-[50%] lg:w-[45%] w-full md:border-l md:pl-4">
       <AgentDetails/>
-      <ScheduleInspection />
+      { user.role === 'user' && <ScheduleInspection /> }
     </div>
   )
 }

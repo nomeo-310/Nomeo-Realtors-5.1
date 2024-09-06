@@ -27,10 +27,12 @@ const Header = ({property, user}: Props) => {
             <p  className='lg:text-lg capitalize'>{property.furnitureStatus}</p>
           </div>
         </div>
-        <div className="flex items-center gap-3 justify-end">
-          <LikeButton user={user} property={property}/>
-          <BookmarkButton user={user} property={property}/>
-        </div>
+        { user._id !== property.agent.user._id &&
+          <div className="flex items-center gap-3 justify-end">
+            <LikeButton user={user} property={property}/>
+            <BookmarkButton user={user} property={property}/>
+          </div>
+        }
       </div>
     </div>
   )

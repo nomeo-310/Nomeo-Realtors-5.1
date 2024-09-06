@@ -60,7 +60,7 @@ const LatestBlogPosts = () => {
         </div>
         <div className='flex flex-col gap-2'>
           <p className='line-clamp-2 lg:text-xl text-lg font-semibold'>{blogList[0].title}</p>
-          <p className='line-clamp-2 text-gray-400'>{blogList[0].intro}</p>
+          <p className='line-clamp-2 text-gray-400 dark:text-white'>{blogList[0].intro}</p>
           <Link href={`/blogs/${blogList[0]._id}`} className='flex items-center gap-2 font-semibold hover:text-yellow-400 text-sm lg:mt-5 mt-4'>
             CONTINUE READING
             <HiMiniArrowRight size={18}/>
@@ -76,13 +76,13 @@ const LatestBlogPosts = () => {
               <p className='text-sm'>{formatDate(blogList[1].createdAt)}</p>
             </div>
             <div>
-              <ImageAvatar className='rounded overflow-hidden lg:w-11 lg:h-11 w-10 h-10' src={blogList[1].author.user.image}/>
+              <ImageAvatar className='rounded-full flex-none lg:w-11 lg:h-11 w-10 h-10' src={blogList[1].author.user.image}/>
             </div>
           </div>
         </div>
         <div className='flex flex-col gap-2'>
           <p className='line-clamp-2 lg:text-xl text-lg font-semibold'>{blogList[1].title}</p>
-          <p className='line-clamp-2 text-gray-400'>{blogList[1].intro}</p>
+          <p className='line-clamp-2 text-gray-400 dark:text-white'>{blogList[1].intro}</p>
           <Link href={`/blogs/${blogList[1]._id}`} className='flex items-center gap-2 font-semibold hover:text-yellow-400 text-sm lg:mt-5 mt-4'>
             CONTINUE READING
             <HiMiniArrowRight size={18}/>
@@ -98,13 +98,13 @@ const LatestBlogPosts = () => {
               <p className='text-sm'>{formatDate(blogList[2].createdAt)}</p>
             </div>
             <div>
-              <ImageAvatar className='rounded overflow-hidden lg:w-11 lg:h-11 w-10 h-10' src={blogList[2].author.user.image}/>
+              <ImageAvatar className='rounded-full flex-none lg:w-11 lg:h-11 w-10 h-10' src={blogList[2].author.user.image}/>
             </div>
           </div>
         </div>
         <div className='flex flex-col gap-2'>
           <p className='line-clamp-2 lg:text-xl text-lg font-semibold'>{blogList[2].title}</p>
-          <p className='line-clamp-2 text-gray-400'>{blogList[2].intro}</p>
+          <p className='line-clamp-2 text-gray-400 dark:text-white'>{blogList[2].intro}</p>
           <Link href={`/blogs/${blogList[2]._id}`} className='flex items-center gap-2 font-semibold hover:text-yellow-400 text-sm lg:mt-5 mt-4'>
             CONTINUE READING
             <HiMiniArrowRight size={18}/>
@@ -127,7 +127,7 @@ const LatestBlogPosts = () => {
           </div>
           <div className="w-[60%] h-full flex flex-col justify-between pb-4">
             <p className='line-clamp-2 lg:text-xl text-lg font-semibold'>{blogList[1].title}</p>
-            <p className='line-clamp-3 text-gray-400'>{blogList[1].intro}</p>
+            <p className='line-clamp-3 text-gray-400 dark:text-white'>{blogList[1].intro}</p>
             <Link href={`/blogs/${blogList[1]._id}`} className='flex items-center gap-2 font-semibold hover:text-yellow-400 text-sm lg:mt-5 mt-4'>
               CONTINUE READING
               <HiMiniArrowRight size={18}/>
@@ -149,7 +149,7 @@ const LatestBlogPosts = () => {
           </div>
           <div className="w-[60%] h-full flex flex-col justify-between pb-4">
             <p className='line-clamp-2 lg:text-xl text-lg font-semibold'>{blogList[2].title}</p>
-            <p className='line-clamp-3 text-gray-400'>{blogList[2].intro}</p>
+            <p className='line-clamp-3 text-gray-400 dark:text-white'>{blogList[2].intro}</p>
             <Link href={`/blogs/${blogList[2]._id}`} className='flex items-center gap-2 font-semibold hover:text-yellow-400 text-sm lg:mt-5 mt-4'>
               CONTINUE READING
               <HiMiniArrowRight size={18}/>

@@ -10,7 +10,7 @@ import { CiTextAlignRight } from 'react-icons/ci';
 
 type Props = {}
 
-const TipTap = ({content, onChange, setWordCount}:any) => {
+const TipTap = ({content, onChange}:any) => {
 
   const handleChange = (newContent:string) => {
     onChange(newContent)
@@ -28,19 +28,6 @@ const TipTap = ({content, onChange, setWordCount}:any) => {
     },
 
   });
-
-  React.useEffect(() => {
-
-    if (!editor) {
-      return;
-    };
-
-    const text = editor.getText();
-    const words = text.split(/\s+/).filter(Boolean);
-    const wordLength = words.length;
-    setWordCount(wordLength)
-
-  }, [editor])
 
   const ToolBar = () => {
 

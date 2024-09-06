@@ -15,7 +15,7 @@ type createInspectionProps = {
   agent: string;
 }
 
-export const createInspection = async ({date, time, property, additionalPhoneNumber, agent}:createInspectionProps) => {
+export const createInspection = async ({date, time, property, additionalPhoneNumber, agent }:createInspectionProps) => {
   await connectToMongoDB();
 
   const user = await getCurrentUser();
