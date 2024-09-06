@@ -13,7 +13,7 @@ const RentedProperties = ({user, setActiveTab}: Props) => {
         <div className='flex w-full lg:gap-6 gap-4 cursor-pointer'>
           <h2 className='text-xl md:text-3xl font-semibold'>Rented Properties</h2>
           <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('bookmarks')}>Bookmarks</h2>
-          { !user.showLikedProperties && <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('liked-properties')}>Liked Properties</h2> }
+          { user.showLikedProperties && <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('liked-properties')}>Liked Properties</h2> }
         </div>
       </div>
     </div>

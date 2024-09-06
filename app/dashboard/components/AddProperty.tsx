@@ -148,7 +148,7 @@ const AddProperty = ({setActiveTab}: Props) => {
     return (
       <div className="rounded bg-gray-200 overflow-hidden relative cursor-pointer group">
         <Image src={secure_url} priority alt={`preview-image_${index}`} className='size-fit object-cover text-sm bg-black/40' width={500} height={600}/>
-        <div className="w-full bg-black/40 absolute left-0 top-0 w-full h-full z-10 text-white flex flex-col items-end justify-end p-2 opacity-0 group-hover:opacity-100">
+        <div className="bg-black/40 absolute left-0 top-0 w-full h-full z-10 text-white flex flex-col items-end justify-end p-2 opacity-0 group-hover:opacity-100">
           <div className="flex justify-between w-full">
             <HiOutlineStar size={32} onClick={() => moveImageFirst(public_id)} className={cn('', index === 0 && 'fill-primary text-primary')}/>
             <HiOutlineXCircle size={32} onClick={() => handleDeleteImages(public_id)}/>
@@ -709,7 +709,7 @@ const AddProperty = ({setActiveTab}: Props) => {
                 />
               </div>
               <div className='flex items-center justify-end'>
-                <Button className='text-base py-2 px-4 md:px-6 flex items-center gap-2 mt-1 justify-end rounded-full text-base' type='button' onClick={createOptionalFees}>
+                <Button className='py-2 px-4 md:px-6 flex items-center gap-2 mt-1 justify-end rounded-full text-base' type='button' onClick={createOptionalFees}>
                   <HiPlus size={24}/>
                   { optionalFees.length === 0 ? 'Add fee': 'Add more'}
                 </Button>

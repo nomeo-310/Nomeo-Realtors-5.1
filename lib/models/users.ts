@@ -21,6 +21,7 @@ const UsersSchema = new Schema({
   properties:  [{ type: mongoose.Schema.ObjectId, ref: "Properties" }],
   bookmarkedProperties: [{ type: mongoose.Schema.ObjectId, ref: "Properties" }],
   likedProperties: [{ type: mongoose.Schema.ObjectId, ref: "Properties" }],
+  likedBlogs:  [{ type: mongoose.Schema.ObjectId, ref: "Blogs" }],
   notifications: [{ type: mongoose.Schema.ObjectId, ref: "Notifications" }],
   inspections: [{ type: mongoose.Schema.ObjectId, ref: "Inspections" }],
   createdAt: {type: Date, default: Date.now()},

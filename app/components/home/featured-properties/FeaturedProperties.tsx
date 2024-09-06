@@ -7,7 +7,7 @@ import { userProps } from '@/lib/types';
 import FeaturedProperty from './FeaturedProperty';
 
 const FeaturedProperties = ({user}:{user:userProps}) => {
-  console.log(user)
+  
   return (
     <Container id='featuredProperties'>
       <Header

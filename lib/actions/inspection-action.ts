@@ -25,7 +25,6 @@ export const createInspection = async ({date, time, property, additionalPhoneNum
   };
 
   const propertyAgent = await Agents.findOne({_id: agent});
-  console.log(propertyAgent)
 
   if (!propertyAgent) {
     return;

@@ -24,7 +24,7 @@ const Properties = ({user}: Props) => {
           { agentActiveTab === 'added-properties' && <AddedProperties setActiveTab={setAgentActiveTab} user={user}/> }
         </React.Fragment> ) : (
         <React.Fragment>
-          { userActiveTab === 'liked-properties' && !user.showLikedProperties && <LikedProperties user={user} setActiveTab={setUserActiveTab}/> }
+          { userActiveTab === 'liked-properties' && user.showLikedProperties && <LikedProperties user={user} setActiveTab={setUserActiveTab}/> }
           { userActiveTab === 'rented-properties' && <RentedProperties setActiveTab={setUserActiveTab} user={user}/>}
           { userActiveTab === 'bookmarks' && <Bookmarks user={user} setActiveTab={setUserActiveTab}/>}
         </React.Fragment>

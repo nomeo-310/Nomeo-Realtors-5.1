@@ -3,6 +3,7 @@
 import ImageAvatar from '@/components/shared/ImageAvatar';
 import { notificationProps } from '@/lib/types';
 import { cn, formatDate, formatTargetDate, useCountdownTimer } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { CiAlarmOn } from 'react-icons/ci';
 import { HiOutlineBellAlert } from 'react-icons/hi2';
@@ -17,6 +18,7 @@ type mapItemType = {
 }
 
 const NotificationCard = ({notification}: Props) => {
+  const router = useRouter();
 
   const [showClient, setShowClient] = React.useState(false);
 
@@ -38,7 +40,7 @@ const NotificationCard = ({notification}: Props) => {
     },
     "inspections": {
       icon:<div className="size-10 rounded-full flex items-center justify-center bg-blue-300 dark:bg-blue-600"><HiOutlineBellAlert size={24} /></div>,
-      message: `${notification.message} on ${notification.inspectionDate} at ${notification.inspectionTime}`
+      message: `${notification.message} on ${formatDate(notification.inspectionDate?.toString() as string)} at ${notification.inspectionTime}`
     }
   };
 
@@ -58,12 +60,12 @@ const NotificationCard = ({notification}: Props) => {
         { notification.type === 'inspections' && 
           <div className='flex items-center gap-3 cursor-pointer'>
             <p className='underline text-sm sm:text-base' onClick={() =>setShowClient(!showClient)}>View client details</p>
-            <p className='underline text-sm sm:text-base'>View property</p>
+            <p className='underline text-sm sm:text-base' onClick={() =>router.push(`/property/${notification.property}`)}>View property</p>
           </div>
         }
         { showClient && notification.issuer &&
           <div className='flex gap-2 items-center'>
-            <ImageAvatar src={ notification.issuer.image && notification.issuer.image} alt='issuer_image' className='flex-none md:size-16 size-12'/>
+            <ImageAvatar src={ notification.issuer.image && notification.issuer.image} alt='issuer_image' className='flex-none md:size-16 size-12 rounded-full'/>
             <div>
               <p className='text-sm sm:text-base'>Name: {notification.issuer.name}</p>
               <p className='text-sm sm:text-base'>Phone: {notification.issuer.phoneNumber}</p>

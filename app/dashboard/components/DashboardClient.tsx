@@ -5,6 +5,7 @@ import DashboardLayout from './DashboardLayout';
 import { userProps } from '@/lib/types';
 import Notifications from './Notifications';
 import Properties from './Properties';
+import Posts from './Posts';
 
 const DashboardClient = ({user}:{user:userProps}) => {
   const [activeTab, setActiveTab] = React.useState('Notifications');
@@ -12,6 +13,7 @@ const DashboardClient = ({user}:{user:userProps}) => {
     <DashboardLayout user={user} setActiveTab={setActiveTab} activeTab={activeTab}>
       { activeTab === 'Notifications' && <Notifications user={user}/> }
       { activeTab === 'Properties' && <Properties user={user}/> }
+      { activeTab === 'Posts' && <Posts user={user}/>}
     </DashboardLayout>
   );
 }

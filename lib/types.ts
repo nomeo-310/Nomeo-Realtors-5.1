@@ -97,11 +97,14 @@ export interface IInspection {
 
 export interface IBlog extends Document {
   title: string;
+  intro: string;
   content: string;
-  bannerImage: string;
+  bannerImage: image;
   createdAt: Date;
   author: Schema.Types.ObjectId;
   likes: Schema.Types.ObjectId[];
+  reads: Schema.Types.ObjectId[];
+  readTime: string;
   comments: Schema.Types.ObjectId[];
 };
 
@@ -227,6 +230,28 @@ export type propertyProps = {
   likes: string[];
   createdAt: string;
   updatedAt: string;
+};
+
+export type blogProps = {
+  _id: string;
+  title: string;
+  intro: string;
+  content: string;
+  bannerImage: image;
+  createdAt: string;
+  author: {
+    agencyName: string;
+    agentBio: string;
+    licenseNumber: string;
+    user: {
+      name: string;
+      image: string;
+    }
+  };
+  likes: string[];
+  reads: string[];
+  readTime: string;
+  comments: string[];
 }
 
 
