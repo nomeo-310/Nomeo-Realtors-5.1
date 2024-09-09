@@ -58,7 +58,7 @@ const AllBlogs = ({user}: Props) => {
   if (status === "error") {
     return (
       <p className="text-base lg:text-lg text-center text-destructive">
-        An error occur while loading your created posts.
+        An error occur while loading your posts.
       </p>
     );
   }

@@ -20,6 +20,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/components/ui/use-toast';
 import { createInspection } from '@/lib/actions/inspection-action';
+import { useLogin } from '@/lib/useModals';
 
 type Props = {
   user:userProps;
@@ -28,7 +29,8 @@ type Props = {
 
 const AgentSection = ({user, property}: Props) => {
 
-  const { toast } = useToast();                   
+  const { toast } = useToast();
+  const loginUser = useLogin();                  
 
   const defaultScheduleValues = {
     date: undefined,
@@ -78,7 +80,7 @@ const AgentSection = ({user, property}: Props) => {
             </div>
           </div>
         </div>
-        { user.role === 'user' && <hr/> }
+        { user?.role === 'user' && <hr/> }
       </React.Fragment>
     )
   };
@@ -91,6 +93,7 @@ const AgentSection = ({user, property}: Props) => {
         title: 'Error',
         description: 'You are not logged in, login to schedule property inspection.'
       })
+      loginUser.onOpen();
 
       return;
     }
@@ -223,7 +226,7 @@ const AgentSection = ({user, property}: Props) => {
   return (
     <div className="md:w-[50%] lg:w-[45%] w-full md:border-l md:pl-4">
       <AgentDetails/>
-      { user.role === 'user' && <ScheduleInspection /> }
+      { user?.role !== 'agent' && <ScheduleInspection /> }
     </div>
   )
 }

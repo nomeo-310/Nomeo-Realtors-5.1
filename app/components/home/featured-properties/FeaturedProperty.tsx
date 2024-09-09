@@ -24,10 +24,20 @@ const FeaturedProperty = ({user}:{user:userProps}) => {
     )
   };
 
+
   const featuredProperties:propertyProps[] = data;
+
+  if (status === 'success' && !featuredProperties.length ) {
+    return (
+      <p className='lg:text-xl md:text-lg text-center mt-8 lg:mt-10 w-full text-red-400'>
+        There is no featured property.
+      </p>
+    )
+  };
+
   return (
     <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-8 lg:mt-10 lg:gap-x-4 md:gap-x-3 gap-y-6 md:gap-y-8">
-      { featuredProperties && featuredProperties.map((property:propertyProps) => (
+      { featuredProperties.map((property:propertyProps) => (
         <PropertyCard property={property} user={user} agentMode={false} agentProfileMode={false}/>
       ))}
     </div>

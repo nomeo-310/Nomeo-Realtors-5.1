@@ -11,6 +11,7 @@ import { HiEllipsisHorizontal } from 'react-icons/hi2';
 import { blogProps, userProps } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { useRouter } from 'next/navigation';
 
 type blogCardProps = {
   blog: blogProps
@@ -21,6 +22,8 @@ type blogCardProps = {
 const BlogCard = ({blog, agentMode, user}: blogCardProps) => {
   const userId = user && user?._id;
   const liked = blog.likes.includes(userId);
+
+  const router = useRouter();
 
   const BlogMenu = () => {
     return (
@@ -36,6 +39,9 @@ const BlogCard = ({blog, agentMode, user}: blogCardProps) => {
           </DropdownMenuItem>
           <DropdownMenuItem className='rounded cursor-pointer'>
             <p className='text-sm'>Edit</p>
+          </DropdownMenuItem>
+          <DropdownMenuItem className='rounded cursor-pointer' onClick={() => router.push(`/blogs/${blog._id}`)}>
+            <p className='text-sm'>View</p>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -73,10 +79,12 @@ const BlogCard = ({blog, agentMode, user}: blogCardProps) => {
       <div className='flex gap-2 flex-col'>
         <p className='line-clamp-2 lg:text-xl text-lg font-semibold'>{blog.title}</p>
         {!agentMode && <p className='line-clamp-2 text-gray-400 dark:text-white'>{blog.intro}</p>}
-        <Link href={`/blogs/${blog._id}`} className='flex items-center gap-2 font-semibold hover:text-yellow-400 text-sm mt-2'>
-          CONTINUE READING
-          <HiMiniArrowRight size={18}/>
-        </Link>
+        { !agentMode && 
+          <Link href={`/blogs/${blog._id}`} className='flex items-center gap-2 font-semibold hover:text-yellow-400 text-sm mt-2'>
+            CONTINUE READING
+            <HiMiniArrowRight size={18}/>
+          </Link>
+        }
       </div>
     </div>
   )

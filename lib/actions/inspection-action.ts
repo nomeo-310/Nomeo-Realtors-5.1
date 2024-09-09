@@ -3,6 +3,7 @@
 import Agents from "../models/agents";
 import Inspections from "../models/inspections";
 import Notifications from "../models/notifications";
+import Properties from "../models/properties";
 import Users from "../models/users";
 import { connectToMongoDB } from "../utils";
 import { getCurrentUser } from "./user-actions";
@@ -30,12 +31,19 @@ export const createInspection = async ({date, time, property, additionalPhoneNum
     return;
   };
 
+  const currentProperty = await Properties.findOne({propertyId: property})
+
+  if (!currentProperty) {
+    return;
+  }
+
   const inspectionData = {
     user: user._id,
     scheduledAt: date,
     time: time,
-    property: property,
-    additionalPhoneNumber: additionalPhoneNumber
+    property: currentProperty._id,
+    agent: agent,
+    additionalNumber: additionalPhoneNumber
   };
 
   try {

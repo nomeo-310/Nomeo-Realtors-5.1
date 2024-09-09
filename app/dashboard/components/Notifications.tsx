@@ -1,76 +1,16 @@
 'use client'
 
 import React from 'react'
-import NotificationCard from './NotificationCard';
+import NotificationCard from '../../components/notifications/NotificationCard';
 import InfiniteScrollClient from '@/components/shared/InfiniteScrollClient';
 import { notificationProps, userProps } from '@/lib/types';
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import NotificationLoadingSkeleton from './NotificationLoadingSkeleton';
 import { Loader2 } from 'lucide-react';
+import NotificationLoadingSkeleton from '../../components/notifications/NotificationLoadingSkeleton';
 
 type Props = {
   user: userProps
 }
-
-const notificationList = [
-  {
-    type: 'inspections',
-    message: 'Salomi Afolabi booked you for an inspection',
-    seen: true,
-    issuer: {
-      name: 'Salomi Afolabi',
-      email: 'onomesalomi@gmail.com',
-      image: '/images/profile_1.jpg',
-      phoneNumber: '07037575894'
-    },
-    inspectionDate: '28th August, 2024',
-    inspectionTime: '10:30am',
-    recipient: '3',
-    property: '5',
-    createdAt: '2024-02-27T11:30:00.000Z',
-  },
-  {
-    type: 'alerts',
-    message: 'You are welcomed to Nomeo Realtors, It is a pleasure to have you here.',
-    seen: false,
-    inspectionDate: '',
-    inspectionTime: '',
-    recipient: '3',
-    property: '5',
-    createdAt: '2024-02-27T11:30:00.000Z',
-  },
-  {
-    type: 'alerts',
-    message: 'You are welcomed to Nomeo Realtors, It is a pleasure to have you here. Your license number is Agent-3AE9',
-    seen: false,
-    inspectionDate: '',
-    inspectionTime: '',
-    recipient: '3',
-    property: '5',
-    createdAt: '2024-02-27T11:30:00.000Z',
-  },
-  {
-    type: 'payment-alerts',
-    message: 'You have paid your rent and it has started reading.',
-    seen: false,
-    inspectionDate: '',
-    inspectionTime: '',
-    recipient: '3',
-    property: '5',
-    createdAt: '2024-02-27T11:30:00.000Z',
-  },
-  {
-    type: 'payment-reminders',
-    message: 'Olatunde Olajide has paid her rent and it has started reading.',
-    seen: true,
-    inspectionDate: '',
-    inspectionTime: '',
-    recipient: '3',
-    property: '5',
-    createdAt: '2024-02-27T11:30:00.000Z',
-  },
-
-]
 
 const Notifications = ({user}: Props) => {
 

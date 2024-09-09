@@ -37,8 +37,8 @@ const LatestBlogPosts = () => {
 
   if (status === 'success' && !blogList.length ) {
     return (
-      <p className='lg:text-xl md:text-lg text-center text-red-400 mt-8 lg:mt-10 w-full'>
-        Error while loading recent blog posts. Reload page.
+      <p className='lg:text-xl md:text-lg text-center mt-8 lg:mt-10 w-full text-red-400'>
+       There is no recent blog.
       </p>
     )
   };

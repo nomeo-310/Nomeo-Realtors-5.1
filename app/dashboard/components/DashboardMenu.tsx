@@ -1,9 +1,8 @@
 'use client'
 
 import React from 'react'
-import { HiOutlineBell, HiOutlineBellAlert, HiOutlineCog6Tooth, HiOutlineDocumentText, HiOutlineHome, HiOutlineUserGroup, HiOutlineUsers } from 'react-icons/hi2';
+import { HiOutlineBell, HiOutlineCog6Tooth, HiOutlineDocumentText, HiOutlineHome, HiOutlineUsers } from 'react-icons/hi2';
 import { IconType } from 'react-icons/lib';
-import { TbBellRinging, TbFileText, TbHomeHeart, TbHomePlus, TbHomeRibbon, TbLockPlus, TbUserEdit } from 'react-icons/tb';
 
 type dashboardMenuProps = {
   agentLoggedIn:boolean

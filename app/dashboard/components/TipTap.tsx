@@ -6,9 +6,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align'
 import { Bold, Code, Heading2, Heading3, Italic, List, ListOrdered, Quote, Redo, Strikethrough, UnderlineIcon, Undo } from 'lucide-react';
-import { CiTextAlignRight } from 'react-icons/ci';
 
-type Props = {}
 
 const TipTap = ({content, onChange}:any) => {
 

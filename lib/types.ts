@@ -32,6 +32,7 @@ interface fees {
 };
 
 export interface IProperty extends Document {
+  propertyId: string;
   numberOfRooms: number;
   numberOfBath: number;
   numberOfToilets: number;
@@ -90,9 +91,11 @@ export interface INotification extends Document {
 
 export interface IInspection {
   scheduledAt: Date;
+  time: String;
   user: Schema.Types.ObjectId;
   property: Schema.Types.ObjectId;
   agent: Schema.Types.ObjectId; 
+  additionalNumber: String;
 };
 
 export interface IBlog extends Document {
@@ -253,6 +256,34 @@ export type blogProps = {
   reads: string[];
   readTime: string;
   comments: string[];
+};
+
+export type inspectionProps = {
+  _id: string;
+  scheduledAt:  string;
+  time: string;
+  user:  {
+    name: string;
+    image: string;
+    phoneNumber: string;
+  };
+  property: {
+    _id: string; 
+    propertyId: string;
+    address: string; 
+    numberOfBath: number; 
+    numberOfRooms: number; 
+    numberOfToilets: number; 
+    annualRent: number; 
+    annualPayment: number; 
+    monthlyRent: number; 
+    city: string; 
+    state: string; 
+    fullPropertyPrice: number; 
+    area: number;
+  },
+  agent: string;
+  additionalNumber: string;
 }
 
 
