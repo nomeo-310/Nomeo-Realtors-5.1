@@ -266,6 +266,8 @@ export type inspectionProps = {
     name: string;
     image: string;
     phoneNumber: string;
+    email: string;
+    _id: string;
   };
   property: {
     _id: string; 
@@ -281,6 +283,7 @@ export type inspectionProps = {
     state: string; 
     fullPropertyPrice: number; 
     area: number;
+    propertyTag: string;
   },
   agent: string;
   additionalNumber: string;

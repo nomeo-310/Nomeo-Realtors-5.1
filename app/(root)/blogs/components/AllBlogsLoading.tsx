@@ -18,8 +18,10 @@ const AllBlogsLoading = () => {
         <BlogSkeleton/>
       </div>
       <div className="hidden xl:block">
-        <BlogSkeleton/>
-        <BlogSkeleton/>        
+        <BlogSkeleton/>      
+      </div>
+      <div className="hidden xl:block">
+        <BlogSkeleton/>       
       </div>
     </div>
   )

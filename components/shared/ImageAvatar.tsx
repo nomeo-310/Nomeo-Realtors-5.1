@@ -5,7 +5,7 @@ import React from 'react'
 type Props = {
   src:string
   alt?: string
-  className: string
+  className?: string
 }
 
 const ImageAvatar = ({src, alt, className}: Props) => {

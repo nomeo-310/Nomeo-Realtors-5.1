@@ -47,7 +47,7 @@ const NotificationCard = ({notification}: Props) => {
   const { icon, message } = notificationTypeMap[notification.type];
 
   return (
-    <div className={cn('p-4 rounded', notification.seen ? 'bg-card': 'bg-primary/30')}>
+    <div className={cn('lg:p-4 p-3 rounded shadow-sm', notification.seen ? 'bg-card': 'bg-primary/30')}>
       <div className="flex flex-col gap-3">
         <div className="flex gap-3">
           {icon}

@@ -1,7 +1,11 @@
 'use client'
 
+import InspectionCard from '@/app/components/inspection/InspectionCard';
+import InspectionLoadingSkeleton from '@/app/components/inspection/InspectionLoadingSkeleton';
+import InfiniteScrollClient from '@/components/shared/InfiniteScrollClient';
 import { inspectionProps, userProps } from '@/lib/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { LucideLoader2 } from 'lucide-react';
 import React from 'react'
 
 type Props = {
@@ -39,7 +43,38 @@ const AddClient = ({setActiveTab, user}: Props) => {
   });
 
   const inspections: inspectionProps[] = data?.pages.flatMap((page) => page.inspections) || [];
-  console.log(inspections)
+
+  const Inspections = () => {
+
+    if (status === "pending") {
+      return <InspectionLoadingSkeleton/>;
+    };
+
+    if (status === "success" && !inspections.length && !hasNextPage) {
+      return (
+        <p className="text-base lg:text-lg text-center text-muted-foreground">
+          You have not added any inspections yet.
+        </p>
+      );
+    };
+
+    if (status === "error") {
+      return (
+        <p className="text-base lg:text-lg text-center text-destructive">
+          An error occur while loading your inspections.
+        </p>
+      );
+    }
+
+    return (
+      <InfiniteScrollClient className='space-y-4' onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}>
+        { inspections && inspections.map((item) => (
+          <InspectionCard inspection={item} setActiveTab={setActiveTab}/>
+        ))}
+        {isFetchingNextPage && ( <LucideLoader2 className="mx-auto animate-spin my-3" />)}
+      </InfiniteScrollClient>
+    )
+  };
 
   return (
     <div className='w-full h-full flex slide-in-left'>
@@ -48,6 +83,7 @@ const AddClient = ({setActiveTab, user}: Props) => {
           <h2 className='text-xl md:text-3xl font-semibold'>Add Client</h2>
           <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('all-clients')}>All Clients</h2>
         </div>
+        <Inspections />
       </div>
     </div>
   )

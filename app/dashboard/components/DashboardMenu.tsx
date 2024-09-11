@@ -1,33 +1,35 @@
 'use client'
 
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react'
-import { HiOutlineBell, HiOutlineCog6Tooth, HiOutlineDocumentText, HiOutlineHome, HiOutlineUsers } from 'react-icons/hi2';
+import { HiOutlineBell, HiOutlineCog6Tooth, HiOutlineDocumentText, HiOutlineHome, HiOutlineSquaresPlus, HiOutlineUsers } from 'react-icons/hi2';
 import { IconType } from 'react-icons/lib';
 
 type dashboardMenuProps = {
   agentLoggedIn:boolean
-  activeTab: string
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>
 }
 
 type menuItemProps = {
   label:string, 
   icon:IconType, 
   active:boolean, 
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>
+  link: string,
 }
 
-const DashboardMenu = ({agentLoggedIn, activeTab, setActiveTab}: dashboardMenuProps) => {
+const DashboardMenu = ({agentLoggedIn}: dashboardMenuProps) => {
+  const router = useRouter();
+  const pathName = usePathname()
 
-  const DashboardMenuItem = ({label, icon:Icon, active, setActiveTab}: menuItemProps) => {
+  const DashboardMenuItem = ({label, icon:Icon, active, link}: menuItemProps) => {
     const activeStyle = 'bg-primary md:border-l-4 md:rounded-r hover:md:border-l-4 md:border-black md:dark:border-white rounded md:rounded-l-none hover:bg-primary';
 
     return (
-      <div className={`${active ? activeStyle : 'rounded hover:bg-primary/70'} md:p-4 p-2.5  md:flex md:gap-3 items-center cursor-pointer hover:border-l-0`} onClick={() => setActiveTab(label)}>
+      <Link className={`${active ? activeStyle : 'rounded hover:bg-primary/70'} md:p-4 p-2.5  md:flex md:gap-3 items-center cursor-pointer hover:border-l-0`} href={link}>
         <Icon size={28} className='md:block hidden'/>
         <Icon size={24} className='md:hidden'/>
         <h2 className='text-lg md:block hidden capitalize'>{label}</h2>
-      </div>
+      </Link>
     )
   };
 
@@ -36,34 +38,34 @@ const DashboardMenu = ({agentLoggedIn, activeTab, setActiveTab}: dashboardMenuPr
       <DashboardMenuItem
         label='Notifications'
         icon={HiOutlineBell}
-        active={activeTab === 'Notifications'}
-        setActiveTab={setActiveTab}
+        active={ pathName === '/dashboard'}
+        link='/dashboard'
       />
       { agentLoggedIn ? (
         <React.Fragment>
           <DashboardMenuItem
             label='Properties'
             icon={HiOutlineHome}
-            active={activeTab === 'Properties'}
-            setActiveTab={setActiveTab}
+            active={pathName === '/dashboard/properties'}
+            link='/dashboard/properties'
           />
           <DashboardMenuItem
             label='Posts'
             icon={HiOutlineDocumentText}
-            active={activeTab === 'Posts'}
-            setActiveTab={setActiveTab}
+            active={pathName === '/dashboard/posts'}
+            link='/dashboard/posts'
           />
           <DashboardMenuItem
             label='Clients'
             icon={HiOutlineUsers}
-            active={activeTab === 'Clients'}
-            setActiveTab={setActiveTab}
+            active={pathName === '/dashboard/clients'}
+            link='/dashboard/clients'
           />
           <DashboardMenuItem
             label='Settings'
             icon={HiOutlineCog6Tooth}
-            active={activeTab === 'Settings'}
-            setActiveTab={setActiveTab}
+            active={pathName === '/dashboard/settings'}
+            link='/dashboard/settings'
           />
         </React.Fragment>
       ) : (
@@ -71,20 +73,26 @@ const DashboardMenu = ({agentLoggedIn, activeTab, setActiveTab}: dashboardMenuPr
           <DashboardMenuItem
             label='Properties'
             icon={HiOutlineHome}
-            active={activeTab === 'Properties'}
-            setActiveTab={setActiveTab}
+            active={pathName === '/dashboard/properties'}
+            link='/dashboard/properties'
           />
           <DashboardMenuItem
             label='Agents'
             icon={HiOutlineUsers}
-            active={activeTab === 'Agents'}
-            setActiveTab={setActiveTab}
+            active={pathName === '/dashboard/agents'}
+            link='/dashboard/agents'
+          />
+          <DashboardMenuItem
+            label='Inspections'
+            icon={HiOutlineSquaresPlus}
+            active={pathName === '/dashboard/inspections'}
+            link='/dashboard/inspections'
           />
           <DashboardMenuItem
             label='Settings'
             icon={HiOutlineCog6Tooth}
-            active={activeTab === 'Settings'}
-            setActiveTab={setActiveTab}
+            active={pathName === '/dashboard/settings'}
+            link='/dashboard/settings'
           />
         </React.Fragment>        
       )

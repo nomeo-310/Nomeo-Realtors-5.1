@@ -37,6 +37,12 @@ export const createInspection = async ({date, time, property, additionalPhoneNum
     return;
   }
 
+  const existingInspection = await Inspections.findOne({user: user._id, property: currentProperty._id})
+
+  if (existingInspection) {
+    return {error: 'You have schedule an inspection for this property initially, cancel it to make a new one.'}
+  };
+
   const inspectionData = {
     user: user._id,
     scheduledAt: date,
@@ -65,7 +71,7 @@ export const createInspection = async ({date, time, property, additionalPhoneNum
     await Agents.findOneAndUpdate({_id: agent}, {$push: {inspections: newInspection._id}})
 
     const newNotification = await Notifications.create(notificationData)
-    newNotification.save()
+    newNotification.save();
 
     await Users.findOneAndUpdate({_id: propertyAgent.user}, {$push: {notifications: newNotification._id}})
 

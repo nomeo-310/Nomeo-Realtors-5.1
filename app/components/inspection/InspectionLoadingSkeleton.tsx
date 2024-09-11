@@ -1,9 +1,9 @@
-'use client'
-
-import React from 'react'
 import { Skeleton } from '@/components/ui/skeleton';
+import React from 'react'
 
-const NotificationLoadingSkeleton = () => {
+type Props = {}
+
+const InspectionLoadingSkeleton = (props: Props) => {
 
   const LoadingSkeleton = () => {
     return (
@@ -24,16 +24,14 @@ const NotificationLoadingSkeleton = () => {
       </div>
     )
   };
-  
+
   return (
-    <div className="w-full">
-      <div className='space-y-4 w-full lg:w-[80%] xl:w-[70%]'>
-        <LoadingSkeleton/>
-        <LoadingSkeleton/>
-        <LoadingSkeleton/>
-      </div>
+    <div className='space-y-4'>
+      <LoadingSkeleton/>
+      <LoadingSkeleton/>
+      <LoadingSkeleton/>
     </div>
   )
 }
 
-export default NotificationLoadingSkeleton
+export default InspectionLoadingSkeleton;

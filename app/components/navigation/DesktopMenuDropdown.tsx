@@ -24,7 +24,7 @@ const DesktopMenuDropdown = ({notificationCount, currentUser}: Props) => {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center cursor-pointer'>
+        <button className='flex lg:px-5 px-3 py-2 rounded-full bg-primary text-white items-center cursor-pointer outline-none'>
           { notificationCount && notificationCount > 0 ? <NotificationIndicator notificationCount={notificationCount}/> : <HiOutlineUser size={20} className='lg:mr-3 mr-2' />}
           <div className='border-l lg:text-lg lg:pl-3 pl-2 font-semibold border-l-white'>{capitalizeName(currentUser?.name).firstName}</div>
         </button>

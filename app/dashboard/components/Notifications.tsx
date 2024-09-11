@@ -1,12 +1,13 @@
 'use client'
 
 import React from 'react'
-import NotificationCard from '../../components/notifications/NotificationCard';
 import InfiniteScrollClient from '@/components/shared/InfiniteScrollClient';
 import { notificationProps, userProps } from '@/lib/types';
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
-import NotificationLoadingSkeleton from '../../components/notifications/NotificationLoadingSkeleton';
+import NotificationLoadingSkeleton from '@/app/components/notifications/NotificationLoadingSkeleton';
+import NotificationCard from '@/app/components/notifications/NotificationCard';
+
 
 type Props = {
   user: userProps
@@ -71,7 +72,7 @@ const Notifications = ({user}: Props) => {
   const notifications:notificationProps[] = data?.pages.flatMap(page => page.notifications) || [];
 
   if (status === 'pending') {
-    return <NotificationLoadingSkeleton/>
+    return <NotificationLoadingSkeleton />
   };
 
   if (status === 'success' && !notifications.length && !hasNextPage) {

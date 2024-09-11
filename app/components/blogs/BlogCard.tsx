@@ -29,7 +29,7 @@ const BlogCard = ({blog, agentMode, user}: blogCardProps) => {
     return (
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <button className='rounded-full border'>
+          <button className='rounded-full border outline-none focus:outline-none'>
             <HiEllipsisHorizontal size={26} className='text-white'/>
           </button>
         </DropdownMenuTrigger>
