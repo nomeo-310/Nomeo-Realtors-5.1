@@ -96,7 +96,7 @@ const Notifications = ({user}: Props) => {
       <div className="flex flex-col gap-4 w-full lg:w-[80%] xl:w-[70%]">
         <h2 className='font-semibold md:hidden text-lg'>Notifications</h2>
         { notifications && notifications.length > 0 && notifications.map((notification:notificationProps, index: number) => (
-          <NotificationCard key={notification._id} notification={notification}/>
+          <NotificationCard key={notification._id} notification={notification} />
         ))}
         { isFetchingNextPage && <Loader2 className='mx-auto animate-spin my-3'/> }
       </div>

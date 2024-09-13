@@ -23,7 +23,7 @@ const Header = ({property, user}: Props) => {
             <p className='lg:text-lg'>{property.city}, {property.state}</p>
           </div>
           <div className='flex items-center gap-2 font-semibold'>
-            <p className='lg:text-lg capitalize border-r border-black px-2'>{property.propertyTag.split('-').join(' ')}</p>
+            <p className='lg:text-lg capitalize border-r border-black px-2'>{ property.availabilityTag === 'not-available' ? `${property.availabilityTag.split('-').join(' ')}` : `${property.propertyTag.split('-').join(' ')}` }</p>
             <p  className='lg:text-lg capitalize'>{property.furnitureStatus}</p>
           </div>
         </div>

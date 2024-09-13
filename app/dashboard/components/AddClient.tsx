@@ -53,7 +53,7 @@ const AddClient = ({setActiveTab, user}: Props) => {
     if (status === "success" && !inspections.length && !hasNextPage) {
       return (
         <p className="text-base lg:text-lg text-center text-muted-foreground">
-          You have not added any inspections yet.
+          You do not have any potential client at the moment.
         </p>
       );
     };
@@ -61,7 +61,7 @@ const AddClient = ({setActiveTab, user}: Props) => {
     if (status === "error") {
       return (
         <p className="text-base lg:text-lg text-center text-destructive">
-          An error occur while loading your inspections.
+          An error occur while loading your potential clients.
         </p>
       );
     }

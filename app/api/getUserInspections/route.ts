@@ -1,4 +1,5 @@
 import { getCurrentUser } from "@/lib/actions/user-actions";
+import Agents from "@/lib/models/agents";
 import Inspections from "@/lib/models/inspections";
 import Properties from "@/lib/models/properties";
 import Users from "@/lib/models/users";
@@ -13,7 +14,7 @@ export const POST = async (request:Request) => {
     return Response.json({error: 'Unauthorized'}, {status: 401});
   };
 
-  if (user.role !== 'agent') {
+  if (user.role !== 'user') {
     return Response.json({error: 'Unauthorized'}, {status: 402});
   };
 
@@ -23,7 +24,7 @@ export const POST = async (request:Request) => {
   const pageSize = 6;
 
   try {
-    const inspections = await Inspections.find({agent: user.isAgent})
+    const inspections = await Inspections.find({user: user._id})
     .populate({
       path: 'user',
       model: Users,
@@ -34,9 +35,19 @@ export const POST = async (request:Request) => {
       model: Properties,
       select: '_id propertyId address numberOfBath numberOfRooms numberOfToilets annualRent annualPayment monthlyRent city state fullPropertyPrice area propertyTag'      
     })
+    .populate({
+      path: 'agent',
+      model: Agents,
+      select: 'agencyName agencyAddress officeNumber phoneNumber agentInspectionFee',
+      populate: {
+        path: 'user',
+        model: Users,
+        select: 'name image'
+      }
+    })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize + 1)
-    .sort({createdAt: 'descending'});
+    .sort({createdAt: -1});
 
     const nextPage = inspections.length > pageSize ? pageNumber + 1 : undefined;
 
@@ -46,9 +57,9 @@ export const POST = async (request:Request) => {
     };
 
     return Response.json(data);
+    
   } catch (error) {
     return Response.json({error: 'Internal server error'}, {status: 500});
   }
 
 };
-

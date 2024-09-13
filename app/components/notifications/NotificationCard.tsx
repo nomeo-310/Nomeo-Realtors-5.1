@@ -1,6 +1,7 @@
 'use client'
 
 import ImageAvatar from '@/components/shared/ImageAvatar';
+import { useDeleteNotification } from '@/lib/hooks/useDeleteNotification';
 import { notificationProps } from '@/lib/types';
 import { cn, formatDate, formatTargetDate, useCountdownTimer } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
@@ -46,6 +47,12 @@ const NotificationCard = ({notification}: Props) => {
 
   const { icon, message } = notificationTypeMap[notification.type];
 
+  const mutation = useDeleteNotification()
+
+  const deleteNotification = () => {
+    mutation.mutate(notification._id)
+  }
+
   return (
     <div className={cn('lg:p-4 p-3 rounded shadow-sm', notification.seen ? 'bg-card': 'bg-primary/30')}>
       <div className="flex flex-col gap-3">
@@ -74,8 +81,8 @@ const NotificationCard = ({notification}: Props) => {
           </div>
         }
         { notification.type === 'payment-alerts' ? '' : notification.type === 'payment-reminders' ? '' : 
-          <div className='flex justify-end'>
-            <p className='text-destructive text-sm font-semibold hover:underline'>Delete</p>
+          <div className='flex justify-end cursor-pointer' onClick={deleteNotification}>
+            <p className='text-destructive text-sm font-semibold hover:underline'>{mutation.isPending ? 'Deleting...': 'Delete'}</p>
           </div>
         }
         { notification.type === 'payment-alerts' &&
@@ -93,4 +100,4 @@ const NotificationCard = ({notification}: Props) => {
   )
 }
 
-export default NotificationCard
+export default NotificationCard;

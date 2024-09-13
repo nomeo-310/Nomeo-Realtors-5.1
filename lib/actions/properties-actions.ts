@@ -8,6 +8,7 @@ import Users from "../models/users";
 import { connectToMongoDB, generatePropertyId } from "../utils";
 import { getCurrentUser } from "./user-actions";
 import { revalidatePath } from "next/cache";
+import { deleteApartmentImages } from "./deleteApartmentImages";
 
 type imageProps = {
   public_id:string;
@@ -138,6 +139,36 @@ export const getSingleProperty = async (propertyId:string) => {
 
 };
 
+export const getDeleteProperty = async (propertyId:string) => {
+  await connectToMongoDB();
+
+  try {
+    const property = await Properties.findOne({_id: propertyId})
+    .populate({
+      path: 'agent',
+      model: Agents,
+      select: '_id agencyName agentInspectionFee rating agencyWebsite licenseNumber',
+      populate: {
+        path: 'user',
+        model: Users,
+        select: '_id name image'
+      }
+    })
+    .populate({
+      path: 'images',
+      model: Attachments,
+      select: 'attachments'
+    })
+
+    const singleProperty = JSON.parse(JSON.stringify(property))
+    return singleProperty;
+  } catch (error) {
+    console.error(error)
+    return {error: 'Internal server error'}
+  }
+
+};
+
 export const likeProperty = async ({propertyId, path}:{propertyId:string; path:string}) => {
   const newPropertyId = new ObjectId(propertyId);
   const user = await getCurrentUser();
@@ -209,3 +240,37 @@ export const bookmarkProperty = async ({propertyId, path}:{propertyId:string; pa
     return {error: 'Internal server error, try again later'}
   }
 };
+
+export const deleteProperty = async (id:string) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser();
+  const property = await Properties.findOne({_id: id})
+  const images = await Attachments.findOne({property: id})
+
+  if (!user) {
+    return;
+  }
+
+  if (user.role === 'user') {
+    return;
+  }
+
+  if (!property) {
+    return;
+  }
+
+  try {
+   const imageArray = JSON.parse(JSON.stringify(images)).attachments;
+   
+    await deleteApartmentImages(imageArray)
+    await Agents.findOneAndUpdate({_id: user.isAgent}, {$pull: {property: property._id}})
+    await Properties.deleteOne({_id: property._id});
+
+    return {success: 'Property successfully deleted'}
+  } catch (error) {
+    console.error(error);
+    
+    return {error: 'Internal server error'}
+  }
+}

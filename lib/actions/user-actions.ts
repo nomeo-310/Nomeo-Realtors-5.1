@@ -190,6 +190,8 @@ export const updateAgentProfile = async ({ profileImage, city, state, agencyName
   
       const newNotification = await Notifications.create(notificationData)
       newNotification.save();
+
+      
     };
 
     await Users.findOneAndUpdate({_id: currentUser._id}, userData);

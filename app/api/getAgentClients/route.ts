@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/lib/actions/user-actions";
-import Inspections from "@/lib/models/inspections";
 import Properties from "@/lib/models/properties";
+import Rentouts from "@/lib/models/rentouts";
 import Users from "@/lib/models/users";
 import { connectToMongoDB } from "@/lib/utils";
 
@@ -10,12 +10,12 @@ export const POST = async (request:Request) => {
   const user = await getCurrentUser();
 
   if (!user) {
-    return Response.json({error: 'Unauthorized'}, {status: 401});
-  };
+    return Response.json({error: 'Unauthorized'}, {status: 402});
+  }
 
   if (user.role !== 'agent') {
     return Response.json({error: 'Unauthorized'}, {status: 402});
-  };
+  }
 
   const { page } = await request.json();
   const value = page || undefined;
@@ -23,25 +23,25 @@ export const POST = async (request:Request) => {
   const pageSize = 6;
 
   try {
-    const inspections = await Inspections.find({agent: user.isAgent})
+    const clients = await Rentouts.find({agent: user.isAgent})
     .populate({
       path: 'user',
       model: Users,
-      select: 'name image phoneNumber email _id'
+      select: 'name image phoneNumber occupation'
     })
     .populate({
       path: 'property',
       model: Properties,
-      select: '_id propertyId address numberOfBath numberOfRooms numberOfToilets annualRent annualPayment monthlyRent city state fullPropertyPrice area propertyTag'      
+      select: 'propertyId address city state numberOfRooms numberOfBath numberOfToilets area annualRent'
     })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize + 1)
     .sort({createdAt: 'descending'});
 
-    const nextPage = inspections.length > pageSize ? pageNumber + 1 : undefined;
+    const nextPage = clients.length > pageSize ? pageNumber + 1 : undefined;
 
     const data = {
-      inspections: inspections.slice(0, pageSize),
+      clients: clients.slice(0, pageSize),
       nextPage: nextPage
     };
 
@@ -49,6 +49,4 @@ export const POST = async (request:Request) => {
   } catch (error) {
     return Response.json({error: 'Internal server error'}, {status: 500});
   }
-
-};
-
+}

@@ -226,9 +226,9 @@ const AgentSection = ({user, property}: Props) => {
   return (
     <div className="md:w-[50%] lg:w-[45%] w-full md:border-l md:pl-4">
       <AgentDetails/>
-      { user?.role !== 'agent' && <ScheduleInspection /> }
+      { user?.role === 'user' && property.availabilityTag === 'available' && <ScheduleInspection /> }
     </div>
   )
 }
 
-export default AgentSection
+export default AgentSection;

@@ -287,6 +287,48 @@ export type inspectionProps = {
   },
   agent: string;
   additionalNumber: string;
+};
+
+export type userInspectionProps = {
+  _id: string;
+  scheduledAt:  string;
+  time: string;
+  user:  {
+    name: string;
+    image: string;
+    phoneNumber: string;
+    email: string;
+    _id: string;
+  };
+  property: {
+    _id: string; 
+    propertyId: string;
+    address: string; 
+    numberOfBath: number; 
+    numberOfRooms: number; 
+    numberOfToilets: number; 
+    annualRent: number; 
+    annualPayment: number; 
+    monthlyRent: number; 
+    city: string; 
+    state: string; 
+    fullPropertyPrice: number; 
+    area: number;
+    propertyTag: string;
+  },
+  agent: {
+    _id: string;
+    user: {
+      name: string;
+      image: string;
+    }
+    agencyName: string; 
+    agencyAddress: string; 
+    officeNumber: string;
+    phoneNumber: string;
+    agentInspectionFee: number;
+  };
+  additionalNumber: string;
 }
 
 

@@ -14,6 +14,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { SlSizeFullscreen } from "react-icons/sl";
 import { CiBookmarkCheck } from "react-icons/ci";
 import { formatMoney } from '@/lib/utils';
+import { useDeleteProperty } from '@/lib/hooks/useDeleteProperty';
 
 type Props = {
   property: propertyProps;
@@ -31,6 +32,8 @@ const PropertyCard = ({property, user, agentMode, agentProfileMode}: Props) => {
   const router = useRouter();
 
   const PropertyMenu = () => {
+    const mutation = useDeleteProperty(user._id)
+
     return (
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
@@ -39,7 +42,7 @@ const PropertyCard = ({property, user, agentMode, agentProfileMode}: Props) => {
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-20 rounded z-10 bg-card p-1 md:mr-12 mr-8 mt-2">
-          <DropdownMenuItem className='rounded cursor-pointer'>
+          <DropdownMenuItem className='rounded cursor-pointer' onClick={() => mutation.mutate(property._id)}>
             <p className='text-sm'>Delete</p>
           </DropdownMenuItem>
           <DropdownMenuItem className='rounded cursor-pointer'>
@@ -48,6 +51,11 @@ const PropertyCard = ({property, user, agentMode, agentProfileMode}: Props) => {
           <DropdownMenuItem className='rounded cursor-pointer' onClick={() => router.push(`/property/${property.propertyId}`)}>
             <p className='text-sm'>View</p>
           </DropdownMenuItem>
+          {property.availabilityTag === 'not-available' &&
+            <DropdownMenuItem className='rounded cursor-pointer' onClick={() => router.push(`/property/${property.propertyId}`)}>
+              <p className='text-sm'>Reopen</p>
+            </DropdownMenuItem>
+          }
         </DropdownMenuContent>
       </DropdownMenu>
     )
@@ -57,7 +65,18 @@ const PropertyCard = ({property, user, agentMode, agentProfileMode}: Props) => {
     <div className='w-full flex flex-col gap-2 cursor-pointer group' onClick={!agentMode || !agentProfileMode ? () => router.push(`/property/${property.propertyId}`) : () => {}}>
       <div className="bg-gray-300 relative md:aspect-square aspect-video xl:h-[15rem] lg:h-[14rem] md:h-[13rem] h-[14rem] flex items-center justify-center overflow-hidden rounded">
         <Image alt='property_image' src={property.images.attachments[0].secure_url} className='object-cover' fill priority/>
-        { !agentMode && <div className="bg-white py-1 px-2 rounded absolute left-3 top-3 capitalize text-sm text-black">{ property.propertyTag.split('-').join(' ')}</div> }
+        { !agentMode &&
+          <div className="flex items-center gap-3 absolute left-3 top-3 ">
+            <div className="bg-white py-1 px-2 rounded capitalize text-sm text-black">
+              { property.propertyTag.split('-').join(' ')}
+            </div>
+            { property.availabilityTag === 'not-available' && 
+              <div className="bg-red-400 text-white py-1 px-2 rounded capitalize text-sm">
+                { property.availabilityTag.split('-').join(' ')}
+              </div>              
+            }
+          </div> 
+        }
         { !agentMode && 
           <div className="bg-black/30 left-0 bottom-0 w-full p-4 absolute text-white flex items-center justify-between lg:-translate-x-[100vw] duration-500 lg:group-hover:translate-x-0 ease-in-out">
             <div>
