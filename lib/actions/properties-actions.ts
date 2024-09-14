@@ -9,6 +9,8 @@ import { connectToMongoDB, generatePropertyId } from "../utils";
 import { getCurrentUser } from "./user-actions";
 import { revalidatePath } from "next/cache";
 import { deleteApartmentImages } from "./deleteApartmentImages";
+import Inspections from "../models/inspections";
+import Notifications from "../models/notifications";
 
 type imageProps = {
   public_id:string;
@@ -265,6 +267,8 @@ export const deleteProperty = async (id:string) => {
    
     await deleteApartmentImages(imageArray)
     await Agents.findOneAndUpdate({_id: user.isAgent}, {$pull: {property: property._id}})
+    await Inspections.deleteMany({property: property._id})
+    await Notifications.deleteMany({property: property._id})
     await Properties.deleteOne({_id: property._id});
 
     return {success: 'Property successfully deleted'}

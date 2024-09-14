@@ -19,7 +19,7 @@ const Posts = ({user}: Props) => {
     }
   },[]);
 
-  const [activeTab, setActiveTab] = React.useState('create-post')
+  const [activeTab, setActiveTab] = React.useState('added-posts')
 
   return (
     <React.Fragment>

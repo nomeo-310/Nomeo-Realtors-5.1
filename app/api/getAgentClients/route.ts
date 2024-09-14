@@ -32,7 +32,7 @@ export const POST = async (request:Request) => {
     .populate({
       path: 'property',
       model: Properties,
-      select: 'propertyId address city state numberOfRooms numberOfBath numberOfToilets area annualRent'
+      select: 'propertyId address city state numberOfRooms numberOfBath numberOfToilets area annualRent monthlyRent'
     })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize + 1)

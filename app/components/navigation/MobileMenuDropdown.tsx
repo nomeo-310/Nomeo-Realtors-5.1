@@ -52,44 +52,48 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
             <p className='text-base font-semibold'>Blogs</p>
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup className='flex flex-col gap-1'>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger className='rounded'>
-              <p className='text-base font-semibold'>Themes</p>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent className='rounded mx-2'>
-                <DropdownMenuItem className='rounded' onClick={() => setTheme("dark")}>
-                  <div className="flex items-center gap-3">
-                    <p className='text-base font-medium'>Dark Mode</p>
-                    <HiOutlineMoon size={18}/>
-                    {theme === "dark" && <HiCheck size={18} />}
-                  </div>
+        { currentUser &&
+          <React.Fragment>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup className='flex flex-col gap-1'>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger className='rounded'>
+                  <p className='text-base font-semibold'>Themes</p>
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent className='rounded mx-2'>
+                    <DropdownMenuItem className='rounded' onClick={() => setTheme("dark")}>
+                      <div className="flex items-center gap-3">
+                        <p className='text-base font-medium'>Dark Mode</p>
+                        <HiOutlineMoon size={18}/>
+                        {theme === "dark" && <HiCheck size={18} />}
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className='rounded' onClick={() => setTheme("light")}>
+                      <div className="flex items-center gap-3">
+                        <p className='text-base font-medium'>Light Mode</p>
+                        <HiOutlineSun size={18}/>
+                        {theme === "light" && <HiCheck size={18} />}
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className='rounded' onClick={() => setTheme("system")}>
+                      <div className="flex items-center gap-3">
+                        <p className='text-base font-medium'>System Default</p>
+                        <HiOutlineTv size={18}/>
+                        {theme === "system" && <HiCheck size={18} />}
+                      </div>
+                    </DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+              { currentUser &&
+                <DropdownMenuItem className={cn('rounded', path === '/dashboard' && 'bg-primary/70 text-white')} onClick={() =>router.push('/dashboard')}>
+                  <p className='text-base font-semibold'>Dashboard</p>
                 </DropdownMenuItem>
-                <DropdownMenuItem className='rounded' onClick={() => setTheme("light")}>
-                  <div className="flex items-center gap-3">
-                    <p className='text-base font-medium'>Light Mode</p>
-                    <HiOutlineSun size={18}/>
-                    {theme === "light" && <HiCheck size={18} />}
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuItem className='rounded' onClick={() => setTheme("system")}>
-                  <div className="flex items-center gap-3">
-                    <p className='text-base font-medium'>System Default</p>
-                    <HiOutlineTv size={18}/>
-                    {theme === "system" && <HiCheck size={18} />}
-                  </div>
-                </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-          { currentUser &&
-            <DropdownMenuItem className={cn('rounded', path === '/dashboard' && 'bg-primary/70 text-white')} onClick={() =>router.push('/dashboard')}>
-              <p className='text-base font-semibold'>Dashboard</p>
-            </DropdownMenuItem>
-          }
-        </DropdownMenuGroup>
+              }
+            </DropdownMenuGroup>
+          </React.Fragment>
+        }
         { currentUser &&
           <React.Fragment>
             <DropdownMenuSeparator />

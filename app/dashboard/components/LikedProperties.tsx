@@ -73,6 +73,7 @@ const LikedProperties = ({user, setActiveTab}: Props) => {
       </InfiniteScrollClient>
     )
   };
+  
   return (
     <div className='w-full min-h-[73.5vh] flex slide-in-left'>
       <div className="flex flex-col lg:gap-4 gap-3 w-full">

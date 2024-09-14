@@ -20,12 +20,12 @@ const Clients = ({user}: Props) => {
     }
   },[]);
 
-  const [activeTab, setActiveTab] = React.useState('add-client')
+  const [activeTab, setActiveTab] = React.useState('all-clients')
 
   return (
     <React.Fragment>
       { activeTab === 'add-client' && <AddClient setActiveTab={setActiveTab} user={user}/> }
-      { activeTab === 'all-clients' && <AllClients setActiveTab={setActiveTab} /> }
+      { activeTab === 'all-clients' && <AllClients setActiveTab={setActiveTab} user={user} /> }
     </React.Fragment>
   )
 }

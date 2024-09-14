@@ -13,16 +13,19 @@ type Props = {
 }
 
 const Properties = ({user}: Props) => {
-  const [agentActiveTab, setAgentActiveTab] = React.useState('add-property');
-  const [userActiveTab, setUserActiveTab] = React.useState('bookmarks');
+
+  const [agentActiveTab, setAgentActiveTab] = React.useState('added-properties');
+  const [userActiveTab, setUserActiveTab] = React.useState('rented-properties');
 
   return (
     <React.Fragment>
-      { user.role === 'agent' ? (
+      { user.role === 'agent' && (
         <React.Fragment>
           { agentActiveTab === 'add-property' && <AddProperty setActiveTab={setAgentActiveTab} /> }
           { agentActiveTab === 'added-properties' && <AddedProperties setActiveTab={setAgentActiveTab} user={user}/> }
-        </React.Fragment> ) : (
+        </React.Fragment> ) 
+      }
+      { user.role === 'user' && (
         <React.Fragment>
           { userActiveTab === 'liked-properties' && user.showLikedProperties && <LikedProperties user={user} setActiveTab={setUserActiveTab}/> }
           { userActiveTab === 'rented-properties' && <RentedProperties setActiveTab={setUserActiveTab} user={user}/>}

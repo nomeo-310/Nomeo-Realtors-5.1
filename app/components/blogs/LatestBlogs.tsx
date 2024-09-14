@@ -34,7 +34,6 @@ const LatestBlogPosts = () => {
 
   const blogList:blogProps[] = data;
 
-
   if (status === 'success' && !blogList.length ) {
     return (
       <p className='lg:text-xl md:text-lg text-center mt-8 lg:mt-10 w-full text-red-400'>

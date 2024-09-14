@@ -12,6 +12,7 @@ const AgentsSchema = new Schema({
   officeNumber: {type: String, default: ''},
   phoneNumber: {type: String, default: ''},
   ratings: {type: String, default: ''},
+  showBookmarkUsers: {type: Boolean, default: false},
   clients:  [{ type: mongoose.Schema.ObjectId, ref: "Users" }],
   properties:  [{ type: mongoose.Schema.ObjectId, ref: "Properties" }],
   blogs: [{ type: mongoose.Schema.ObjectId, ref: "Blogs" }],

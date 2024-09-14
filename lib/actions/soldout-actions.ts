@@ -2,6 +2,7 @@
 
 import Agents from "../models/agents";
 import Inspections from "../models/inspections";
+import Notifications from "../models/notifications";
 import Properties from "../models/properties";
 import Soldouts from "../models/soldouts";
 import Users from "../models/users";
@@ -54,6 +55,7 @@ export const createSale = async ({propertyId, inspectionId, userId, agentId}:cre
     await Users.findOneAndUpdate({_id: userId}, {$pull: {inspections: currentInspection._id}})
     await Inspections.deleteOne({_id: inspectionId})
     await Properties.findOneAndUpdate({_id: propertyId}, {availabilityTag: 'not-available'})
+    await Notifications.deleteOne({type: 'inspections', issuer: userId, recipient: user._id})
     
     return {success: ''}
   } catch (error) {

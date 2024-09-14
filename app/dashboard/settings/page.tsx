@@ -1,15 +1,16 @@
 import React from 'react'
 import { Metadata } from 'next';
+import Settings from '../components/Settings';
+import { getCurrentUser } from '@/lib/actions/user-actions';
 
 export const metadata: Metadata = {
   title: 'Settings',
 };
 
-type Props = {}
-
-const page = (props: Props) => {
+const page = async () => {
+  const user = await getCurrentUser();
   return (
-    <div>settings page</div>
+    <Settings user={user}/>
   )
 }
 

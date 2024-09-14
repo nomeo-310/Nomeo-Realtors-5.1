@@ -148,12 +148,14 @@ export type userProps = {
   phoneNumber: string;
   role: 'user' | 'agent';
   profileImage: { public_id: string, secure_url: string };
+  coverImage: { public_id: string, secure_url: string };
   newsletterSubscriptions: boolean;
   isAgent: {
     agencyName: string;
     agencyAddress: string;
     agentInspectionFee: number;
     agentBio: string;
+    showBookmarkUsers: boolean;
     agencyWebsite: string;
     officeNumber: string;
     phoneNumber: string;
@@ -329,6 +331,57 @@ export type userInspectionProps = {
     agentInspectionFee: number;
   };
   additionalNumber: string;
+};
+
+export type clientProps = {
+  _id: string;
+  user: {
+    name: string;
+    image: string;
+    phoneNumber: string;
+    occupation: string;
+  },
+  property: { 
+    propertyId: string;
+    address: string;
+    city: string;
+    state: string;
+    numberOfRooms: number;
+    numberOfBath: number;
+    numberOfToilets: number;
+    area: number;
+    annualRent: number;
+    monthlyRent: number;
+  },
+  agent: string;
+  paymentDate: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type agentProps = {
+  _id: string;
+  user: {
+    _id: string;
+    name: string;
+    image: string;
+    email: string;
+    phoneNumber: string;
+  },
+  agencyName: string;
+  agencyAddress: string;
+  agentInspectionFee: number;
+  agentBio: string;
+  agencyWebsite: string;
+  licenseNumber: string;
+  officeNumber: string;
+  phoneNumber: string;
+  ratings: number;
+  profileCreated: boolean;
+  properties: string[];
+  clients: string[];
+  blogs: string[];
+  inspections: string[]; 
 }
 
 

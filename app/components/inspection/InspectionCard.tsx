@@ -106,15 +106,17 @@ const InspectionCard = ({setActiveTab, inspection}: Props) => {
   };
 
   return (
-    <div className='lg:p-4 p-3 rounded w-full bg-card flex flex-col gap-2 shadow-sm'>
+    <div className='lg:p-4 p-3 rounded w-full bg-card flex flex-col sm:gap-2 gap-1 shadow-sm'>
       <h2 className='text-base'>Client details</h2>
       <div className='flex gap-4 lg:gap-5'>
         <ImageAvatar src={inspection.user.image} alt='user_profile_image' className='flex-none rounded-full md:size-16 size-12'/>
         <div className='w-full'>
-          <p className='text-sm sm:text-base capitalize'>Name: {inspection.user.name}</p>
-          <p className='text-sm sm:text-base'>Email: {inspection.user.email}</p>
-          <div className='flex items-center justify-between w-full cursor-pointer' onClick={() => setShowDetails((prev) => !prev)}>
-            <p className='text-sm sm:text-base capitalize'>Phone: {inspection.user.phoneNumber}</p>
+          <div className="flex flex-wrap sm:gap-2 gap-1">
+            <p className='text-sm sm:text-base capitalize border p-1 rounded'>Name: {inspection.user.name}</p>
+            <p className='text-sm sm:text-base border p-1 rounded'>Email: {inspection.user.email}</p>
+          </div>
+          <div className='flex items-center justify-between w-full cursor-pointer sm:mt-2 mt-1' onClick={() => setShowDetails((prev) => !prev)}>
+            <p className='text-sm sm:text-base capitalize border p-1 rounded'>Phone: {inspection.user.phoneNumber}</p>
             <div className='flex items-center gap-2 text-sm sm:text-base'>{showDetails ? 'Hide more': 'Show more'} {showDetails ? <HiChevronUp className='size-4 sm:size-5'/> : <HiChevronDown className='size-4 sm:size-5' />}</div>
           </div>
         </div>
@@ -123,43 +125,43 @@ const InspectionCard = ({setActiveTab, inspection}: Props) => {
         <React.Fragment>
           <hr/>
           <h2 className='text-base'>Inspection details</h2>
-          <div>
-            <p className='text-sm sm:text-base capitalize'>Date: {formatDate(inspection.scheduledAt)}</p>
-            <p className='text-sm sm:text-base capitalize'>Time: {inspection.time}</p>
+          <div className='flex flex-wrap sm:gap-2 gap-1'>
+            <p className='text-sm sm:text-base capitalize border p-1 rounded'>Date: {formatDate(inspection.scheduledAt)}</p>
+            <p className='text-sm sm:text-base capitalize border p-1 rounded'>Time: {inspection.time}</p>
           </div>
           <hr/>
           <h2 className='text-base'>Property details</h2>
-          <div>
-            <p className='text-sm sm:text-base capitalize border py-1 px-3 rounded-full inline-block mb-1.5 cursor-pointer underline' onClick={() => router.push(`/property/${inspection.property.propertyId}`)}>Address: {inspection.property.address}.</p>
+          <div className='flex flex-wrap sm:gap-2 gap-1'>
+            <p className='text-sm sm:text-base capitalize border p-1 rounded cursor-pointer hover:underline' onClick={() => router.push(`/property/${inspection.property.propertyId}`)}>Address: {inspection.property.address}.</p>
+            <span className='border p-1 rounded text-sm sm:text-base'>{inspection.property.numberOfBath} baths</span>
+            <span className='border p-1 rounded text-sm sm:text-base'>{inspection.property.numberOfRooms} beds</span>
+            <span className='border p-1 rounded text-sm sm:text-base'>{inspection.property.numberOfToilets} toilets</span>
+            <span className='border p-1 rounded text-sm sm:text-base'>{inspection.property.area.toLocaleString()} sqft</span>
             <div>
               <div className='sm:text-base text-sm flex flex-wrap gap-2'>
-                <span className='border py-1 px-2 rounded-full'>{inspection.property.numberOfBath} baths</span>
-                <span className='border py-1 px-2 rounded-full'>{inspection.property.numberOfRooms} beds</span>
-                <span className='border py-1 px-2 rounded-full'>{inspection.property.numberOfToilets} toilets</span>
-                <span className='border py-1 px-2 rounded-full'>{inspection.property.area.toLocaleString()} sqft</span>
               </div>
               {inspection.property.propertyTag === 'for-rent' ? (
-                <div className='sm:text-base text-sm flex flex-wrap gap-2 mt-1.5'>
-                  <span className='border py-1 px-2 rounded-full'>Annual rent: {nairaSign}{formatMoney(inspection.property.annualRent)} annually</span>
-                  { inspection.property.monthlyRent !== 0 && <span className='border py-1 px-2 rounded-full'>{nairaSign}{formatMoney(inspection.property.monthlyRent)} monthly</span>}
+                <div className='sm:text-base text-sm flex flex-wrap gap-2'>
+                  <span className='border p-1 rounded'>Annual rent: {nairaSign}{formatMoney(inspection.property.annualRent)} annually</span>
+                  { inspection.property.monthlyRent !== 0 && <span className='border p-1 rounded'>{nairaSign}{formatMoney(inspection.property.monthlyRent)} monthly</span>}
                 </div>) : (
-                <div className='sm:text-base text-sm flex flex-wrap gap-2 mt-1.5'>
-                  <span className='border py-1 px-2 rounded-full'>Full price: {nairaSign}{formatMoney(inspection.property.fullPropertyPrice)}</span>
-                  { inspection.property.annualPayment !== 0 && <span className='border py-1 px-2 rounded-full'>{nairaSign}{formatMoney(inspection.property.annualPayment)} annually</span> }
+                <div className='sm:text-base text-sm flex flex-wrap gap-2'>
+                  <span className='border p-1 rounded'>Full price: {nairaSign}{formatMoney(inspection.property.fullPropertyPrice)}</span>
+                  { inspection.property.annualPayment !== 0 && <span className='border p-1 rounded'>{nairaSign}{formatMoney(inspection.property.annualPayment)} annually</span> }
                 </div>
               )
             }
             </div>
           </div>
           { inspection.property.propertyTag === 'for-rent' ? (
-            <div className='flex items-center justify-end'>
-              <LoadingButton loading={isLoading} disabled={isLoading} className='rounded-full' onClick={addClient}>
+            <div className='flex items-center justify-end mt-2'>
+              <LoadingButton loading={isLoading} disabled={isLoading} className='rounded' onClick={addClient}>
                 <p className='sm:text-base text-sm'>{isLoading ? 'Adding client...' : 'Add client'}</p>
               </LoadingButton>
             </div>
           ) : (
-            <div className='flex items-center justify-end'>
-              <LoadingButton loading={isLoading} disabled={isLoading} className='rounded-full' onClick={confirmSale}>
+            <div className='flex items-center justify-end mt-2'>
+              <LoadingButton loading={isLoading} disabled={isLoading} className='rounded' onClick={confirmSale}>
                 <p className='sm:text-base text-sm'>{isLoading ? 'Confirming sale...' : 'Confirm sale'}</p>
               </LoadingButton>
             </div>

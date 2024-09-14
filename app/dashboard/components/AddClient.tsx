@@ -6,6 +6,7 @@ import InfiniteScrollClient from '@/components/shared/InfiniteScrollClient';
 import { inspectionProps, userProps } from '@/lib/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { LucideLoader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 
 type Props = {
@@ -19,6 +20,13 @@ type dataProps = {
 };
 
 const AddClient = ({setActiveTab, user}: Props) => {
+  const router = useRouter();
+  
+  React.useLayoutEffect(() => {
+    if (!user) {
+      router.push('/')
+    }
+  }, [user])
 
   const fetchApiData = async ({ pageParam }: { pageParam: number }) => {
     const response = await fetch("/api/getAgentInspections", {

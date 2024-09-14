@@ -1,16 +1,19 @@
 import React from 'react'
 import { Metadata } from 'next';
+import { getCurrentUser } from '@/lib/actions/user-actions';
+import UserAgents from '../components/UserAgents';
 
 export const metadata: Metadata = {
   title: 'Agents',
 };
 
-type Props = {}
 
-const page = (props: Props) => {
+const page = async () => {
+  const user = await getCurrentUser();
+
   return (
-    <div>agents page</div>
+    <UserAgents user={user}/>
   )
 }
 
-export default page
+export default page;

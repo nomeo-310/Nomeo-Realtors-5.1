@@ -9,6 +9,7 @@ const UsersSchema = new Schema({
   state: {type: String, default: ''},
   phoneNumber: {type: String, default: ''},
   profileImage: {public_id: {type: String, default: ''}, secure_url: {type: String, default: ''}},
+  coverImage: {public_id: {type: String, default: ''}, secure_url: {type: String, default: ''}},
   image: {type: String, default: ''},
   occupation: {type: String, default: ''},
   verification: {type: Boolean, default: false},

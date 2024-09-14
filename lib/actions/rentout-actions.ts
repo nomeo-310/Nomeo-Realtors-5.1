@@ -63,9 +63,10 @@ export const createRent = async ({propertyId, inspectionId, userId, agentId}:cre
     newNotification.save();
   
     await Agents.findOneAndUpdate({_id: agentId}, {$pull: {inspections: currentInspection._id}, $push: {clients: userId}})
-    await Users.findOneAndUpdate({_id: userId}, {$pull: {inspections: currentInspection._id}, $push: {agents: agentId, properties: propertyId, notifications: newNotification._id}})
+    await Users.findOneAndUpdate({_id: userId}, {$pull: {inspections: currentInspection._id, bookmarkedProperties: property._id, likedProperties: property._id}, $push: {agents: agentId, properties: propertyId, notifications: newNotification._id}})
     await Inspections.deleteOne({_id: inspectionId})
     await Properties.findOneAndUpdate({_id: propertyId}, {availabilityTag: 'not-available'})
+    await Notifications.deleteOne({type: 'inspections', issuer: userId, recipient: user._id})
     
     return {success: 'Client successfully added'}
   } catch (error) {
@@ -74,7 +75,7 @@ export const createRent = async ({propertyId, inspectionId, userId, agentId}:cre
   }
 };
 
-export const terminateRent = async ({rentoutId}:{rentoutId: string;}) => {
+export const terminateRent = async (rentoutId:string) => {
   await connectToMongoDB();
 
   const user = await getCurrentUser();
@@ -107,3 +108,37 @@ export const terminateRent = async ({rentoutId}:{rentoutId: string;}) => {
 
 };
 
+export const getClient = async (rentoutId:string) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return;
+  };
+
+  if (user && user.role === 'user') {
+    return;
+  };
+
+  try {
+    const client = await Rentouts.findOne({_id: rentoutId})
+    .populate({
+      path: 'user',
+      model: Users,
+      select: 'name image phoneNumber occupation'
+    })
+    .populate({
+      path: 'property',
+      model: Properties,
+      select: 'propertyId address city state numberOfRooms numberOfBath numberOfToilets area annualRent monthlyRent'
+    })
+    
+    const singleClient = JSON.parse(JSON.stringify(client))
+    return singleClient;
+  } catch (error) {
+    console.error(error)
+    return {error: 'Internal server error'}
+  }
+
+};

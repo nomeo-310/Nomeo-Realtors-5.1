@@ -39,6 +39,11 @@ type updateUserProps = {
   occupation?: string;
 }
 
+type updateCoverProps = {
+  path: string;
+  coverImage: { public_id: string, secure_url: string };
+}
+
 
 
 export const createUser = async ({name, email, password, phoneNumber, role}:createUserProps) => {
@@ -259,3 +264,30 @@ export const updateUserProfile = async ({ profileImage, city, state, isNewImage,
     return {error: 'Internal server error'}
   }
 };
+
+export const updateCoverImage = async ({path, coverImage}:updateCoverProps) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return;
+  }
+
+  try {
+    const oldCoverImage = user.coverImage;
+  
+    if (oldCoverImage.public_id !== '') {
+      deleteCloudinaryImages(oldCoverImage.public_id)
+    }
+  
+    await Users.findOneAndUpdate({_id: user._id}, {coverImage: coverImage})
+    
+    revalidatePath(path)
+    return {success: oldCoverImage.public_id !== '' ? 'Cover image updated successfully': 'Cover image set successfully.'}
+  } catch (error) {
+
+    return { error: 'Internal server error, try again later'}
+  }
+    
+  }
