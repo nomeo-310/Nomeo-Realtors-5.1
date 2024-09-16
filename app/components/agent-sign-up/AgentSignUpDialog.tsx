@@ -16,7 +16,8 @@ const AgentSignUpDialog = () => {
   }
 
   return (
-    <Modal 
+    <Modal
+      useSeparator 
       isOpen={agentSignup.isOpen}
       title='Become an agent'
       description='Begin your personal journey with us an agent, register you details and when you login you complete your profile.'

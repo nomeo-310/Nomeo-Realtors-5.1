@@ -20,6 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { updateAgentProfile } from "@/lib/actions/user-actions";
 import { useAgentProfile } from "@/lib/useModals";
 import LoadingButton from "@/components/shared/LoadingButton";
+import { LucideImagePlus } from "lucide-react";
 
 const fieldNames = [
   {
@@ -218,13 +219,13 @@ const AgentMultiStepForm = ({user}:{user:userProps}) => {
                   className='mx-auto size-fit'
                 />
                 <div className="flex items-center justify-end gap-3 mt-4">
-                  <Button variant={'secondary'} onClick={onClose} className='rounded-full' type="button">Cancel</Button>
-                  <Button onClick={crop} className='rounded-full' type="button">Crop</Button>
+                  <Button variant={'secondary'} onClick={onClose} className='rounded' type="button">Cancel</Button>
+                  <Button onClick={crop} className='rounded' type="button">Crop</Button>
                 </div>
               </div> :
               <React.Fragment>
                 <div className="w-full flex sm:flex-row flex-col sm:gap-2 gap-3">
-                  <div className={cn("size-36 sm:size-40 border hover:border-0 rounded relative flex-none group cursor-pointer overflow-hidden", imageCropped && 'border-0')} onClick={() => fileInputRef.current?.click()}>
+                  <div className={cn("size-36 sm:size-40 shadow-sm hover:border-0 rounded relative flex-none group cursor-pointer overflow-hidden", imageCropped && 'border-0')} onClick={() => fileInputRef.current?.click()}>
                     <Input type="file" ref={fileInputRef} className="hidden sr-only" onChange={(e) => onImageSelection(e.target.files?.[0])}/>
                     <Image src={ imageCropped ? URL.createObjectURL(imageCropped) : user.image || '/images/default_user.png' } alt="avatar" fill priority />
                     <div className="p-3 text-center text-white text-sm absolute top-0 right-0 w-full h-full bg-black/30 rounded opacity-0 group-hover:opacity-100 flex justify-center items-center">
@@ -242,7 +243,7 @@ const AgentMultiStepForm = ({user}:{user:userProps}) => {
                             <HiOutlineTrash size={24}/>
                           </Button>
                         </div> :
-                        'Upload profile Image'
+                        (<LucideImagePlus size={48} className="text-white"/>)
                       }
                     </div>
                   </div>
@@ -352,7 +353,7 @@ const AgentMultiStepForm = ({user}:{user:userProps}) => {
                 render={({field}) => (
                   <FormItem>
                     <FormControl className="-mb-1">
-                      <Textarea placeholder="add your bio (short words to describe you to your clients)" className="border rounded focus-visible:ring-0 focus-visible:ring-none focus-visible:ring-offset-0 outline-none text-base resize-none min-h-[250px]" {...field}/>
+                      <Textarea placeholder="add your bio (short words to describe you to your clients)" className="border rounded focus-visible:ring-0 focus-visible:ring-none focus-visible:ring-offset-0 outline-none sm:text-base text-sm resize-none min-h-[250px]" {...field}/>
                     </FormControl>
                     <FormMessage/>
                   </FormItem>

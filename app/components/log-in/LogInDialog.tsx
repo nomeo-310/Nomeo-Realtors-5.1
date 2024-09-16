@@ -16,7 +16,8 @@ const LoginDialog = () => {
   }
 
   return (
-    <Modal 
+    <Modal
+      useSeparator 
       isOpen={loginUser.isOpen}
       title='Log In'
        description='Welcome back, check your dashboard for notifications and get access to your agents.'

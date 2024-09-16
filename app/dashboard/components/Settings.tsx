@@ -29,10 +29,18 @@ const Settings = ({user}: Props) => {
         <ShowLikedProperties user={user}/>
         <hr/>
         <ShowLikedBlogs user={user}/>
-        <hr/>
-        <ShowBookmarkUsers user={user}/>
-        <hr/>
-        <UnSubscribeNewletter user={user}/>
+        { user?.role === 'agent' && 
+          <React.Fragment>
+            <hr/>
+            <ShowBookmarkUsers user={user}/>
+          </React.Fragment>
+        }
+        { user?.newsletterSubscriptions &&
+          <React.Fragment>
+            <hr/>
+            <UnSubscribeNewletter user={user}/>
+          </React.Fragment>
+        }
       </div>
     </div>
   )

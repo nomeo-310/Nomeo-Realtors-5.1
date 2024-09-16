@@ -17,6 +17,7 @@ const UsersSchema = new Schema({
   newsletterSubscriptions: {type: Boolean, default: false},
   profileCreated: {type: Boolean, default: false},
   showLikedProperties: {type: Boolean, default: false},
+  showLikedBlogs: {type: Boolean, default: false},
   isAgent: { type: mongoose.Schema.ObjectId, ref: "Agents" },
   agents:  [{ type: mongoose.Schema.ObjectId, ref: "Agents" }],
   properties:  [{ type: mongoose.Schema.ObjectId, ref: "Properties" }],

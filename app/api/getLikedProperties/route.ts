@@ -15,7 +15,6 @@ export const POST = async(request:Request) => {
 
   const likedProperties = currentUser.likedProperties;
 
-
   const { page } = await request.json();
   const value = page || undefined;
   const pageNumber = parseInt(value as string);

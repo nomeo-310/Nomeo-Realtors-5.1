@@ -16,7 +16,8 @@ const SignUpDialog = () => {
   }
 
   return (
-    <Modal 
+    <Modal
+      useSeparator 
       isOpen={signupUser.isOpen}
       title='Sign Up'
       description='Begin your personal journey with us as a user, register you details and when you login you complete your profile.'

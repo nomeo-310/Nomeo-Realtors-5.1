@@ -7,6 +7,7 @@ import SignUpDialog from '@/app/components/sign-up/SignUpDialog';
 import { userProps } from '@/lib/types';
 import AgentProfileDialog from '@/app/components/create-edit-profile/AgentProfileDialog';
 import UserProfileDialog from '@/app/components/create-edit-profile/UserProfileDialog';
+import DeleteAccountModal from '@/app/components/modals/DeleteAccountModal';
 
 const DialogProvider = ({user}: {user: userProps}) => {
   return (
@@ -16,6 +17,7 @@ const DialogProvider = ({user}: {user: userProps}) => {
       <AgentSignUpDialog />
       { user && user.role === 'agent' && <AgentProfileDialog user={user}/> }
       { user && user.role === 'user' && <UserProfileDialog user={user}/> }
+      <DeleteAccountModal/>
     </React.Fragment>
   );
 };

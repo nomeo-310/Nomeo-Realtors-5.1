@@ -222,12 +222,25 @@ export const bookmarkProperty = async ({propertyId, path}:{propertyId:string; pa
     return;
   };
 
-  const alreadyLiked = property.bookmarks.includes(user._id)
+  const agent = await Agents.findOne({_id: property.agent})
+
+  if (!agent) {
+    return;
+  }
+
+  const alreadyBookmarked = property.bookmarks.includes(user._id);
+  const notificationStatus = agent.showBookmarkUsers;
 
   try {
-    if (alreadyLiked) {
+    if (alreadyBookmarked) {
       await Properties.findOneAndUpdate({_id: propertyId}, {$pull: {bookmarks: user._id}})
       await Users.findOneAndUpdate({_id: user._id}, {$pull: {bookmarkedProperties: newPropertyId}});
+
+      if (notificationStatus === true) {
+        const notification = await Notifications.findOne({issuer: user._id, recipient: agent.user, type: 'interests'});
+        await Users.findOneAndUpdate({_id: agent.user}, {$pull: {notifications: notification?._id}})
+        await Notifications.deleteOne({_id: notification?._id})
+      }
   
       revalidatePath(path);
       return { success: "This property is removed from your bookmarks"};
@@ -235,6 +248,21 @@ export const bookmarkProperty = async ({propertyId, path}:{propertyId:string; pa
 
     await Properties.findOneAndUpdate({_id: propertyId}, {$push: {bookmarks: user._id}})
     await Users.findOneAndUpdate({_id: user._id}, {$push: {bookmarkedProperties: newPropertyId}});
+
+    if (notificationStatus === true) {
+      const notificationData = {
+        type: 'interests',
+        message: 'One of your properties was bookmarked by a user, you can check him out',
+        issuer: user._id,
+        recipient: agent.user,
+        property: property.propertyId,
+      };
+
+      const newNotification = await Notifications.create(notificationData);
+      newNotification.save();
+
+      await Users.findOneAndUpdate({_id: agent.user}, {$push: {notifications: newNotification._id}})
+    }
 
     revalidatePath(path);
     return { success: "This property has been added to your bookmarks"};
@@ -277,4 +305,4 @@ export const deleteProperty = async (id:string) => {
     
     return {error: 'Internal server error'}
   }
-}
+};

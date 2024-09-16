@@ -118,6 +118,12 @@ export interface IComment extends Document {
   blog: Schema.Types.ObjectId;
 };
 
+export interface ISubscription extends Document {
+  user?: Schema.Types.ObjectId;
+  email: string;
+  createdAt: Date;
+};
+
 export interface image {
   public_id: string;
   secure_url: string
@@ -151,6 +157,7 @@ export type userProps = {
   coverImage: { public_id: string, secure_url: string };
   newsletterSubscriptions: boolean;
   isAgent: {
+    _id: string;
     agencyName: string;
     agencyAddress: string;
     agentInspectionFee: number;
@@ -162,6 +169,7 @@ export type userProps = {
   }
   profileCreated: boolean;
   showLikedProperties: boolean;
+  showLikedBlogs: boolean;
   agents: string[];
   properties: string[];
   bookmarkedProperties: string[];

@@ -4,21 +4,47 @@ import Link from 'next/link';
 import React from 'react'
 import { HiOutlineHomeModern } from 'react-icons/hi2';
 import { BsFacebook, BsInstagram, BsThreads, BsTwitter } from 'react-icons/bs'
+import { subscribeUser } from '@/lib/actions/subscription-action';
+import { useToast } from '@/components/ui/use-toast';
+import { usePathname } from 'next/navigation';
 
 
 
 const FooterTop = () => {
 
   const Subscription = () => {
+    const { toast } = useToast();
     const [email, setEmail] = React.useState('');
+    const path = usePathname()
 
     const onChange = (event:React.ChangeEvent<HTMLInputElement>) => {
       const input = event.target.value
       setEmail(input)
     };
 
-    const handleSubscribe = (event:React.FormEvent<HTMLFormElement>) => {
+    const handleSubscribe = async (event:React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+      const data = {email: email, path: path};
+
+      await subscribeUser(data)
+      .then ((response) => {
+        if (response.success) {
+          toast({
+            variant: 'success',
+            title: 'Success',
+            description: response.success
+          });
+          setEmail('')
+        };
+
+        if (response.error) {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: response.error
+          });
+        }
+      })
     }
     return (
       <div className="w-full  flex gap-6 flex-col">

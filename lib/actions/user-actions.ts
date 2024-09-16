@@ -9,6 +9,11 @@ import { getServerSession } from "next-auth";
 import Notifications from "../models/notifications";
 import { revalidatePath } from "next/cache";
 import { deleteCloudinaryImages } from "./deleteProfileImage";
+import { ObjectId } from "mongodb";
+import Attachments from "../models/attachments";
+import { deleteApartmentImages } from "./deleteApartmentImages";
+import Properties from "../models/properties";
+import Inspections from "../models/inspections";
 
 type createUserProps = {
   name: string,
@@ -42,6 +47,23 @@ type updateUserProps = {
 type updateCoverProps = {
   path: string;
   coverImage: { public_id: string, secure_url: string };
+}
+
+type changePasswordProps = {
+  newPassword: string; 
+  oldPassword: string;
+  path: string
+}
+
+type changeEmailProps = {
+  newEmail: string;
+  path: string;
+};
+
+interface imageData {
+  _id: string;
+  public_id: string;
+  secure_url: string;
 }
 
 
@@ -110,7 +132,7 @@ export const getCurrentUser = async () => {
     .populate({
       path: 'isAgent',
       model: Agents,
-      select: '_id agencyName agencyAddress agentInspectionFee agentBio agencyWebsite officeNumber phoneNumber'
+      select: '_id agencyName agencyAddress agentInspectionFee agentBio agencyWebsite officeNumber phoneNumber showBookmarkUsers'
     });
     if (!user) {
       return;
@@ -282,7 +304,7 @@ export const updateCoverImage = async ({path, coverImage}:updateCoverProps) => {
     }
   
     await Users.findOneAndUpdate({_id: user._id}, {coverImage: coverImage})
-    
+     
     revalidatePath(path)
     return {success: oldCoverImage.public_id !== '' ? 'Cover image updated successfully': 'Cover image set successfully.'}
   } catch (error) {
@@ -290,4 +312,222 @@ export const updateCoverImage = async ({path, coverImage}:updateCoverProps) => {
     return { error: 'Internal server error, try again later'}
   }
     
+};
+
+export const showProperties = async (path:string) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return;
   }
+
+  const alreadyShowingLikedProperties = user.showLikedProperties === true;
+
+  if (alreadyShowingLikedProperties) {
+    try {
+      await Users.findOneAndUpdate({_id: user._id}, {showLikedProperties: false})
+      
+      revalidatePath(path)
+      return {success: 'All your liked properties will be now be hidden.'}
+    } catch (error) {
+      console.error(error)
+
+      return {error: 'Internal server error'}
+    }
+  }
+
+  try {
+    await Users.findOneAndUpdate({_id: user._id}, {showLikedProperties: true})
+    
+    revalidatePath(path);
+    return {success: 'All your liked properties will be now be displayed.'}
+  } catch (error) {
+    console.error(error)
+
+    return {error: 'Internal server error'}
+  }
+
+};
+
+export const showBlogs = async (path:string) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return;
+  };
+
+  const alreadyShowingLikedBlogs = user.showLikedBlogs;
+
+  if (alreadyShowingLikedBlogs) {
+    try {
+      await Users.findOneAndUpdate({_id: user._id}, {showLikedBlogs: false})
+  
+      revalidatePath(path);
+      return {success: 'All your liked blogs will be now be hidden.'}
+    } catch (error) {
+      console.error(error)
+
+      return {error: 'Internal server error'}
+    }
+  }
+
+  try {
+    await Users.findOneAndUpdate({_id: user._id}, {showLikedBlogs: true})
+
+    revalidatePath(path);
+    return {success: 'All your liked blogs will be now be displayed on the the dashboard.'}
+  } catch (error) {
+    console.error(error)
+
+    return {error: 'Internal server error'}
+  }
+};
+
+export const allowNotification = async (path:string) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser();
+
+  if (user.role !== 'agent') {
+    return;
+  }
+
+  const alreadyAllowedNotification = user.isAgent.showBookmarkUsers === true;
+
+  if (alreadyAllowedNotification) {
+    try {
+      await Agents.findOneAndUpdate({_id: user.isAgent._id}, {showBookmarkUsers: false})
+
+      revalidatePath(path);
+      return {success: 'You will no longer be notified when users bookmark any of your property.'}
+    } catch (error) {
+      console.error(error)
+
+      return {error: 'Internal server error'}
+    }
+  }
+
+  try {
+    await Agents.findOneAndUpdate({_id: user.isAgent._id}, {showBookmarkUsers: true})
+
+    revalidatePath(path);
+    return {success: 'You will now be notified when users bookmark any of your property.'}
+  } catch (error) {
+    console.error(error)
+
+    return {error: 'Internal server error'}
+  }
+};
+
+export const changePassword = async ({newPassword, oldPassword, path}:changePasswordProps) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser()
+
+  if (!user) {
+    return;
+  }
+
+  const rawUserData = await Users.findOne({email: user.email})
+
+  if (!rawUserData) {
+    return;
+  }
+
+  const oldHashedPassword = rawUserData.hashedPassword;
+  const passwordMatch = await bcryptjs.compare(oldPassword, oldHashedPassword);
+
+  if (!passwordMatch) {
+    return {error: 'Old password is incorrect'}
+  }
+
+  const newHashedPassword = await bcryptjs.hash(newPassword, 10);
+
+  try {
+    await Users.findOneAndUpdate({email: user.email}, {hashedPassword: newHashedPassword})
+
+    revalidatePath(path);
+    return {success: 'Password successfully changed.'}
+  } catch (error) {
+    console.error(error)
+
+    return {error: 'Internal server error'}
+  }
+};
+
+export const changeEmail = async ({newEmail, path}:changeEmailProps) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser()
+
+  if (!user) {
+    return;
+  }
+
+   try {
+    await Users.findOneAndUpdate({_id: user._id}, {email: newEmail})
+
+    revalidatePath(path);
+    return {success: 'Email successfully changed.'}
+   } catch (error) {
+    console.error(error)
+
+    return {error: 'Internal server error'}
+   }
+};
+
+export const deleteUserAccount = async () => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser()
+
+  if (!user) {
+    return;
+  }
+
+  if (user.role === 'agent') {
+    try {
+      const agent = await Agents.findOne({_id: user.isAgent})
+  
+      const agentProperties = agent?.properties;
+      const attachmentsArrays = await Attachments.find({property: {$in: agentProperties}}).select('attachments');
+      const attachments = JSON.parse(JSON.stringify(attachmentsArrays)).map((item: { attachments: imageData; }) => item.attachments);
+      const imageArray = attachments.flatMap((arr: imageData) => arr)
+  
+      await deleteApartmentImages(imageArray);
+      deleteCloudinaryImages(user.profileImage.public_id)
+      deleteCloudinaryImages(user.coverImage.public_id)
+      await Agents.deleteOne({_id: user.isAgent});
+      await Properties.deleteMany({agent: user.isAgent})
+      await Notifications.deleteMany({recipient: user._id})
+      await Inspections.deleteMany({agent: user.isAgent})
+      await Users.deleteOne({_id: user._id})
+      
+      return {success: 'Account successfully deleted.'}
+    } catch (error) {
+      console.error(error)
+
+      return {error: 'Internal server error'}      
+    }
+  }
+
+  try {
+    deleteCloudinaryImages(user.profileImage.public_id)
+    deleteCloudinaryImages(user.coverImage.public_id)
+    await Agents.deleteOne({_id: user.isAgent});
+    await Notifications.deleteMany({recipient: user._id})
+    await Inspections.deleteMany({user: user._id})
+    await Users.deleteOne({_id: user._id})
+    
+    return {success: 'Account successfully deleted.'}
+  } catch (error) {
+    console.error(error)
+
+    return {error: 'Internal server error'}      
+  }
+
+}

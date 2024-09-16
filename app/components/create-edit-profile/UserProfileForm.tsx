@@ -26,6 +26,7 @@ const UserProfileForm = ({user}:{user:userProps}) => {
   const profilePageDefaultValues = {
     city: user.city,
     state: user.state,
+    occupation: user.occupation
   };
 
   const form = useForm<userProfileValues>({

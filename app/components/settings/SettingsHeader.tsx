@@ -11,6 +11,7 @@ import { userProps } from '@/lib/types';
 import { usePathname } from 'next/navigation';
 import { updateCoverImage } from '@/lib/actions/user-actions';
 import { useToast } from '@/components/ui/use-toast';
+import { useAgentProfile, useUserProfile } from '@/lib/useModals';
 
 type Props = {
   user: userProps
@@ -24,7 +25,10 @@ const SettingsHeader = ({user}: Props) => {
   const [newProfileImage, setNewProfileImage] = React.useState({public_id: '', secure_url: ''});
 
   const path = usePathname();
-  const { toast } = useToast();                  
+  const { toast } = useToast();    
+  
+  const userProfile = useUserProfile();
+  const agentProfile = useAgentProfile();
 
   const onChangeImageFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -49,7 +53,8 @@ const SettingsHeader = ({user}: Props) => {
       const data = {image: imageFile, uploadPreset: 'profileImages'}
       const imageData = await uploadImage(data)
       const imageUrls = { public_id: imageData?.public_id, secure_url: imageData?.secure_url };
-      const updateData = { path: path, coverImage: imageUrls }
+      const updateData = { path: path, coverImage: imageUrls };
+
       await updateCoverImage(updateData)
       .then((response) => {
         if (response?.success) {
@@ -108,17 +113,17 @@ const SettingsHeader = ({user}: Props) => {
             <Image src={user.coverImage.secure_url ? user.coverImage.secure_url : '/images/default_cover.png'} alt='default cover' fill className='object-cover'/>
             <div className="bg-neutral-700/30 w-full h-full absolute left-0 top-0" />
             <div className="z-10 w-full flex justify-center flex-col left-0 top-0 absolute h-full px-6 py-10">
-              <div className="flex gap-4 items-center">
-                <ImageAvatar src='/images/profile_12.jpg' className='lg:size-36 md:size-28 size-20 rounded-full flex-none'/>
+              <div className="flex gap-4 items-center text-white">
+                <ImageAvatar src={user.image ? user.image : '/images/default_user.png'} className='lg:size-36 md:size-28 size-20 rounded-full flex-none'/>
                 <div className="flex flex-col font-semibold">
                   <p className='text-sm sm:text-base'>Name: {user.name}</p>
                   <p className='text-sm sm:text-base'>Email: {user.email}</p>
-                  <p className='text-sm sm:text-base'>Phone number: {user.phoneNumber}</p>
+                  <p className='text-sm sm:text-base'>Phone number: {user.role === 'user' ? user.phoneNumber : user.isAgent.phoneNumber}</p>
                 </div>
               </div>
               <Input type="file" ref={fileInputRef} className="hidden sr-only" onChange={onChangeImageFile}/>
               <div className="mt-10 sm:mt-6 flex w-full justify-between items-center">
-                <span className='bg-primary py-1 px-2 rounded text-sm sm:text-base cursor-pointer' onClick={() => console.log('i clicked')}>Edit profile</span>
+                <span className='bg-primary py-1 px-2 rounded text-sm sm:text-base cursor-pointer' onClick={user.role === 'user' ? () => userProfile.onOpen() : () => agentProfile.onOpen()}>Edit profile</span>
                 <div className='bg-primary py-1 px-2 rounded text-sm sm:text-base cursor-pointer flex items-center gap-2' onClick={() => fileInputRef.current?.click()}>
                   <LucideImagePlus size={22}/>
                   Change cover image

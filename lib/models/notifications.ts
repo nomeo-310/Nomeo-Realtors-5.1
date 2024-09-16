@@ -3,7 +3,7 @@ import { Schema } from 'mongoose'
 import { INotification } from '../types';
 
 const NotificationsSchema = new Schema({
-  type: {type: String, enum: ['alerts', 'payment-alerts', 'payment-reminders', 'inspections'], default: 'alerts'},
+  type: {type: String, enum: ['alerts', 'payment-alerts', 'payment-reminders', 'inspections', 'interests'], default: 'alerts'},
   message: {type: String, default: ""},
   inspectionDate: {type: Date, default: Date.now()},
   inspectionTime: {type: String, default: ""},

@@ -79,6 +79,8 @@ export const getBlog = async (id:string) => {
 };
 
 export const likeBlog = async ({blogId, path}:{blogId:string; path:string}) => {
+  await connectToMongoDB();
+
   const newBlogId = new ObjectId(blogId);
   const user = await getCurrentUser();
 
