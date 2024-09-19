@@ -11,7 +11,7 @@ import QueryProvider from "@/components/providers/QueryProvider";
 
 
 export const metadata: Metadata = {
-  title: { template: "NomeoRealtors | %s", default: "Nomeo Realtors | Home" },
+  title: { template: "Nomeo Realtors | %s", default: "Nomeo Realtors | Home" },
   description: "A real estate webapp built with ReactJS bootsrapped in NextJS, styled with TailwindCSS. A WebApp designed by Salomi Afolabi of Nomeo Consults. The app was initially intended as a real estate application to help in leasing and purchasing apartments but in the future will include investment opportunities as well other types of real estate adverts. This application is an updated version of the just concluded Nomeo Suites 5.0",
 };
 

@@ -530,4 +530,31 @@ export const deleteUserAccount = async () => {
     return {error: 'Internal server error'}      
   }
 
+};
+
+export const getAgent = async (licenseNumber:string) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return;
+  };
+
+  try {
+    const agent = await Agents.findOne({licenseNumber: licenseNumber})
+    .populate({
+      path: 'user',
+      model: Users,
+      select: 'name image _id coverImage createdAt'
+    })
+    
+    const singleAgent = JSON.parse(JSON.stringify(agent))
+    return singleAgent;
+  } catch (error) {
+    console.log(error)
+
+    return {error: 'Internal server error'}
+  }
+
 }

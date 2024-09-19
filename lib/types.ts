@@ -375,6 +375,11 @@ export type agentProps = {
     image: string;
     email: string;
     phoneNumber: string;
+    coverImage: {
+      secure_url: string;
+      public_id: string;
+    }
+    createdAt: string;
   },
   agencyName: string;
   agencyAddress: string;

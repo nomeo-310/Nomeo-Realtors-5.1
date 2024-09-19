@@ -4,12 +4,14 @@ import React from 'react'
 import { agentProps } from '@/lib/types';
 import ImageAvatar from '@/components/shared/ImageAvatar';
 import LoadingButton from '@/components/shared/LoadingButton';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   agent: agentProps;
 }
 
 const AgentCard = ({agent}: Props) => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
 
   return (
@@ -31,7 +33,7 @@ const AgentCard = ({agent}: Props) => {
             <LoadingButton loading={isLoading} disabled={isLoading}>
               <p className='text-sm sm:text-base'>{isLoading ? 'Sending message' : 'Send message'}</p>
             </LoadingButton>
-            <p className='text-sm sm:text-base hover:border-primary hover:bg-primary border rounded p-2 cursor-pointer'>View full profile</p>
+            <p className='text-sm sm:text-base hover:border-primary hover:bg-primary border rounded p-2 cursor-pointer' onClick={() => router.push(`/profile/${agent.licenseNumber}`)}>View full profile</p>
           </div>
         </div>
       </div>
@@ -39,4 +41,4 @@ const AgentCard = ({agent}: Props) => {
   )
 }
 
-export default AgentCard
+export default AgentCard;

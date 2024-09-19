@@ -7,6 +7,7 @@ import { userProps } from '@/lib/types';
 import Bookmarks from './Bookmarks';
 import RentedProperties from './RentedProperties';
 import LikedProperties from './LikedProperties';
+import AgentLikedProperties from './AgentLikedProperties';
 
 type Props = {
   user:userProps
@@ -21,8 +22,9 @@ const Properties = ({user}: Props) => {
     <React.Fragment>
       { user.role === 'agent' && (
         <React.Fragment>
-          { agentActiveTab === 'add-property' && <AddProperty setActiveTab={setAgentActiveTab} /> }
+          { agentActiveTab === 'add-property' && <AddProperty setActiveTab={setAgentActiveTab} user={user} /> }
           { agentActiveTab === 'added-properties' && <AddedProperties setActiveTab={setAgentActiveTab} user={user}/> }
+          { agentActiveTab === 'liked-properties' && user.showLikedProperties && <AgentLikedProperties user={user} setActiveTab={setAgentActiveTab}/> }
         </React.Fragment> ) 
       }
       { user.role === 'user' && (

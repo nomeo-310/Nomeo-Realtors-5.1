@@ -17,9 +17,10 @@ import { createPost } from '@/lib/actions/blog-action';
 
 type Props = {
   setActiveTab: React.Dispatch<React.SetStateAction<string>>
+  user: userProps
 }
 
-const CreatePost = ({setActiveTab}: Props) => {
+const CreatePost = ({setActiveTab, user}: Props) => {
 
   const { toast } = useToast();
 
@@ -184,6 +185,7 @@ const CreatePost = ({setActiveTab}: Props) => {
         <div className='flex gap-4 lg:gap-6 cursor-pointer'>
           <h2 className='text-xl md:text-3xl font-semibold'>Create Post</h2>
           <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('added-posts')}>Added Posts</h2>
+          { user.showLikedBlogs && <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('liked-posts')}>Liked Posts</h2> }
         </div>
         <form className="w-full overflow-hidden flex flex-col gap-3" onSubmit={create}>
           <InputWithIcon

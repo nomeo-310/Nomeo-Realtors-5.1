@@ -1,5 +1,6 @@
 'use client'
 
+import { userProps } from '@/lib/types';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react'
@@ -7,7 +8,8 @@ import { HiOutlineBell, HiOutlineCog6Tooth, HiOutlineDocumentText, HiOutlineHome
 import { IconType } from 'react-icons/lib';
 
 type dashboardMenuProps = {
-  agentLoggedIn:boolean
+  agentLoggedIn: boolean
+  user: userProps
 }
 
 type menuItemProps = {
@@ -17,7 +19,7 @@ type menuItemProps = {
   link: string,
 }
 
-const DashboardMenu = ({agentLoggedIn}: dashboardMenuProps) => {
+const DashboardMenu = ({agentLoggedIn, user}: dashboardMenuProps) => {
   const router = useRouter();
   const pathName = usePathname()
 
@@ -82,6 +84,14 @@ const DashboardMenu = ({agentLoggedIn}: dashboardMenuProps) => {
             active={pathName === '/dashboard/agents'}
             link='/dashboard/agents'
           />
+          {user?.showLikedBlogs &&
+            <DashboardMenuItem
+            label='Liked Posts'
+            icon={HiOutlineDocumentText}
+            active={pathName === '/dashboard/liked-posts'}
+            link='/dashboard/liked-posts'
+          />
+          }
           <DashboardMenuItem
             label='Inspections'
             icon={HiOutlineSquaresPlus}

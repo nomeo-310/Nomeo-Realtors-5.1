@@ -9,7 +9,6 @@ import BlogCard from '@/app/components/blogs/BlogCard';
 import { LucideLoader2 } from 'lucide-react';
 
 type Props = {
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>
   user: userProps;
 }
 
@@ -18,10 +17,10 @@ type dataProps = {
   nextPage: number;
 };
 
-const AddedPosts = ({setActiveTab, user}: Props) => {
+const UserLikedPosts = ({user}: Props) => {
 
   const fetchApiData = async ({ pageParam }: { pageParam: number }) => {
-    const response = await fetch("/api/getAddedPosts", {
+    const response = await fetch("/api/getLikedBlogs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ page: pageParam }),
@@ -36,7 +35,7 @@ const AddedPosts = ({setActiveTab, user}: Props) => {
   };
 
   const {  data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status} = useInfiniteQuery({
-    queryKey: ["added-posts", user._id],
+    queryKey: ["liked-posts", user._id],
     queryFn: fetchApiData,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.nextPage
@@ -53,7 +52,7 @@ const AddedPosts = ({setActiveTab, user}: Props) => {
     if (status === "success" && !blogs.length && !hasNextPage) {
       return (
         <p className="text-base lg:text-lg text-center text-muted-foreground">
-          You have not created any blog post yet.
+          You do not have any liked blog post. Try liking a blog post to see something.
         </p>
       );
     };
@@ -61,15 +60,15 @@ const AddedPosts = ({setActiveTab, user}: Props) => {
     if (status === "error") {
       return (
         <p className="text-base lg:text-lg text-center text-destructive">
-          An error occur while loading your created posts.
+          An error occur while loading your liked blog posts.
         </p>
       );
     }
 
     return(
-      <InfiniteScrollClient className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-x-4 md:gap-x-3 gap-y-6' onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}>
+      <InfiniteScrollClient className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-x-4 md:gap-x-3 gap-y-6 w-full' onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}>
         { blogs && blogs.map((item) => (
-          <BlogCard blog={item} user={user} agentMode />
+          <BlogCard blog={item} user={user} agentMode={false} />
         ))}
         {isFetchingNextPage && ( <LucideLoader2 className="mx-auto animate-spin my-3" />)}
       </InfiniteScrollClient>
@@ -77,17 +76,11 @@ const AddedPosts = ({setActiveTab, user}: Props) => {
   };
 
   return (
-    <div className='w-full min-h-[73.5vh] flex slide-in-left'>
-      <div className="flex flex-col lg:gap-4 gap-3 w-full">
-        <div className='flex w-full lg:gap-6 gap-4 cursor-pointer'>
-          <h2 className='text-xl md:text-3xl font-semibold'>Added Posts</h2>
-          <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('create-post')}>Create Post</h2>
-          { user.showLikedBlogs && <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('liked-posts')}>Liked Posts</h2> }
-        </div>
-        <Blogs/>
-      </div>
+    <div className='w-full min-h-[73.5vh] flex slide-in-left space-y-4'>
+      <h2 className='font-semibold md:hidden text-lg'>Liked Posts</h2>
+      <Blogs/>
     </div>
   )
-}
+};
 
-export default AddedPosts;
+export default UserLikedPosts;

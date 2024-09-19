@@ -19,9 +19,11 @@ import { useToast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import LoadingButton from '@/components/shared/LoadingButton';
 import { createProperty } from '@/lib/actions/properties-actions';
+import { userProps } from '@/lib/types';
 
 type Props = {
   setActiveTab: React.Dispatch<React.SetStateAction<string>>
+  user: userProps;
 };
 
 type imageProps = {
@@ -39,7 +41,7 @@ type landmarkProps = {
   distanceAway: string;
 };
 
-const AddProperty = ({setActiveTab}: Props) => {
+const AddProperty = ({setActiveTab, user}: Props) => {
 
   const { toast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
@@ -344,6 +346,7 @@ const AddProperty = ({setActiveTab}: Props) => {
           <div className='flex gap-4 lg:gap-6 cursor-pointer'>
             <h2 className='text-xl md:text-3xl font-semibold'>Add Property</h2>
             <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('added-properties')}>Added Properties</h2>
+            { user.showLikedProperties && <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('liked-properties')}>Liked Properties</h2> }
           </div>
           <div className="flex flex-col gap-3">
             <h2 className='text-xl md:text-2xl mb-2'>Property Description</h2>

@@ -1,27 +1,27 @@
 'use client'
 
 import React from 'react'
-import InfiniteScrollClient from '@/components/shared/InfiniteScrollClient';
-import { propertyProps, userProps } from '@/lib/types';
+import { blogProps, userProps } from '@/lib/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import PropertiesLoading from './PropertiesLoading';
-import PropertyCard from '@/app/components/property/PropertyCard';
+import PostLoading from './PostLoading';
+import InfiniteScrollClient from '@/components/shared/InfiniteScrollClient';
+import BlogCard from '@/app/components/blogs/BlogCard';
 import { LucideLoader2 } from 'lucide-react';
 
 type Props = {
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>
   user: userProps;
 }
 
 type dataProps = {
-  properties: propertyProps[];
+  blogs: blogProps[];
   nextPage: number;
 };
 
-const AddedProperties = ({setActiveTab, user}: Props) => {
+const AgentLikedPosts = ({setActiveTab, user}: Props) => {
 
   const fetchApiData = async ({ pageParam }: { pageParam: number }) => {
-    const response = await fetch("/api/getAddedProperties", {
+    const response = await fetch("/api/getLikedBlogs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ page: pageParam }),
@@ -36,24 +36,24 @@ const AddedProperties = ({setActiveTab, user}: Props) => {
   };
 
   const {  data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status} = useInfiniteQuery({
-    queryKey: ["added-properties", user._id],
+    queryKey: ["liked-posts", user._id],
     queryFn: fetchApiData,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.nextPage
   });
 
-  const properties: propertyProps[] = data?.pages.flatMap((page) => page.properties) || [];
-
-  const Properties = () => {
+  const blogs: blogProps[] = data?.pages.flatMap((page) => page.blogs) || [];
+  
+  const Blogs = () => {
 
     if (status === "pending") {
-      return <PropertiesLoading />;
+      return <PostLoading />;
     };
 
-    if (status === "success" && !properties.length && !hasNextPage) {
+    if (status === "success" && !blogs.length && !hasNextPage) {
       return (
         <p className="text-base lg:text-lg text-center text-muted-foreground">
-          You have not added any properties yet.
+          You do not have any liked blog post. Try liking a blog post to see something.
         </p>
       );
     };
@@ -61,15 +61,15 @@ const AddedProperties = ({setActiveTab, user}: Props) => {
     if (status === "error") {
       return (
         <p className="text-base lg:text-lg text-center text-destructive">
-          An error occur while loading your added properties.
+          An error occur while loading your liked blog posts.
         </p>
       );
     }
 
-    return (
+    return(
       <InfiniteScrollClient className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-x-4 md:gap-x-3 gap-y-6' onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}>
-        { properties && properties.map((item) => (
-          <PropertyCard property={item} user={user} agentMode agentProfileMode />
+        { blogs && blogs.map((item) => (
+          <BlogCard blog={item} user={user} agentMode={false} />
         ))}
         {isFetchingNextPage && ( <LucideLoader2 className="mx-auto animate-spin my-3" />)}
       </InfiniteScrollClient>
@@ -80,14 +80,14 @@ const AddedProperties = ({setActiveTab, user}: Props) => {
     <div className='w-full min-h-[73.5vh] flex slide-in-left'>
       <div className="flex flex-col lg:gap-4 gap-3 w-full">
         <div className='flex w-full lg:gap-6 gap-4 cursor-pointer'>
-          <h2 className='text-xl md:text-3xl font-semibold'>Added Properties</h2>
-          <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('add-property')}>Add Property</h2>
-          { user.showLikedProperties && <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('liked-properties')}>Liked Properties</h2> }
+          <h2 className='text-xl md:text-3xl font-semibold'>Liked Posts</h2>
+          <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('create-post')}>Create Post</h2>
+          <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('added-posts')}>Added Posts</h2>
         </div>
-        <Properties />
+        <Blogs/>
       </div>
     </div>
   )
-}
+};
 
-export default AddedProperties
+export default AgentLikedPosts;

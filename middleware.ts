@@ -3,7 +3,7 @@ import { withAuth } from 'next-auth/middleware';
 
 export default withAuth(
   async function middleware(req) {
-    const protectedRoutes = ['/dashboard/:path*', '/profile/:path*'];
+    const protectedRoutes = ['/dashboard/:path*'];
 
     const isProtectedRoute = protectedRoutes.some(route => req.nextUrl.pathname.startsWith(route));
 
@@ -16,5 +16,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/profile/:path*'],
+  matcher: ['/dashboard/:path*'],
 };

@@ -290,6 +290,8 @@ export const deleteProperty = async (id:string) => {
     return;
   }
 
+  const propertyLikers = property.likes;
+
   try {
    const imageArray = JSON.parse(JSON.stringify(images)).attachments;
    
@@ -297,7 +299,8 @@ export const deleteProperty = async (id:string) => {
     await Agents.findOneAndUpdate({_id: user.isAgent}, {$pull: {property: property._id}})
     await Inspections.deleteMany({property: property._id})
     await Notifications.deleteMany({property: property._id})
-    await Properties.deleteOne({_id: property._id});
+    await Users.updateMany({_id: {$in: propertyLikers}}, {$pull: {likedProperties: property._id, bookmarkedProperties: property._id}})
+    await Properties.deleteOne({_id: property._id, agent: user.isAgent});
 
     return {success: 'Property successfully deleted'}
   } catch (error) {

@@ -42,7 +42,7 @@ export const capitalizeName = (name:string) => {
 };
 
 export const generateLicenseNumber = () => {
-  const random = crypto.randomBytes(3).toString('hex').toUpperCase();
+  const random = crypto.randomBytes(3).toString('hex');
   const randomPart = random.substring(0, 5);
   const licenseNumber = `Agent-${randomPart}`
 

@@ -13,7 +13,7 @@ type Props = {
 const UserAgents = ({user}: Props) => {
 
   const { data, status } = useQuery({
-    queryKey: ['agents', user._id],
+    queryKey: ['agents', user?._id],
     queryFn: () => fetch('/api/getUserAgents').then((res) => res.json()),
   });
 

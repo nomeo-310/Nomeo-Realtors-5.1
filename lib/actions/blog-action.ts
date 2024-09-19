@@ -7,6 +7,7 @@ import Users from "../models/users";
 import { connectToMongoDB } from "../utils";
 import { getCurrentUser } from "./user-actions";
 import { ObjectId } from "mongodb";              
+import { deleteCloudinaryImages } from "./deleteProfileImage";
 
 type imageProps ={
   public_id: string;
@@ -19,6 +20,16 @@ type postData = {
   content: string;
   bannerImage: imageProps;
   readTime: string;
+};
+
+type deleteBlogProps = {
+  blogId: string;
+  path: string;
+};
+
+type likeBlogProps = {
+  blogId: string;
+  path: string;
 };
 
 export const createPost = async ({title, intro, content, bannerImage, readTime}:postData) => {
@@ -78,7 +89,7 @@ export const getBlog = async (id:string) => {
   }
 };
 
-export const likeBlog = async ({blogId, path}:{blogId:string; path:string}) => {
+export const likeBlog = async ({blogId, path}:likeBlogProps) => {
   await connectToMongoDB();
 
   const newBlogId = new ObjectId(blogId);
@@ -114,3 +125,37 @@ export const likeBlog = async ({blogId, path}:{blogId:string; path:string}) => {
     return {error: 'Internal server error, try again later'}
   }
 };
+
+export const deleteBlog = async ({blogId, path}:deleteBlogProps) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return;
+  };
+
+  const blogPost = await Blogs.findOne({_id: blogId})
+
+  if (!blogPost) {
+    return;
+  };
+
+  const bannerImage = blogPost.bannerImage;
+  const blogLikers = blogPost.likes;
+
+  try {
+    deleteCloudinaryImages(bannerImage.public_id);
+    await Agents.findOneAndUpdate({_id: blogPost.author}, {$pull: {blogs: blogPost._id}})
+    await Blogs.deleteOne({_id: blogPost._id})
+    await Users.updateMany({_id: {$in: blogLikers}}, {$pull: {likedBlogs: blogPost._id}})
+
+    revalidatePath(path)
+    return {success: 'Blog post successfully deleted'}
+  } catch (error) {
+    console.log(error);
+
+    return {error: 'Internal server error'}
+  }
+};
+
