@@ -2,6 +2,7 @@ import React from 'react'
 import { Metadata } from 'next';
 import { getCurrentUser } from '@/lib/actions/user-actions';
 import UserLikedPosts from '../components/UserLikedPosts';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Posts',
@@ -10,6 +11,10 @@ export const metadata: Metadata = {
 
 const page = async () => {
   const user = await getCurrentUser();
+
+  if (!user) {
+    redirect('/')
+  };
   
   return (
     <UserLikedPosts user={user}/>

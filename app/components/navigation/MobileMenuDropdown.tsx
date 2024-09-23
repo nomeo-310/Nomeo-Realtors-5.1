@@ -38,17 +38,17 @@ const MobileMenuDropdown = ({currentUser}: Props) => {
             <DropdownMenuSeparator />
           </React.Fragment>
         }
-        <DropdownMenuGroup className='flex flex-col gap-1' onClick={() =>router.push('/for-sale')}>
-          <DropdownMenuItem className={cn('rounded', path === '/for-sale' && 'bg-primary/70 text-white')}>
+        <DropdownMenuGroup className='flex flex-col gap-1'>
+          <DropdownMenuItem className={cn('rounded', path === '/for-sale' && 'bg-primary hover:bg-primary text-white')} onClick={() =>router.push('/for-sale')}>
             <p className='text-base font-semibold'>For Sale</p>
           </DropdownMenuItem>
-          <DropdownMenuItem className={cn('rounded', path === '/for-rent' && 'bg-primary/70 text-white')} onClick={() =>router.push('/for-rent')}>
+          <DropdownMenuItem className={cn('rounded', path === '/for-rent' && 'bg-primary hover:bg-primary text-white')} onClick={() =>router.push('/for-rent')}>
             <p className='text-base font-semibold'>For Rent</p>
           </DropdownMenuItem>
-          <DropdownMenuItem className={cn('rounded', path === '/about-us' && 'bg-primary/70 text-white')} onClick={() =>router.push('/about-us')}>
+          <DropdownMenuItem className={cn('rounded', path === '/about-us' && 'bg-primary hover:bg-primary text-white')} onClick={() =>router.push('/about-us')}>
             <p className='text-base font-semibold'>About Us</p>
           </DropdownMenuItem>
-          <DropdownMenuItem className={cn('rounded', path === '/blogs' && 'bg-primary/70 text-white')} onClick={() =>router.push('/blogs')}>
+          <DropdownMenuItem className={cn('rounded', path === '/blogs' && 'bg-primary hover:bg-primary text-white')} onClick={() =>router.push('/blogs')}>
             <p className='text-base font-semibold'>Blogs</p>
           </DropdownMenuItem>
         </DropdownMenuGroup>

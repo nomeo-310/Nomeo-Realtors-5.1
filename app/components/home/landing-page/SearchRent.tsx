@@ -5,11 +5,9 @@ import { CustomSelect } from './CustomSelect'
 import { getNigerianLgas, getNigerianStates } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import qs from 'query-string'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const SearchRent = () => {
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   const [state, setState] = React.useState("");
@@ -21,17 +19,12 @@ const SearchRent = () => {
   const localGovernmentAreas = getNigerianLgas(state);
 
   const handleSearch = () => {
-    let currentQuery = {};
+    if (!state || !city || minimumRent === 0 || maximumRent === 0) {
+      return;
+    }
 
-    if (searchParams) {
-      currentQuery = qs.parse(searchParams.toString());
-    };
-
-    const updatedQuery:any = {...currentQuery, state: state, city: city, minimumRent: minimumRent, maximumRent: maximumRent, propertyTag: 'for-rent' };
-
-    const url = qs.stringifyUrl({url: '/search', query: updatedQuery}, {skipNull: true});
-
-    router.push(url);
+    const newUrl = `/for-rent?state=${state}&city=${city}&minimumRent=${minimumRent}&maximumRent=${maximumRent}`;
+    router.push(newUrl)
   };
 
   return (

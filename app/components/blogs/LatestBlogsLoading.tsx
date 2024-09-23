@@ -11,11 +11,10 @@ const LatestBlogsLoading = () => {
           <Skeleton className='w-full h-full bg-neutral-300'/>
         </div>
         <div className='w-full'>
-          <Skeleton className='h-4 w-full rounded-md bg-neutral-300'/>
+          <Skeleton className='h-20 w-full rounded-md bg-neutral-300 hidden md:block'/>
           <div className="mt-2 w-full">
-            <Skeleton className='h-20 w-full rounded-md bg-neutral-300'/>
+            <Skeleton className='h-4 w-full rounded-full bg-neutral-300'/>
             <div className="flex items-center gap-2 mt-2">
-              <Skeleton className='h-4 w-4 rounded-full bg-neutral-300'/>
               <Skeleton className='h-4 w-28 rounded-full bg-neutral-300'/>
             </div>
           </div>
@@ -26,11 +25,9 @@ const LatestBlogsLoading = () => {
           <Skeleton className='w-full h-full bg-neutral-300'/>
         </div>
         <div className='w-full mt-2'>
-          <Skeleton className='h-4 w-full rounded-md bg-neutral-300'/>
+          <Skeleton className='h-4 w-full rounded-full bg-neutral-300'/>
           <div className="mt-2 w-full">
-            <Skeleton className='h-20 w-full rounded-md bg-neutral-300'/>
             <div className="flex items-center gap-2 mt-2">
-              <Skeleton className='h-4 w-4 rounded-full bg-neutral-300'/>
               <Skeleton className='h-4 w-28 rounded-full bg-neutral-300'/>
             </div>
           </div>
@@ -41,11 +38,9 @@ const LatestBlogsLoading = () => {
           <Skeleton className='w-full h-full bg-neutral-300'/>
         </div>
         <div className='w-full mt-2'>
-          <Skeleton className='h-4 w-full rounded-md bg-neutral-300'/>
           <div className="mt-2 w-full">
-            <Skeleton className='h-20 w-full rounded-md bg-neutral-300'/>
+            <Skeleton className='h-4 w-full rounded-full bg-neutral-300'/>
             <div className="flex items-center gap-2 mt-2">
-              <Skeleton className='h-4 w-4 rounded-full bg-neutral-300'/>
               <Skeleton className='h-4 w-28 rounded-full bg-neutral-300'/>
             </div>
           </div>
@@ -57,12 +52,11 @@ const LatestBlogsLoading = () => {
             <Skeleton className='h-full w-full rounded-md bg-neutral-300'/>
           </div>
           <div className="w-[60%] h-full flex flex-col justify-between pb-4">
-            <Skeleton className='h-4 w-full rounded-md bg-neutral-300'/>
-            <Skeleton className='h-4 w-[80%] rounded-md bg-neutral-300 mt-1'/>
+            <Skeleton className='h-4 w-full rounded-full bg-neutral-300'/>
+            <Skeleton className='h-4 w-[80%] rounded-full bg-neutral-300 mt-1'/>
             <div className="mt-2 w-full">
               <Skeleton className='h-32 w-full rounded-md bg-neutral-300'/>
               <div className="flex items-center gap-2 mt-2">
-                <Skeleton className='h-4 w-4 rounded-full bg-neutral-300'/>
                 <Skeleton className='h-4 w-28 rounded-full bg-neutral-300'/>
               </div>
             </div>
@@ -73,12 +67,11 @@ const LatestBlogsLoading = () => {
             <Skeleton className='h-full w-full rounded-md bg-neutral-300'/>
           </div>
           <div className="w-[60%] h-full flex flex-col justify-between pb-4">
-            <Skeleton className='h-4 w-full rounded-md bg-neutral-300'/>
-            <Skeleton className='h-4 w-[80%] rounded-md bg-neutral-300 mt-1'/>
+            <Skeleton className='h-4 w-full rounded-full bg-neutral-300'/>
+            <Skeleton className='h-4 w-[80%] rounded-full bg-neutral-300 mt-1'/>
             <div className="mt-2 w-full">
               <Skeleton className='h-32 w-full rounded-md bg-neutral-300'/>
               <div className="flex items-center gap-2 mt-2 ">
-                <Skeleton className='h-4 w-4 rounded-full bg-neutral-300'/>
                 <Skeleton className='h-4 w-28 rounded-full bg-neutral-300'/>
               </div>
             </div>

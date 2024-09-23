@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 const page = async () => {
   const user = await getCurrentUser();
+  
   return (
     <React.Fragment>
       <Blogs user={user}/>

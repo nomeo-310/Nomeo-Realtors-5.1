@@ -193,6 +193,46 @@ export const formatMoney = (amount:number) => {
   }
 
   return;
+};
+
+const roomList = [
+  'one bedroom',
+  'two bedroom',
+  'three bedroom',
+  'four bedroom',
+  'five bedroom',
+];
+
+export const formatRoomToilet = (value:string) => {
+  if (value) {
+    const numberText = value.split(' ')[0];
+    if (numberText === 'one') {
+      const numberOfRooms:number = 1;
+      return numberOfRooms;
+    };
+  
+    if (numberText === 'two') {
+      const numberOfRooms:number = 2;
+      return numberOfRooms;
+    };
+  
+    if (numberText === 'three') {
+      const numberOfRooms:number = 3;
+      return numberOfRooms;
+    };
+  
+    if (numberText === 'four') {
+      const numberOfRooms:number = 4;
+      return numberOfRooms;
+    };
+  
+    if (numberText === 'five') {
+      const numberOfRooms:number = 5;
+      return numberOfRooms;
+    };
+  }
+
+  return;
 }
 
 

@@ -1,7 +1,7 @@
 import { agentProps } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import React from 'react'
-import { HiLink, HiOutlineBriefcase, HiOutlineCreditCard, HiOutlineDocumentText, HiOutlineHome, HiOutlineMapPin, HiOutlinePhone, HiOutlineSparkles, HiOutlineUser, HiOutlineUsers } from 'react-icons/hi2';
+import { HiLink, HiOutlineBriefcase, HiOutlineCreditCard, HiOutlineDocumentText, HiOutlineHome, HiOutlineMapPin, HiOutlinePhone, HiOutlineUser, HiOutlineUsers } from 'react-icons/hi2';
 
 type Props = {
   agent: agentProps
