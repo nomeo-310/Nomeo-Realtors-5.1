@@ -12,12 +12,31 @@ import { Navigation, Pagination, A11y } from 'swiper/modules';
 import { CiCircleChevLeft, CiCircleChevRight } from 'react-icons/ci';
 import TestimonialCard from './TestimonialCard';
 import { LiaArrowRightSolid, LiaArrowLeftSolid } from "react-icons/lia"
-import { testimony, testimonySliderSettings } from '@/assets/data';
+import { testimony } from '@/assets/data';
 
 type Props = {
   useButton?: boolean 
   testimonials: testimony[]
 }
+
+const testimonySliderSettings = {
+  320: {
+    slidesPerView: 1,
+    spaceBetween: 10
+  },
+  440: {
+    slidesPerView: 1,
+    spaceBetween: 10
+  },
+  680: {
+    slidesPerView: 2,
+    spaceBetween: 10
+  },
+  1024: {
+    slidesPerView: 3,
+    spaceBetween: 12
+  }
+};
 
 const TestimonialSlider = ({useButton, testimonials}: Props) => {
   const swiperRef = React.useRef<SwiperCore>();

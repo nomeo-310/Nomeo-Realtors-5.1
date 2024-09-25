@@ -112,17 +112,17 @@ const AgentSignUpForm = () => {
         />
         <div className='flex justify-end'>
           <LoadingButton type='submit' className='rounded lg:text-lg' size={'lg'} loading={isLoading}>
-            <p className='text-base'>{isLoading ? 'Creating account...' : 'Create account'}</p>
+            <p className='sm:text-base text-sm'>{isLoading ? 'Creating account...' : 'Create account'}</p>
           </LoadingButton>
         </div>
         <div className="flex flex-col gap-2">
-          <p className='text-base'>
+          <p className='sm:text-base text-sm'>
             Already have an account?
             <button onClick={() => {signUpAgent.onClose(), loginUser.onOpen()}} className='ml-1 underline' type='button'>
               Log in
             </button>
           </p>
-          <p className='text-base'>
+          <p className='sm:text-base text-sm'>
             Don&apos;t have an account yet? 
             <button onClick={() => {signUpAgent.onClose(), signUpUser.onOpen()}} className='ml-1 underline' type='button'>
               Create one

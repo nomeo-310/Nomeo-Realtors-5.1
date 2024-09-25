@@ -7,6 +7,7 @@ import { BsFacebook, BsInstagram, BsThreads, BsTwitter } from 'react-icons/bs'
 import { subscribeUser } from '@/lib/actions/subscription-action';
 import { useToast } from '@/components/ui/use-toast';
 import { usePathname } from 'next/navigation';
+import { useTermsAndConditions } from '@/lib/useModals';
 
 
 
@@ -14,6 +15,8 @@ const FooterTop = () => {
 
   const Subscription = () => {
     const { toast } = useToast();
+    const termsControl = useTermsAndConditions();
+
     const [email, setEmail] = React.useState('');
     const path = usePathname()
 
@@ -59,7 +62,7 @@ const FooterTop = () => {
             </div>
           </form> 
           <div className="mt-1 text-sm lg:text-base ml-8">
-            By subscribing you agree to our <button className='underline' onClick={() =>{}}>Terms And Conditions</button>.
+            By subscribing you agree to our <button className='underline' onClick={() =>termsControl.onOpen()}>Terms And Conditions</button>.
           </div>
         </div>
         <div>

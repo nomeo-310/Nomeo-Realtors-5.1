@@ -19,7 +19,7 @@ const DeleteAccountModal = () => {
   const onClick = async () => {
     setIsLoading(true)
     await deleteUserAccount();
-  }
+  };
 
   return (
     <Modal

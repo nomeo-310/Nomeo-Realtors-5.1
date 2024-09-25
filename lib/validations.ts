@@ -107,3 +107,13 @@ export const scheduleSchema = z.object({
 })
 
 export type scheduleValues = z.infer<typeof scheduleSchema>;
+
+export const contactSchema = z.object({
+  fullName: requiredString,
+  title: requiredString,
+  email: requiredString.email('Invalid email address'),
+  message: requiredString,
+  phoneNumber: requiredString.refine(validatePhoneNumber, {message: 'Phone number should be 11 digits and must be a valid one'}),
+})
+
+export type contactValues = z.infer<typeof contactSchema>;

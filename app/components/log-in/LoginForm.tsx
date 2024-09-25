@@ -87,17 +87,17 @@ const LoginForm = () => {
         />
         <div className='flex justify-end'>
           <LoadingButton type='submit' className='rounded lg:text-lg' size={'lg'} loading={isLoading}>
-            <p className='text-base'>{isLoading ? 'Logging in...' : 'Log In'}</p>
+            <p className='sm:text-base text-sm'>{isLoading ? 'Logging in...' : 'Log In'}</p>
           </LoadingButton>
         </div>
         <div className="flex flex-col gap-2">
-          <p className='text-base'>
+          <p className='sm:text-base text-sm'>
             Don&apos;t have an account yet?
             <button onClick={() => {loginUser.onClose(), signUpUser.onOpen()}} className='ml-1 underline' type='button'>
               Create one
             </button>
           </p>
-          <p className='text-base'>
+          <p className='sm:text-base text-sm'>
             Interested in being an agent? 
             <button onClick={() => {loginUser.onClose(), signUpAgent.onOpen()}} className='ml-1 underline' type='button'>
               Register here

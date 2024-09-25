@@ -1,18 +1,18 @@
 import React from 'react'
 import { Metadata } from 'next';
-import AboutUs from './components/AboutUs';
+import Contact from './components/Contact';
 import Footer from '@/app/components/footer/Footer';
 
-type Props = {}
-
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "Contact Us",
 };
+
+type Props = {}
 
 const page = (props: Props) => {
   return (
     <React.Fragment>
-      <AboutUs/>
+      <Contact/>
       <Footer/>
     </React.Fragment>
   )
