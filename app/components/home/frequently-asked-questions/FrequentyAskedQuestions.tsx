@@ -6,10 +6,41 @@ import Header from '../Header'
 import FrequentlyAskedQuestion from './FrequentlyAskedQuestion'
 import Link from 'next/link'
 import { useAgentSignUp } from '@/lib/useModals'
+import { userProps } from '@/lib/types';
+import { useToast } from '@/components/ui/use-toast';
 
+type Props = {
+  user: userProps
+}
+const FrequentyAskedQuestions = ({user}:Props) => {
 
-const FrequentyAskedQuestions = () => {
+  const { toast } = useToast();
   const signUpAgent = useAgentSignUp();
+
+  const handleClick = () => {
+    if (user && user.role === 'agent') {
+      toast({
+        variant: 'default',
+        title: 'Already an agent',
+        description: 'You are already an agent and do not need to create an account'
+      })
+
+      return;
+    };
+
+    if (user && user.role === 'user') {
+      toast({
+        variant: 'default',
+        title: 'Want to become an agent?',
+        description: 'Go to your dashboard to convert to agent account'
+      })
+
+      return;
+    };
+
+    signUpAgent.onOpen();
+  };
+
   return (
     <Container>
       <React.Fragment>
@@ -20,7 +51,7 @@ const FrequentyAskedQuestions = () => {
         <FrequentlyAskedQuestion/>
         <div className='mt-8 md:mt-10'>
           <p className='lg:text-xl text-lg'>Still have questions? Feel free to <Link href={'/contact-us'} className='text-primary underline'>Contact us</Link></p>
-          <p className='lg:text-xl text-lg'>Are you interested in being one of our real estate agents? Go ahead and  <button className='text-primary underline' onClick={() => signUpAgent.onOpen()}>Create an account</button> with us.</p>
+          <p className='lg:text-xl text-lg'>Are you interested in being one of our real estate agents? Go ahead and  <button className='text-primary underline' onClick={handleClick}>Create an account</button> with us.</p>
         </div>
       </React.Fragment>
     </Container>

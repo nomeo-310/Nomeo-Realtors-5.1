@@ -14,6 +14,7 @@ import Attachments from "../models/attachments";
 import { deleteApartmentImages } from "./deleteApartmentImages";
 import Properties from "../models/properties";
 import Inspections from "../models/inspections";
+import Rentouts from "../models/rentouts";
 
 type createUserProps = {
   name: string,
@@ -557,4 +558,42 @@ export const getAgent = async (licenseNumber:string) => {
     return {error: 'Internal server error'}
   }
 
+};
+
+export const becomeAnAgent = async (path:string) => {
+  await connectToMongoDB();
+
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return;
+  };
+
+  if (user.role === 'agent') {
+    return;
+  };
+
+  try {
+    const agentData = {user: user._id, phoneNumber: user.phoneNumber}
+    const newAgent = await Agents.create(agentData);
+    newAgent.save();
+
+    const rentedApartments = await Rentouts.findOne({user: user._id});
+
+    if (rentedApartments) {
+      await Properties.updateMany({_id: {$in: user.properties}}, {availabilityTag: 'available'})
+      await Rentouts.deleteMany({user: user._id})
+      await Agents.updateMany({_id: {$in: user.agents}}, {$pull: {clients: rentedApartments.user}})
+      await Notifications.deleteMany({type: 'payment-alerts', recipient: user._id})
+    };
+
+    await Users.findOneAndUpdate({_id: user._id}, {occupation: '', profileCreated: false, phoneNumber: '', role: 'agent', inspections: [], agents: [], properties: [], notifications: [], isAgent: newAgent._id});
+
+    revalidatePath(path);
+    return {success: 'You are now an agent, welcome to Nomeo Realtors'}
+  } catch (error) {
+    console.log(error)
+
+    return {error: 'Internal server error, try again later.'}
+  };
 }

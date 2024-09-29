@@ -19,7 +19,7 @@ const  Home = async () => {
       <FeaturedProperties user={user}/>
       <LatestBlogs/>
       <Testimonials/>
-      <FrequentyAskedQuestions/>
+      <FrequentyAskedQuestions user={user}/>
       <Footer/>
     </React.Fragment>
   );

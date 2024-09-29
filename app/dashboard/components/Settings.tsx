@@ -1,3 +1,4 @@
+import BecomeAgent from '@/app/components/settings/BecomeAgent';
 import ChangeEmail from '@/app/components/settings/ChangeEmail';
 import ChangePassword from '@/app/components/settings/ChangePassword';
 import DeleteAccount from '@/app/components/settings/DeleteAccount';
@@ -40,6 +41,12 @@ const Settings = ({user}: Props) => {
             <hr/>
             <UnSubscribeNewletter user={user}/>
           </React.Fragment>
+        }
+        {user.role === 'user' &&
+          <React.Fragment>
+            <hr/>
+            <BecomeAgent user={user}/>
+          </React.Fragment>        
         }
       </div>
     </div>

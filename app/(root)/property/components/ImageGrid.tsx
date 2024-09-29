@@ -50,7 +50,7 @@ const ImageGrid = ({ property, setOpenSlider }:Props) => {
         </div>
       </div>
       <div className='my-4 flex justify-between items-start md:items-center flex-col md:flex-row'>
-        <p className='text-xl mb-2 md:mb-0'>{property.propertyTag === 'for-rent' ? 'Monthly Rent' : 'Price'}: <span className='text-yellow-400'>{nairaSign} {property.propertyTag === 'for-rent' ? formatMoney(property.monthlyRent)  : formatMoney(property.fullPropertyPrice)}</span></p>
+        <p className='text-xl mb-2 md:mb-0'>{property.propertyTag === 'for-rent' ? `${property.monthlyRent > 0 ? 'Monthly Rent' : 'Annual Rent'}` : 'Price'}: <span className='text-yellow-400'>{nairaSign} {property.propertyTag === 'for-rent' ? formatMoney(property.monthlyRent > 0 ? property.monthlyRent : property.annualRent)  : formatMoney(property.fullPropertyPrice)}</span></p>
         <div className="py-2.5 px-5 rounded bg-neutral-700 text-white flex w-fit gap-2 lg:gap-3 items-center">
           <div className='border-r pr-2.5 lg:pr-3.5 capitalize'>{property.numberOfRooms} beds</div>
           <div className='border-r pr-2.5 lg:pr-3.5 capitalize'>{property.numberOfBath} baths</div>
