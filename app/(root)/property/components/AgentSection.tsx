@@ -74,7 +74,7 @@ const AgentSection = ({user, property}: Props) => {
               <p className='text-base'>Inspection Fee: {nairaSign}{property.agent.agentInspectionFee.toLocaleString()} per hour.</p>
               <div className='w-full mt-3'>
                 <div>
-                  <button className='underline text-sm sm:text-base' onClick={() => router.push(`/profile/${property.agent.licenseNumber}`)}>Checkout profile</button>
+                  <button className='underline text-sm sm:text-base' onClick={!user ? () => loginUser.onOpen() : () => router.push(`/profile/${property.agent.licenseNumber}`)}>Checkout profile</button>
                 </div>
               </div>
             </div>
