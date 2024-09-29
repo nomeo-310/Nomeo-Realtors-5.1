@@ -13,7 +13,6 @@ type Props = {
 };
 
 const Profile = ({agent}:Props) => {
-  console.log(agent);
 
   return (
     <React.Fragment>

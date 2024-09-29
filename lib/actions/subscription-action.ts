@@ -16,7 +16,6 @@ export const subscribeUser = async ({email, path}:{email:string, path:string}) =
   };
 
   const existingSubscription = await Subscriptions.findOne({email: email})
-  console.log(JSON.stringify(existingSubscription))
 
   if (existingSubscription) {
     return {error: 'Email already used for subscription'}

@@ -43,7 +43,6 @@ const Inspections = ({user}: Props) => {
   });
 
   const inspections: userInspectionProps[] = data?.pages.flatMap((page) => page.inspections) || [];
-  console.log(inspections)
 
   if (status === "pending") {
     return (
