@@ -26,7 +26,7 @@ const AddClient = ({setActiveTab, user}: Props) => {
     if (!user) {
       router.push('/')
     }
-  }, [user])
+  }, [user, router])
 
   const fetchApiData = async ({ pageParam }: { pageParam: number }) => {
     const response = await fetch("/api/getAgentInspections", {
@@ -77,7 +77,7 @@ const AddClient = ({setActiveTab, user}: Props) => {
     return (
       <InfiniteScrollClient className='space-y-4' onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}>
         { inspections && inspections.map((item) => (
-          <InspectionCard inspection={item} setActiveTab={setActiveTab}/>
+          <InspectionCard inspection={item} setActiveTab={setActiveTab} key={item._id}/>
         ))}
         {isFetchingNextPage && ( <LucideLoader2 className="mx-auto animate-spin my-3" />)}
       </InfiniteScrollClient>

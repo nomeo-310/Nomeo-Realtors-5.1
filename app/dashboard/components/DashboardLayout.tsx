@@ -21,7 +21,7 @@ const DashboardLayout = ({children, user}:layoutProps) => {
     if (!user) {
       router.push('/')
     }
-  }, [user])
+  }, [user, router])
   
   return (
     <React.Fragment>

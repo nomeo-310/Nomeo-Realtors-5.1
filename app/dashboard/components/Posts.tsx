@@ -18,7 +18,7 @@ const Posts = ({user}: Props) => {
     if (user.role === 'user') {
       router.push('/')
     }
-  },[]);
+  },[user.role, router]);
 
   const [activeTab, setActiveTab] = React.useState('added-posts')
 

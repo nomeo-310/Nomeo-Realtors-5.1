@@ -67,7 +67,7 @@ const RentedProperties = ({user, setActiveTab}: Props) => {
     return (
       <InfiniteScrollClient className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 xl:gap-x-4 md:gap-x-3 gap-y-6' onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}>
         { properties && properties.map((item) => (
-          <PropertyCard property={item} user={user} agentMode={false} agentProfileMode={false} />
+          <PropertyCard property={item} user={user} agentMode={false} agentProfileMode={false} key={item._id}/>
         ))}
         {isFetchingNextPage && ( <LucideLoader2 className="mx-auto animate-spin my-3" />)}
       </InfiniteScrollClient>

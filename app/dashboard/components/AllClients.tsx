@@ -26,7 +26,7 @@ const AllClients = ({setActiveTab, user}: Props) => {
     if (!user) {
       router.push('/')
     }
-  }, [user])
+  }, [user, router])
 
   const fetchApiData = async ({ pageParam }: { pageParam: number }) => {
     const response = await fetch("/api/getAgentClients", {

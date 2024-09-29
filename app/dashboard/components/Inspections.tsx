@@ -73,7 +73,7 @@ const Inspections = ({user}: Props) => {
       <div className="flex flex-col gap-4 w-full lg:w-[80%] xl:w-[70%]">
         <h2 className='font-semibold md:hidden text-lg'>Inspections</h2>
         { inspections && inspections.map((item) => (
-          <UserInspectionCard inspection={item} user={user}/>
+          <UserInspectionCard inspection={item} user={user} key={item._id}/>
         ))}
         { isFetchingNextPage && ( <LucideLoader2 className="mx-auto animate-spin my-3" />)}
       </div>
