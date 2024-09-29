@@ -77,7 +77,7 @@ const AllClients = ({setActiveTab, user}: Props) => {
     return (
       <InfiniteScrollClient className='space-y-4' onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}>
         { clients && clients.map((item) => (
-          <ClientCard client={item} user={user}/>
+          <ClientCard client={item} user={user} key={item._id}/>
         ))}
         {isFetchingNextPage && ( <LucideLoader2 className="mx-auto animate-spin my-3" />)}
       </InfiniteScrollClient>
