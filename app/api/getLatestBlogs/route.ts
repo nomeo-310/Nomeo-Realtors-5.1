@@ -19,7 +19,7 @@ export const GET = async () => {
       }
     })
     .limit(3)
-    .sort({createdAt: -1})
+    .sort({createdAt: 'descending'})
 
     return Response.json(latestBlogs);
   } catch (error) {
