@@ -1,20 +1,20 @@
 'use client'
 
 import InputWithIcon from '@/components/shared/InputWithIcon';
-import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { usePrivacyPolicy, useTermsOfService } from '@/lib/useModals';
 import { contactSchema, contactValues } from '@/lib/validations';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { HiAtSymbol, HiOutlineChatBubbleLeftEllipsis, HiOutlineEnvelope, HiOutlinePaperAirplane, HiOutlinePhone, HiOutlineUser } from 'react-icons/hi2'
+import { HiAtSymbol, HiOutlineEnvelope, HiOutlinePhone, HiOutlineUser } from 'react-icons/hi2'
+import emailjs from '@emailjs/browser';
+import { useToast } from '@/components/ui/use-toast';
+import LoadingButton from '@/components/shared/LoadingButton';
 
 const RightSection = () => {
-
-  const termsControl = useTermsOfService();
-  const privacyControl = usePrivacyPolicy();
+  const { toast } = useToast();
+  const [isSending, setIsSending] = React.useState(false);
 
   const defaultContactValues = {
     fullName: '',
@@ -29,8 +29,44 @@ const RightSection = () => {
     defaultValues: defaultContactValues
   });
 
-  const submitForm = (values:contactValues) => {
-    console.log(values)
+  const submitForm = async (values:contactValues) => {
+
+    const { fullName, title, message, email, phoneNumber } = values;
+
+    const messageData = {
+      name: fullName,
+      title: title,
+      message: `My phone number is ${phoneNumber} in case you want to reach me on my mobile. ` + message,
+      email: email,
+    };
+
+      setIsSending(true);
+      await emailjs
+      .send(
+        "service_b0nf99i",
+        "template_7hxpoxh",
+        messageData,
+        "Z07lRblwfF0EUzty_",
+      )
+      .then((response) => {
+        toast({
+          variant: 'success',
+          title: 'Success',
+          description: 'Message sent successfully.'
+        })
+        form.reset();
+      })
+      .catch((error) => {
+        console.log('Failed', error)
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Failed to send message. Please try again later.'
+        })
+      })
+      .finally(() => {
+        setIsSending(false)
+      })
   };
 
   return (
@@ -130,9 +166,9 @@ const RightSection = () => {
             </div>
           </div>
           <div className=''>
-            <Button type='submit' className='rounded-md disabled:bg-neutral-500'>
-              <p className='sm:text-base text-sm'>Send Message</p>
-            </Button>
+            <LoadingButton type='submit' className='rounded-md disabled:bg-neutral-500' loading={isSending} disabled={isSending}>
+              <p className='sm:text-base text-sm'>{isSending ? '...Sending Message' : 'Send Message'}</p>
+            </LoadingButton>
           </div>
         </form>
       </div>
@@ -140,4 +176,4 @@ const RightSection = () => {
   )
 }
 
-export default RightSection
+export default RightSection;
