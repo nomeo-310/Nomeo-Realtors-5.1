@@ -519,7 +519,6 @@ export const deleteUserAccount = async () => {
   try {
     deleteCloudinaryImages(user.profileImage.public_id)
     deleteCloudinaryImages(user.coverImage.public_id)
-    await Agents.deleteOne({_id: user.isAgent});
     await Notifications.deleteMany({recipient: user._id})
     await Inspections.deleteMany({user: user._id})
     await Users.deleteOne({_id: user._id})

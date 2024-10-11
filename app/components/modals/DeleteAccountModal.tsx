@@ -6,19 +6,46 @@ import { useDeleteAccount } from '@/lib/useModals';
 import LoadingButton from '@/components/shared/LoadingButton';
 import { Button } from '@/components/ui/button';
 import { deleteUserAccount } from '@/lib/actions/user-actions';
+import { signOut } from 'next-auth/react';
+import { useToast } from '@/components/ui/use-toast';
 
 const DeleteAccountModal = () => {
   const [isLoading, setIsLoading] = React.useState(false)
 
-  const useDelete = useDeleteAccount()
+  const useDelete = useDeleteAccount();
+  const { toast } = useToast();
 
   const onClose = () => {
     useDelete.onClose();
   };
 
   const onClick = async () => {
-    setIsLoading(true)
-    await deleteUserAccount();
+    setIsLoading(true);
+    try {
+      await deleteUserAccount()
+      .then((response) => {
+        if (response?.success) {
+          setIsLoading(false);
+          onClose();
+          signOut();
+        }
+        if (response?.error) {
+          setIsLoading(false);
+          toast({
+            variant: 'destructive',
+            title: 'Error deleting account',
+            description: response.error
+          })
+        }
+      });
+    } catch (error) {
+      setIsLoading(false);
+      toast({
+        variant: 'destructive',
+        title: 'Error deleting account',
+        description: 'Something went wrong while trying to delete account, try again later.'
+      })
+    }
   };
 
   return (
