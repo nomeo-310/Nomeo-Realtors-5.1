@@ -18,7 +18,7 @@ const ImageGrid = ({ property, setOpenSlider }:Props) => {
 
   const ViewAllButton = ({className}:{className?:string}) => {
     return (
-      <button className={twMerge("absolute right-3 bottom-3  bg-white py-2 pl-3 pr-1 rounded flex items-center", className)} onClick={() => setOpenSlider(true)}>
+      <button className={twMerge("absolute right-3 bottom-3 dark:text-black bg-white py-2 pl-3 pr-1 rounded flex items-center", className)} onClick={() => setOpenSlider(true)}>
         <h2 className='text-sm lg:text-base'>View all {property.images.attachments.length} photos</h2>
         <div>
           <HiChevronRight size={22}/>
@@ -52,9 +52,9 @@ const ImageGrid = ({ property, setOpenSlider }:Props) => {
       <div className='my-4 flex justify-between items-start md:items-center flex-col md:flex-row'>
         <p className='text-xl mb-2 md:mb-0'>{property.propertyTag === 'for-rent' ? `${property.monthlyRent > 0 ? 'Monthly Rent' : 'Annual Rent'}` : 'Price'}: <span className='text-yellow-400'>{nairaSign} {property.propertyTag === 'for-rent' ? formatMoney(property.monthlyRent > 0 ? property.monthlyRent : property.annualRent)  : formatMoney(property.fullPropertyPrice)}</span></p>
         <div className="py-2.5 px-5 rounded bg-neutral-700 text-white flex w-fit gap-2 lg:gap-3 items-center">
-          <div className='border-r pr-2.5 lg:pr-3.5 capitalize'>{property.numberOfRooms} beds</div>
-          <div className='border-r pr-2.5 lg:pr-3.5 capitalize'>{property.numberOfBath} baths</div>
-          <div className='border-r pr-2.5 lg:pr-3.5 capitalize'>{property.numberOfToilets} toilets</div>
+          <div className='dark:border-r-white/60 border-r pr-2.5 lg:pr-3.5 capitalize'>{property.numberOfRooms} beds</div>
+          <div className='dark:border-r-white/60 border-r pr-2.5 lg:pr-3.5 capitalize'>{property.numberOfBath} baths</div>
+          <div className='dark:border-r-white/60 border-r pr-2.5 lg:pr-3.5 capitalize'>{property.numberOfToilets} toilets</div>
           <div className=''>{property.area} sqft</div>
         </div>
       </div>

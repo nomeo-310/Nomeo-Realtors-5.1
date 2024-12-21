@@ -11,7 +11,7 @@ type Props = {
   id: string
 };
 
-const cardStyle = 'border p-5 md:p-3 lg:p-6 md:aspect-square aspect-video hover:drop-shadow-md hover:bg-card active:bg-card flex active:border-0 hover:border-0 items-center justify-center rounded flex-col gap-4'
+const cardStyle = 'dark:border-white/60 border p-5 md:p-3 lg:p-6 md:aspect-square aspect-video hover:drop-shadow-md hover:bg-card active:bg-card flex active:border-0 hover:border-0 items-center justify-center rounded flex-col gap-4'
 
 const OurServiceCard = ({icon:Icon, mainTitle, subTitle, id}: Props) => {
   return (

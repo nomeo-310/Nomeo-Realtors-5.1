@@ -57,11 +57,11 @@ const AgentSection = ({user, property}: Props) => {
           <h2 className='text-xl lg:text-2xl'>Nearby Places</h2>
           <div className="flex flex-wrap gap-2 mt-3">
             {property.closestLandmarks.map((item, index:number) => (
-              <p className='border rounded-full py-2 px-3 capitalize text-base' key={index}>{item.name}: {item.distanceAway} <span className='lowercase'>away</span></p>
+              <p className='border dark:border-white/60 rounded-full py-2 px-3 capitalize text-base' key={index}>{item.name}: {item.distanceAway} <span className='lowercase'>away</span></p>
             ))}
           </div>
         </div>
-        <hr/>
+        <hr className='dark:border-white/60'/>
         <div className="my-4">
           <h2 className='text-xl lg:text-2xl'>About Agent</h2>
           <div className="flex mt-3 gap-3 ">
@@ -224,7 +224,7 @@ const AgentSection = ({user, property}: Props) => {
   };
 
   return (
-    <div className="md:w-[50%] lg:w-[45%] w-full md:border-l md:pl-4">
+    <div className="md:w-[50%] lg:w-[45%] w-full md:border-l md:pl-4 md:dark:border-l-white/60">
       <AgentDetails/>
       { user?.role === 'user' && property.availabilityTag === 'available' && <ScheduleInspection /> }
     </div>

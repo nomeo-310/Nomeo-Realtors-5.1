@@ -14,13 +14,13 @@ type Props = {
 
 const TestimonialCard = ({title, testimony, name, career, profileImage}: Props) => {
   return (
-    <div className='drop-shadow rounded p-4 w-full mb-3 bg-card dark:bg-[#0c0a09]'>
+    <div className='drop-shadow rounded p-4 w-full mb-3 bg-card dark:bg-[#0c0a09] dark:border-white/60 dark:border'>
         <h2 className='mb-5 font-semibold lg:text-xl text-lg capitalize'>{title}</h2>
         <div className='lg:mb-6 mb-5'>
-          <div className='p-1 border rounded float-left mr-2 mt-2 text-muted-foreground'>
+          <div className='p-1 border rounded float-left mr-2 mt-2 text-muted-foreground dark:border-white/60'>
             <LiaQuoteLeftSolid size={28}/>
           </div>
-          <p className='text-muted-foreground'>{testimony}</p>
+          <p className='text-muted-foreground '>{testimony}</p>
         </div>
         <div className='w-full flex gap-2 justify-between items-center'>
           <ImageAvatar src={profileImage} className='rounded-full flex-none overflow-hidden lg:w-14 lg:h-14'/>

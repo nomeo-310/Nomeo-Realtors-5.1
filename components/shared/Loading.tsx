@@ -11,8 +11,8 @@ type Props = {
 
 const Loading = ({style, size}: Props) => {
   return (
-    <div className={cn('w-full h-screen flex items-center justify-center flex-col bg-gray/50 ', style)}>
-      <PuffLoader size={size ? size: 80} />
+    <div className={cn('w-full h-screen flex items-center justify-center flex-col bg-gray/50', style)}>
+      <PuffLoader size={size ? size: 80}  color='yellow' className=''/>
     </div>
   )
 }
