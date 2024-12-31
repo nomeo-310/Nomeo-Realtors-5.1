@@ -342,13 +342,13 @@ const AddProperty = ({setActiveTab, user}: Props) => {
   return (
     <div className='w-full h-full flex slide-in-left'>
       <Form {...form}>
-        <form className="flex flex-col lg:gap-4 gap-3 w-full lg:w-[85%] xl:w-[75%]" onSubmit={form.handleSubmit(onSubmitForm)}>
+        <form className="flex flex-col lg:gap-4 xl:gap-5 gap-3 w-full lg:w-[85%] xl:w-[75%]" onSubmit={form.handleSubmit(onSubmitForm)}>
           <div className='flex gap-4 lg:gap-6 cursor-pointer'>
             <h2 className='text-xl md:text-3xl font-semibold'>Add Property</h2>
             <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('added-properties')}>Added Properties</h2>
             { user.showLikedProperties && <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('liked-properties')}>Liked Properties</h2> }
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 lg:gap-4 xl:gap-5">
             <h2 className='text-xl md:text-2xl mb-2'>Property Description</h2>
             <FormField
               control={form.control}
@@ -361,7 +361,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                       type='text'
                       icon={HiAtSymbol}
                       placeholder='title of property description'
-                      className='border rounded'
+                      className='border rounded dark:border-white/60'
                     />
                   </FormControl>
                   <FormMessage/>
@@ -379,14 +379,14 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                       type='text'
                       icon={HiOutlineMapPin}
                       placeholder='full address of property'
-                      className='border rounded'
+                      className='border rounded dark:border-white/60'
                     />
                   </FormControl>
                   <FormMessage/>
                 </FormItem>
               )}
             />
-            <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-3 lg:gap-4 xl:gap-5 ">
               <FormField
                 control={form.control}
                 name='propertyTag'
@@ -438,13 +438,13 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                 </FormItem>
               )}
             />
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <h2 className='text-xl md:text-2xl mb-2'>Property Images</h2>
             <div className="flex flex-col gap-2 w-full">
               <CldUploadWidget options={uploadOptions} onSuccess={handleUploadPropertyImages}>
                 {({ open }) => {
                   return (
-                    <div onClick={() => open?.()} className="w-full h-[12rem] md:h-[15rem] border rounded flex items-center justify-center flex-col lg:text-lg cursor-pointer p-4">
+                    <div onClick={() => open?.()} className="w-full h-[12rem] md:h-[15rem] border dark:border-white/60 rounded flex items-center justify-center flex-col lg:text-lg cursor-pointer p-4">
                       <LucideImagePlus size={100} className='lg:block hidden'/>
                       <LucideImagePlus size={80} className='hidden md:block lg:hidden'/>
                       <LucideImagePlus size={60} className='md:hidden'/>
@@ -462,9 +462,9 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                 </div>
               </React.Fragment> }
             </div>
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <h2 className='text-xl md:text-2xl mb-2'>Property Details</h2>
-            <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-3 lg:gap-4 xl:gap-5">
               <FormField
                 control={form.control}
                 name='state'
@@ -502,13 +502,13 @@ const AddProperty = ({setActiveTab, user}: Props) => {
             </div>
             { watchedPropertyTag === 'for-rent' ?
               (
-                <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-3 lg:gap-4 xl:gap-5 ">
                   <InputWithIcon
                     type='number'
                     value={annualRent || ''}
                     icon={HiOutlineCreditCard}
                     placeholder={`annual rent (${nairaSign})`}
-                    className='border rounded'
+                    className='border rounded dark:border-white/60'
                     onChange={(e) => setAnnualRent(parseInt(e.target.value) || 0)}
                   />
                   <InputWithIcon
@@ -516,18 +516,18 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                     value={monthlyRent || ''}
                     icon={HiOutlineCreditCard}
                     placeholder={`monthly rent (${nairaSign})`}
-                    className='border rounded'
+                    className='border rounded dark:border-white/60'
                     onChange={(e) => setMonthRent(parseInt(e.target.value) || 0)}
                   />
                 </div>
               ) : watchedPropertyTag === 'for-sale' ? (
-                <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
+                <div className="grid md:grid-cols-2 grid-cols-1 gap-3 lg:gap-4 xl:gap-5 ">
                   <InputWithIcon
                     type='number'
                     value={fullPropertyPrice || ''}
                     icon={HiOutlineCreditCard}
                     placeholder={`full price (${nairaSign})`}
-                    className='border rounded'
+                    className='border rounded dark:border-white/60'
                     onChange={(e) => setFullPropertyPrice(parseInt(e.target.value) || 0)}
                   />
                   <InputWithIcon
@@ -535,13 +535,13 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                     value={annualPayment || ''}
                     icon={HiOutlineCreditCard}
                     placeholder={`least annual payment (${nairaSign})`}
-                    className='border rounded'
+                    className='border rounded dark:border-white/60'
                     onChange={(e) => setAnnualPayment(parseInt(e.target.value) || 0)}
                   />
                 </div>
               ) : ''
             }
-            <div className="grid lg:grid-cols-4 grid-cols-2 gap-3">
+            <div className="grid lg:grid-cols-4 grid-cols-2 gap-3 lg:gap-4 xl:gap-5 ">
               <FormField
                 control={form.control}
                 name='numberOfRooms'
@@ -553,7 +553,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                         type='number'
                         icon={PiBed}
                         placeholder='no of rooms'
-                        className='border rounded'
+                        className='border rounded dark:border-white/60'
                       />
                     </FormControl>
                     <FormMessage/>
@@ -571,7 +571,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                         type='number'
                         icon={PiBathtub}
                         placeholder='no of baths'
-                        className='border rounded'
+                        className='border rounded dark:border-white/60'
                       />
                     </FormControl>
                     <FormMessage/>
@@ -589,7 +589,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                         type='number'
                         icon={PiToilet}
                         placeholder='no of toilets'
-                        className='border rounded'
+                        className='border rounded dark:border-white/60'
                       />
                     </FormControl>
                     <FormMessage/>
@@ -607,7 +607,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                         type='number'
                         icon={PiMapPinArea}
                         placeholder='area in sqft'
-                        className='border rounded'
+                        className='border rounded dark:border-white/60'
                       />
                     </FormControl>
                     <FormMessage/>
@@ -615,55 +615,55 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                 )}
               />            
             </div>
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <h2 className='text-xl md:text-2xl mb-2'>Main Ameninities</h2>
             <InputWithIcon
               placeholder='enter names of amenities and separate with a comma'
               onChange={(e) => setMainAmenity(e.target.value)}
               icon={HiOutlineSquaresPlus}
               onKeyDown={createMainAmenities}
-              className='border rounded'
+              className='border rounded dark:border-white/60'
               value={mainAmenity}
             />
             <div className='flex flex-wrap gap-1 md:gap-2 mt-1'>
               {mainAmenities.length > 0 && mainAmenities.map((item:string, index:number) => (
-                <div key={index} className='capitalize border text-base py-2 px-4 rounded-full flex items-center md:gap-3 gap-2'>
+                <div key={index} className='capitalize border text-base py-2 px-4 rounded-full flex items-center md:gap-3 gap-2 dark:border-white/60'>
                   {item}
                   <HiXMark size={24} onClick={() =>removeMainAmenity(item)} className='cursor-pointer hidden lg:block'/>
                   <HiXMark size={22} onClick={() =>removeMainAmenity(item)} className='cursor-pointer lg:hidden'/>
                 </div>
               ))}
             </div>
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <h2 className='text-xl md:text-2xl mb-2'>Optional Ameninities</h2>
             <InputWithIcon
               placeholder='enter names of amenities and separate with a comma'
               onChange={(e) => setOptionalAmenity(e.target.value)}
               icon={HiOutlineSquaresPlus}
               onKeyDown={createOptionalAmenities}
-              className='border rounded'
+              className='border rounded dark:border-white/60'
               value={optionalAmenity}
             />
             <div className='flex flex-wrap gap-1 md:gap-2 mt-1'>
               {optionalAmenities.length > 0 && optionalAmenities.map((item:string, index:number) => (
-                <div key={index} className='capitalize border text-base py-2 px-4 rounded-full flex items-center md:gap-3 gap-2'>
+                <div key={index} className='capitalize border text-base py-2 px-4 rounded-full flex items-center md:gap-3 gap-2 dark:border-white/60'>
                   {item}
                   <HiXMark size={24} onClick={() =>removeOptionalAmenity(item)} className='cursor-pointer hidden lg:block'/>
                   <HiXMark size={22} onClick={() =>removeOptionalAmenity(item)} className='cursor-pointer lg:hidden'/>
                 </div>
               ))}
             </div>
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <h2 className='text-xl md:text-2xl mb-2'>Main Fees</h2>
             <div className="flex flex-col gap-2">
-              <div className="grid gap-3 grid-cols-2">
+              <div className="grid gap-3 grid-cols-2 lg:gap-4 xl:gap-5 ">
                 <InputWithIcon
                   type='text'
                   placeholder='name'
                   value={mainFeeName}
                   icon={HiAtSymbol}
                   onChange={(e) => setMainFeeName(e.target.value)}
-                  className='border rounded'
+                  className='border rounded dark:border-white/60'
                 />
                 <InputWithIcon
                   type='number'
@@ -671,7 +671,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                   value={mainFeeAmount || ''}
                   icon={HiOutlineCreditCard}
                   onChange={(e) => setMainFeeAmount(parseInt(e.target.value) || 0)}
-                  className='border rounded'
+                  className='border rounded dark:border-white/60'
                 />
               </div>
               <div className='flex items-center justify-end'>
@@ -690,17 +690,17 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                 ))}
               </div>
             </div>
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <h2 className='text-xl md:text-2xl mb-2'>Optional Fees</h2>
             <div className="flex flex-col gap-2">
-              <div className="grid gap-3 grid-cols-2">
+              <div className="grid gap-3 grid-cols-2 lg:gap-4 xl:gap-5 ">
                 <InputWithIcon
                   type='text'
                   placeholder='name'
                   value={optionalFeeName}
                   icon={HiAtSymbol}
                   onChange={(e) => setOptionalFeeName(e.target.value)}
-                  className='border rounded'
+                  className='border rounded dark:border-white/60'
                 />
                 <InputWithIcon
                   type='number'
@@ -708,7 +708,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                   value={optionalFeeAmount || ''}
                   icon={HiOutlineCreditCard}
                   onChange={(e) => setOptionalFeeAmount(parseInt(e.target.value) || 0)}
-                  className='border rounded'
+                  className='border rounded dark:border-white/60'
                 />
               </div>
               <div className='flex items-center justify-end'>
@@ -719,7 +719,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
               </div>
               <div className='flex flex-wrap gap-1 md:gap-2 mt-1'>
                 { optionalFees.length > 0 && optionalFees.filter((item) => item.amount !== 0).map((item:feesProps, index:number) => (
-                  <div key={index} className='border capitalize lg:py-2.5 py-2 px-4 rounded-full flex items-center md:gap-3 gap-2'>
+                  <div key={index} className='border capitalize lg:py-2.5 py-2 px-4 rounded-full flex items-center md:gap-3 gap-2 dark:border-white/60'>
                     {item.name}: {nairaSign}{item.amount.toLocaleString()}.00
                     <HiXMark size={24} onClick={() =>removeSingleOptionalFee(item.name)} className='cursor-pointer hidden lg:block'/>
                     <HiXMark size={22} onClick={() =>removeSingleOptionalFee(item.name)} className='cursor-pointer lg:hidden'/>
@@ -727,17 +727,17 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                 ))}
               </div>
             </div>
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <h2 className='text-xl md:text-2xl mb-2'>Closest Landmarks</h2>
             <div className="flex flex-col gap-2">
-              <div className="grid gap-3 grid-cols-2">
+              <div className="grid gap-3 grid-cols-2 lg:gap-4 xl:gap-5 ">
                 <InputWithIcon
                   type='text'
                   placeholder='name'
                   value={landmarkName}
                   icon={HiAtSymbol}
                   onChange={(e) => setLandmarkName(e.target.value)}
-                  className='border rounded'
+                  className='border rounded dark:border-white/60'
                 />
                 <InputWithIcon
                   type='text'
@@ -745,7 +745,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                   value={distanceAway}
                   icon={HiAtSymbol}
                   onChange={(e) => setDistanceAway(e.target.value)}
-                  className='border rounded'
+                  className='border rounded dark:border-white/60'
                 />
               </div>
               <div className='flex items-center justify-end'>
@@ -756,7 +756,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
               </div>
               <div className='flex flex-wrap gap-1 md:gap-2 mt-1'>
                 { closestLandmarks.length > 0 && closestLandmarks.filter((item) => item.distanceAway !== '').map((item:landmarkProps, index:number) => (
-                  <div key={index} className='border capitalize lg:py-2.5 py-2 px-4 rounded-full flex items-center md:gap-3 gap-2 text-base'>
+                  <div key={index} className='border capitalize lg:py-2.5 py-2 px-4 rounded-full flex items-center md:gap-3 gap-2 text-base dark:border-white/60'>
                     {item.name}: {item.distanceAway}
                     <HiXMark size={24} onClick={() =>removeLandmark(item.name)} className='cursor-pointer hidden lg:block'/>
                     <HiXMark size={22} onClick={() =>removeLandmark(item.name)} className='cursor-pointer lg:hidden'/>
@@ -764,7 +764,7 @@ const AddProperty = ({setActiveTab, user}: Props) => {
                 ))}
               </div>
             </div>
-            <hr/>
+            <hr className='dark:border-white/60'/>
           </div>
           <div className='mt-8 flex items-center'>
             <LoadingButton type='submit' disabled={isLoading} loading={isLoading} className='rounded-full text-base'>

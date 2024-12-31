@@ -35,8 +35,9 @@
 .ProseMirror h3,
 .ProseMirror h4,
 .ProseMirror h5,
-.ProseMirror h6 {
-  line-height: 1.1;
+.ProseMirror h6,
+.ProseMirror p {
+  line-height: 1.5;
 }
 
 .ProseMirror code {
@@ -59,9 +60,7 @@
 }
 
 .ProseMirror blockquote {
-  padding: 0.75rem;
-  background-color: #E5E4E2;
-  border-radius: 0.25rem;
+  @apply p-[0.75rem] md:p-[1rem] lg:p-[1.2rem] bg-[#e5e4e2] rounded-[0.25rem] dark:text-black;
 }
 .ProseMirror blockquote strong {
   margin-top: 1rem;
@@ -75,6 +74,15 @@
   border: none;
   border-top: 3px solid #999999;
   margin: 2rem 0;
+}
+
+.ProseMirror p {
+  @apply lg:text-lg xl:text-xl text-base;
+}
+
+.ProseMirror h2,
+.ProseMirror h3 {
+  @apply lg:text-lg xl:text-xl text-base;
 }
 
 

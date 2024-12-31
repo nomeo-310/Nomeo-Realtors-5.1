@@ -18,7 +18,7 @@ const TipTap = ({content, onChange}:any) => {
     extensions: [StarterKit, Underline, TextAlign],
     editorProps: {
       attributes: {
-        class: 'flex flex-col px-4 py-3 min-h-44 lg:min-h-52 justify-start border-b border-r border-l items-start w-full gap-3 font-medium text-base pt-4 rounded-bl rounded-br outline-none'
+        class: 'flex flex-col px-4 py-3 min-h-44 lg:min-h-52 justify-start border-b border-r border-l dark:border-white/60 items-start w-full gap-3 font-medium text-base pt-4 rounded-bl rounded-br outline-none'
       },
     },
     onUpdate : ({editor}) => {
@@ -34,7 +34,7 @@ const TipTap = ({content, onChange}:any) => {
     }
 
     return (
-      <div className="px-4 py-3 flex rounded-tl rounded-tr items-center justify-around w-full flex-wrap border">
+      <div className="px-4 py-3 flex rounded-tl rounded-tr items-center justify-around w-full flex-wrap border dark:border-white/60">
         <button onClick={
           (e) => {e.preventDefault(); editor.chain().focus().toggleBold().run();}} 
           className={editor.isActive('bold') ? 'bg-primary text-white lg:p-2 p-1 rounded': 'p-2'}>

@@ -62,7 +62,7 @@ const ChangePassword = () => {
         value={oldPassword}
         onChange={(e) => setOldPassword(e.target.value)}
         placeholder='enter old password'
-        className='border rounded'
+        className='border rounded dark:border-white/60'
       />
       <InputWithIcon
         type='password'
@@ -70,7 +70,7 @@ const ChangePassword = () => {
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
         placeholder='enter new password'
-        className='border rounded'
+        className='border rounded dark:border-white/60'
       />
       {displayButton && (
         <div className="mt-2 flex items-center justify-end">

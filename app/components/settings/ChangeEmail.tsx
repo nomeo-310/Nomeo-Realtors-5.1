@@ -58,7 +58,7 @@ const ChangeEmail = ({user}: Props) => {
         value={newEmail}
         onChange={(e) => setNewEmail(e.target.value)}
         placeholder='enter new email'
-        className='border rounded'
+        className='border rounded dark:border-white/60'
       />
       <div className="mt-2 flex items-center justify-end">
         <LoadingButton loading={isLoading} disabled={isLoading} onClick={updateEmail}>

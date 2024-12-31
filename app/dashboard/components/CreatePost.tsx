@@ -181,15 +181,15 @@ const CreatePost = ({setActiveTab, user}: Props) => {
 
   return (
     <div className='w-full h-full flex slide-in-left'>
-      <div className="flex flex-col lg:gap-4 gap-3 w-full lg:w-[85%] xl:w-[75%]">
+      <div className="flex flex-col lg:gap-4 xl:gap-5 gap-3 w-full lg:w-[85%] xl:w-[75%]">
         <div className='flex gap-4 lg:gap-6 cursor-pointer'>
           <h2 className='text-xl md:text-3xl font-semibold'>Create Post</h2>
           <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('added-posts')}>Added Posts</h2>
           { user.showLikedBlogs && <h2 className='text-xl md:text-3xl font-semibold text-gray-400' onClick={() =>setActiveTab('liked-posts')}>Liked Posts</h2> }
         </div>
-        <form className="w-full overflow-hidden flex flex-col gap-3" onSubmit={create}>
+        <form className="w-full overflow-hidden flex flex-col gap-3 lg:gap-4 xl:gap-5 " onSubmit={create}>
           <InputWithIcon
-            className='border rounded'
+            className='border rounded dark:border-white/60'
             placeholder='title of blog post'
             icon={HiAtSymbol}
             value={title}

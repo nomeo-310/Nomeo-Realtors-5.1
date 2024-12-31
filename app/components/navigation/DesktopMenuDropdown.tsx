@@ -33,7 +33,7 @@ const DesktopMenuDropdown = ({notificationCount, currentUser}: Props) => {
         <DropdownMenuLabel className='line-clamp-1'> 
           <p className='text-base'>{capitalizeName(currentUser?.name).fullName}</p>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className='dark:border-white/60'/>
         <DropdownMenuSub>
           <DropdownMenuSubTrigger className='rounded'>
             <p className='text-base font-semibold'>Themes</p>
@@ -67,7 +67,7 @@ const DesktopMenuDropdown = ({notificationCount, currentUser}: Props) => {
         <DropdownMenuItem className={cn('rounded', path === '/dashboard' && 'bg-primary/70 text-white')} onClick={() =>router.push('/dashboard')}>
           <p className='text-base font-semibold'>Dashboard</p>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className='dark:border-white/60'/>
         <DropdownMenuItem onClick={() => signOut()} className='rounded'>
         <p className='text-base font-semibold'>Log out</p>
           <DropdownMenuShortcut>

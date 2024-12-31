@@ -17,34 +17,34 @@ type Props = {
 const Settings = ({user}: Props) => {
   return (
     <div className='w-full min-h-[73.5vh] flex slide-in-left space-y-4'>
-      <div className="flex flex-col gap-3 w-full lg:w-[80%] xl:w-[70%]">
+      <div className="flex flex-col gap-3 w-full lg:w-[80%] xl:w-[70%] lg:gap-4 xl:gap-5">
         <h2 className='font-semibold md:hidden text-lg'>Settings</h2>
         <SettingsHeader user={user} />
-        <hr/>
+        <hr className='dark:border-white/60'/>
         <ChangePassword />
-        <hr/>
+        <hr className='dark:border-white/60'/>
         <ChangeEmail user={user}/>
-        <hr/>
+        <hr className='dark:border-white/60'/>
         <DeleteAccount />
-        <hr/>
+        <hr className='dark:border-white/60'/>
         <ShowLikedProperties user={user}/>
-        <hr/>
+        <hr className='dark:border-white/60'/>
         <ShowLikedBlogs user={user}/>
         { user?.role === 'agent' && 
           <React.Fragment>
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <ShowBookmarkUsers user={user}/>
           </React.Fragment>
         }
         { user?.newsletterSubscriptions &&
           <React.Fragment>
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <UnSubscribeNewletter user={user}/>
           </React.Fragment>
         }
         {user.role === 'user' &&
           <React.Fragment>
-            <hr/>
+            <hr className='dark:border-white/60'/>
             <BecomeAgent user={user}/>
           </React.Fragment>        
         }

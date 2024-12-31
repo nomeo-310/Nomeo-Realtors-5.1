@@ -78,14 +78,14 @@ const SearchForm = ({isLoading}: Props) => {
         onChange={(value) => setCity(value)}
       />
       <InputWithIcon
-        className='border rounded'
+        className='border rounded dark:border-white/60'
         placeholder={`minimum rent (${nairaSign})`}
         icon={HiOutlineBanknotes}
         value={minimumRent || ''}
         onChange={(e) => setMinimumRent(parseInt(e.target.value) || 0)}
       />
       <InputWithIcon
-        className='border rounded'
+        className='border rounded dark:border-white/60'
         placeholder={`maximum rent (${nairaSign})`}
         icon={HiOutlineBanknotes}
         value={maximumRent || ''}

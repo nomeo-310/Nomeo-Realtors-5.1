@@ -87,7 +87,7 @@ const RightSection = () => {
                         type='text' 
                         placeholder='full name e.g john doe' 
                         icon={HiOutlineUser} 
-                        {...field} className='border rounded'/>
+                        {...field} className='border rounded dark:border-white/60'/>
                     </FormControl>
                     <FormMessage className='mt-2'/>
                   </FormItem>
@@ -104,7 +104,7 @@ const RightSection = () => {
                         placeholder='enter your email e.g youremail@email.com' 
                         icon={HiOutlineEnvelope} 
                         {...field} 
-                        className='border rounded'
+                        className='border rounded dark:border-white/60'
                       />
                     </FormControl>
                     <FormMessage className='mt-2'/>
@@ -122,7 +122,7 @@ const RightSection = () => {
                         placeholder='enter title of message' 
                         icon={HiAtSymbol} 
                         {...field} 
-                        className='border rounded'
+                        className='border rounded dark:border-white/60'
                       />
                     </FormControl>
                     <FormMessage className='mt-2'/>
@@ -140,7 +140,7 @@ const RightSection = () => {
                         placeholder='enter your phone number e.g +23412345678910' 
                         icon={HiOutlinePhone} 
                         {...field} 
-                        className='border rounded'
+                        className='border rounded dark:border-white/60'
                       />
                     </FormControl>
                     <FormMessage className='mt-2'/>
